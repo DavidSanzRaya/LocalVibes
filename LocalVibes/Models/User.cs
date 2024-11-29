@@ -14,8 +14,9 @@
         public byte[]? ProfileImage { get; set; }
         public string? DocumentNumber { get; set; }
         public int UserPoints { get; set; }
+        public int FKTier { get; set; }
         public DateTime RegisterDate { get; set; }
         public int? FKDocumentType { get; set; }
-        public int FKTier { get; set; }
+        public int FKGenere { get; set ; }
     }
 }
