@@ -16,8 +16,24 @@
                 <div class="card-body">
                     <h5 class="card-title">@Users.UserName</h5>
                     <p class="card-text">
-                        <span class="IdUser">ID: @Users.IdUser</span> <br />
-                        <span class="UserName">Nombre: @Users.UserName</span>
+                        <ul class="list-group">
+                            <li class="list-group-item">ID: @Users.IdUser</li>
+                            <li class="list-group-item">Nombre: @Users.UserName</li>
+                            <li class="list-group-item">Fecha de registro: @Users.DateRegister.ToString()</li>
+
+                            @if (@Users.userGeneresMusic.Count > 0)
+                            {
+                                <li class="list-group-item">
+                                    Generos de musica favoritos:
+                                    <ul class="list-group">
+                                        @foreach (var GenereMusicUser in @Users.userGeneresMusic)
+                                        {
+                                            <li class="list-group-item">@GenereMusicUser.GenereMusicName</li>
+                                        }
+                                    </ul>
+                                </li>
+                            }
+                        </ul>
                     </p>
                 </div>
             </div>

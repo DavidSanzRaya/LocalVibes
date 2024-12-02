@@ -3,7 +3,7 @@
     // Tabla de Users
     public class Users
     {
-        public int IdUser { get; set; } // PK
+        public required int IdUser { get; set; } // PK
         public required string UserName { get; set; } // AllowNull
         public string? FirstName { get; set; } // AllowNull
         public string? LastName { get; set; } // AllowNull
@@ -22,7 +22,7 @@
 
         public List<UserFavoriteProject>? userFavoriteProjects { get; set; } // Lista de UserFavoriteProject. AllowNull
 
-        public List<UserGenereMusic>? userGeneresMusic { get; set; } // Lista de UserGenereMusic. AllowNull
+        public List<GenereMusic> userGeneresMusic { get; set; } // Lista de UserGenereMusic. AllowNull
 
         public List<Ticket>? tickets { get; set; } // Lista de tickets. AllowNull
     }

@@ -1,4 +1,5 @@
 ﻿using LocalVibes.DALs;
+using LocalVibes.Models;
 using LocalVibes.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,9 +10,11 @@ namespace LocalVibes.Controllers
         public IActionResult Prueba()
         {
             UserDAL dalUser = new UserDAL();
-            PruebaViewModel viewModel = new PruebaViewModel();
-            viewModel.user = dalUser.GetById(1);
-            viewModel.Usuarios = dalUser.GetAll();
+            PruebaViewModel viewModel = new PruebaViewModel
+            {
+                user = dalUser.GetById(1),
+                Usuarios = dalUser.GetAll()
+            };
             return View(viewModel);
         }
     }
