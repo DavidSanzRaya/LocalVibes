@@ -3,7 +3,7 @@ using Microsoft.Data.SqlClient;
 
 namespace LocalVibes.DALs
 {
-    public class UserDAL : DAL<User>
+    public class UserDAL : DAL<Users>
     {
         public UserDAL(string connectionString) : base(connectionString)
         {
@@ -11,9 +11,9 @@ namespace LocalVibes.DALs
 
         protected override string TableName => "Users";
 
-        protected override User MapReaderToEntity(SqlDataReader reader)
+        protected override Users MapReaderToEntity(SqlDataReader reader)
         {
-            return new User
+            return new Users
             {
                 IdUser = (int)reader["IdUsers"],
                 UserName = (string)reader["UserName"],
@@ -27,8 +27,8 @@ namespace LocalVibes.DALs
                             : null,
                 PasswordHash = (byte[])reader["PasswordHash"],
                 PasswordSalt = (byte[])reader["PasswordSalt"],
-                BirthDate = reader["Birthdate"] != DBNull.Value
-                            ? (DateTime)reader["Birthdate"]
+                Birthdate = reader["Birthdate"] != DBNull.Value
+                            ? (DateOnly)reader["Birthdate"]
                             : null,
                 ProfileImage = reader["ProfileImage"] != DBNull.Value
                             ? (byte[])reader["ProfileImage"]
@@ -37,11 +37,11 @@ namespace LocalVibes.DALs
                             ? (string)reader["DocumentNumber"]
                             : null,
                 UserPoints = (int)reader["UserPoints"],
-                RegisterDate = (DateTime)reader["DateRegister"],
-                FKDocumentType = reader["IdDocumentType"] != DBNull.Value
+                DateRegister = (DateTime)reader["DateRegister"],
+                IdDocumentType = reader["IdDocumentType"] != DBNull.Value
                             ? (int)reader["IdDocumentType"]
                             : null,
-                FKTier = (int)reader["IdTier"]
+                IdTier = (int)reader["IdTier"]
             };
         }
     }
