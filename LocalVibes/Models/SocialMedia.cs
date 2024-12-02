@@ -4,6 +4,6 @@
     public class SocialMedia
     {
         public int IdSocialMedia {  get; set; } // PK
-        public string? NameSocialMedia { get; set; } // AllowNull
+        public string NameSocialMedia { get; set; } // AllowNull
     }
 }

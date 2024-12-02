@@ -4,6 +4,6 @@
     public class Instrument
     {
         public int IdInstrument { get; set; } // PK
-        public string? NameInstrument { get; set; } // AllowNull
+        public string NameInstrument { get; set; } // AllowNull
     }
 }

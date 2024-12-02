@@ -7,7 +7,7 @@
         public string? ReviewText { get; set; } // AllowNull
         public DateTime? ReviewDate { get; set; } // AllowNull
         public int? Rating { get; set; } // AllowNull
-        public int? IdUser { get; set; } // FK de Users. AllowNull
-        public int? IdProject { get; set; } // FK de Project. AllowNull
+        public int IdUser { get; set; } // FK de Users. 
+        public int IdProject { get; set; } // FK de Project. 
     }
 }

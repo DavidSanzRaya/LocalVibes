@@ -4,6 +4,6 @@
     public class DocumentType
     {
         public int IdDocumentType { get; set; } // PK
-        public string? NameDocumentType { get; set; } // AllowNull
+        public string NameDocumentType { get; set; } 
     }
 }

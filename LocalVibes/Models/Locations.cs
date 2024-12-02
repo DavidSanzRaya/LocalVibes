@@ -6,6 +6,6 @@
         public int IdLocation { get; set; } // PK
         public float Altitude { get; set; }
         public float Latitude { get; set; }
-        public string? NameLocation { get; set; } // AllowNull
+        public string NameLocation { get; set; } 
     }
 }
