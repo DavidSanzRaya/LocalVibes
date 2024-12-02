@@ -1,32 +1,24 @@
 ﻿namespace LocalVibes.Models
 {
+    // Tabla Project
     public class Project
     {
-        public int IdProject { get; set; }
+        public int IdProject { get; set; } // PK 
         public string ProjectName { get; set; }
-        public string? Biography { get; set; }
-        public DateTime? FormationDate { get; set; }
-        public byte[]? ProjectImage { get; set; }
-        public int FKUser { get; set; }
+        public string? Biography { get; set; } // AllowNull
+        public DateOnly? FormationDate { get; set; } // AllowNull
+        public byte[]? ProjectImage {  get; set; } // AllowNull
+        public int? UserAdmin {  get; set; } // FK de Users. AllowNull
 
-        public List<Member> Members { get; set; }
+        public List<ProjectGenereMusic>? generesMusic { get; set; } // Lista de ProjectGenereMusic. AllowNull
 
-        private User _user = null;
+        public List<ProjectSocialMedia>? socialMedias { get; set; } // Lista de ProjectSocialMedia. AllowNull
 
-        public User User
-        {
-            get
-            {
-                if (_user == null)
-                {
-                    // Llama a DAL User get ID
-                }
-                return _user;
-            }
-            set
-            {
-                _user = value;
-            }
-        }
+        public List<MemberOfProject>? membersOfProjects { get; set; } // Lista de MemberOfProjects. AllowNull
+
+        public List<EventProject>? eventsProject { get; set; } // Lista de EventProject. AllowNull
+
+        public List<Review>? reviews { get; set; } // Lista de Review. AllowNull
+
     }
 }

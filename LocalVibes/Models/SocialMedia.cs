@@ -1,9 +1,9 @@
 ﻿namespace LocalVibes.Models
 {
+    // Tabla SocialMedia
     public class SocialMedia
     {
-        public int IdSocialMedia { get; set; }
-
-        public string Name { get; set; }
+        public int IdSocialMedia {  get; set; } // PK
+        public string? NameSocialMedia { get; set; } // AllowNull
     }
 }
