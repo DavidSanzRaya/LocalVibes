@@ -5,9 +5,7 @@ namespace LocalVibes.DALs
 {
     public class UserDAL : DAL<Users>
     {
-        public UserDAL(string connectionString) : base(connectionString)
-        {
-        }
+        public UserDAL(){}
 
         protected override string TableName => "Users";
 
@@ -46,3 +44,4 @@ namespace LocalVibes.DALs
         }
     }
 }
+

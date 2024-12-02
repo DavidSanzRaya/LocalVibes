@@ -1,0 +1,27 @@
+﻿@model LocalVibes.Models.ViewModels.PruebaViewModel
+
+<h1 class="mb-4">Lista de Usuarios</h1>
+
+<div class="row">
+    <span class="IdUser">Usuario con Id concreto</span>
+    <p class="card-text">
+        <span class="IdUser">ID: @Model.user.IdUser</span><br />
+        <span class="UserName">Nombre: @Model.user.UserName</span>
+    </p>
+    
+    @foreach (var Users in Model.Usuarios)
+    {
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">@Users.UserName</h5>
+                    <p class="card-text">
+                        <span class="IdUser">ID: @Users.IdUser</span> <br />
+                        <span class="UserName">Nombre: @Users.UserName</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
