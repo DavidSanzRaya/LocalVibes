@@ -1,7 +1,12 @@
+using LocalVibes;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// Agregar DatabaseService como servicio
+builder.Services.AddSingleton<DatabaseService>();
 
 var app = builder.Build();
 
