@@ -7,5 +7,7 @@
         public string? MemberName { get; set; } // AllowNull
         public string? ArtisticName { get; set; } // AllowNull
         public byte[]? MemberImage { get; set; } // AllowNull
+
+        public List<MemberInstrument>? MemberInstruments { get; set; } // Lista de MemberInstrument. AllowNull
     }
 }

@@ -19,5 +19,11 @@
         public int? IdDocumentType { get; set; } // FK de DocumentType. AllowNull
         public int? IdGenere { get; set; } // FK de Genere. AllowNull
         public int IdTier { get; set; } // FK de Tier
+
+        public List<UserFavoriteProject>? userFavoriteProjects { get; set; } // Lista de UserFavoriteProject. AllowNull
+
+        public List<UserGenereMusic>? userGeneresMusic { get; set; } // Lista de UserGenereMusic. AllowNull
+
+        public List<Ticket>? tickets { get; set; } // Lista de tickets. AllowNull
     }
 }
