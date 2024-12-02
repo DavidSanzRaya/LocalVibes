@@ -8,7 +8,7 @@
         public string? Biography { get; set; } // AllowNull
         public DateOnly? FormationDate { get; set; } // AllowNull
         public byte[]? ProjectImage {  get; set; } // AllowNull
-        public int? UserAdmin {  get; set; } // FK de Users. AllowNull
+        public int IdUserAdmin {  get; set; } // FK de Users. AllowNull
 
         public List<ProjectGenereMusic>? generesMusic { get; set; } // Lista de ProjectGenereMusic. AllowNull
 

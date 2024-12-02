@@ -6,10 +6,11 @@ namespace LocalVibes.DALs
     public abstract class DAL<T> where T : class
     {
         private readonly string _connectionString;
+        private DatabaseService _databaseService;
 
         protected DAL(string connectionString)
         {
-            _connectionString = connectionString;
+            _connectionString = _databaseService.GetConnectionString();
         }
 
         protected abstract string TableName { get; }
