@@ -34,7 +34,7 @@ namespace LocalVibes.DALs
                 {
                     while (reader.Read())
                     {
-                        IdName += reader[0].ToString();
+                        IdName = reader[0].ToString();
                     }
                 }
             }
