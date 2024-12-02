@@ -11,7 +11,7 @@
         public string Phone { get; set; } // AllowNull
         public byte[] PasswordHash { get; set; } 
         public byte[] PasswordSalt { get; set; }
-        public DateOnly? Birthdate {  get; set; } // AllowNull
+        public DateTime? Birthdate {  get; set; } // AllowNull
         public byte[]? ProfileImage {  get; set; } // AllowNull
         public string? DocumentNumber {  get; set; } // AllowNull
         public int? UserPoints { get; set; } // AllowNull

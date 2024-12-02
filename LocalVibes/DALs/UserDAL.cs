@@ -3,22 +3,20 @@ using Microsoft.Data.SqlClient;
 
 namespace LocalVibes.DALs
 {
-    public class UserDAL : DAL<User>
+    public class UserDAL : DAL<Users>
     {
-        public UserDAL(string connectionString) : base(connectionString)
-        {
-        }
+        public UserDAL(){}
 
         protected override string TableName => "Users";
 
-        protected override User MapReaderToEntity(SqlDataReader reader)
+        protected override Users MapReaderToEntity(SqlDataReader reader)
         {
-            return new User
+            return new Users
             {
                 IdUser = (int)reader["IdUsers"],
                 UserName = (string)reader["UserName"],
                 FirstName = (string)reader["FirstName"],
-                LastName = reader["LastName"] != DBNull.Value 
+                LastName = reader["LastName"] != DBNull.Value
                             ? (string)reader["LastName"]
                             : null,
                 UserEmail = (string)reader["UserEmail"],
@@ -27,7 +25,7 @@ namespace LocalVibes.DALs
                             : null,
                 PasswordHash = (byte[])reader["PasswordHash"],
                 PasswordSalt = (byte[])reader["PasswordSalt"],
-                BirthDate = reader["Birthdate"] != DBNull.Value
+                Birthdate = reader["Birthdate"] != DBNull.Value
                             ? (DateTime)reader["Birthdate"]
                             : null,
                 ProfileImage = reader["ProfileImage"] != DBNull.Value
@@ -37,12 +35,13 @@ namespace LocalVibes.DALs
                             ? (string)reader["DocumentNumber"]
                             : null,
                 UserPoints = (int)reader["UserPoints"],
-                RegisterDate = (DateTime)reader["DateRegister"],
-                FKDocumentType = reader["IdDocumentType"] != DBNull.Value
+                DateRegister = (DateTime)reader["DateRegister"],
+                IdDocumentType = reader["IdDocumentType"] != DBNull.Value
                             ? (int)reader["IdDocumentType"]
                             : null,
-                FKTier = (int)reader["IdTier"]
+                IdTier = (int)reader["IdTier"]
             };
         }
     }
 }
+
