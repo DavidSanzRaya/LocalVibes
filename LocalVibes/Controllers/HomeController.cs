@@ -8,13 +8,23 @@ namespace LocalVibes.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        private readonly DatabaseService _databaseService;
+
+        public HomeController(ILogger<HomeController> logger, DatabaseService databaseService)
         {
             _logger = logger;
+            _databaseService = databaseService;
+
         }
 
         public IActionResult Index()
         {
+            // Obtener la cadena de conexión
+            var connectionString = _databaseService.GetConnectionString();
+
+            // Pasar la cadena de conexión a la vista o usarla en lógica
+            ViewBag.ConnectionString = connectionString;
+
             return View();
         }
 
