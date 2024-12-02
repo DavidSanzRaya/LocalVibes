@@ -20,7 +20,7 @@ namespace LocalVibes.DALs
                 : reader.GetString(reader.GetOrdinal("Biography")),
                 FormationDate = reader.IsDBNull(reader.GetOrdinal("FormationDate"))
                 ? null
-                : DateOnly.FromDateTime(reader.GetDateTime(reader.GetOrdinal("FormationDate"))),
+                : reader.GetDateTime(reader.GetOrdinal("FormationDate")),
                 ProjectImage = reader.IsDBNull(reader.GetOrdinal("ProjectImage"))
                 ? null
                 : (byte[])reader["ProjectImage"],

@@ -6,7 +6,7 @@ namespace LocalVibes.Models.ViewModels
     {
         public List<Users> Usuarios { get; set; } = new List<Users>(); //Lista de usuarios
 
-        public Users user { get; set; }
+        public Users? user { get; set; }
 
         public List<UserFavoriteProject>? userFavoriteProjects { get; set; } = new List<UserFavoriteProject>();  // Lista de UserFavoriteProject. AllowNull
 

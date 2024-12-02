@@ -26,7 +26,7 @@ namespace LocalVibes.DALs
                 PasswordHash = (byte[])reader["PasswordHash"],
                 PasswordSalt = (byte[])reader["PasswordSalt"],
                 Birthdate = reader["Birthdate"] != DBNull.Value
-                            ? (DateOnly)reader["Birthdate"]
+                            ? (DateTime)reader["Birthdate"]
                             : null,
                 ProfileImage = reader["ProfileImage"] != DBNull.Value
                             ? (byte[])reader["ProfileImage"]
