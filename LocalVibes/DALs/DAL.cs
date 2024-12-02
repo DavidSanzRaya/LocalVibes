@@ -13,12 +13,16 @@ namespace LocalVibes.DALs
         }
 
         protected abstract string TableName { get; }
-        protected abstract string IdName { get; }
+        protected string IdName { get; set; } = "";
         protected abstract T MapReaderToEntity(SqlDataReader reader);
 
         private void GetIdName()
         {
-            string query = "";
+            string query = @"SELECT c.name AS column_name
+                                FROM sys.indexes i
+                                JOIN sys.index_columns ic ON i.object_id = ic.object_id AND i.index_id = ic.index_id
+                                JOIN sys.columns c ON ic.object_id = c.object_id AND ic.column_id = c.column_id
+                                WHERE i.is_primary_key = 1 AND i.object_id = OBJECT_ID('nombre_de_la_tabla');";
 
             using(SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -30,7 +34,7 @@ namespace LocalVibes.DALs
                 {
                     while (reader.Read())
                     {
-                        IdName = reader[0].ToString();
+                        IdName += reader[0].ToString();
                     }
                 }
             }

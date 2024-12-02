@@ -5,9 +5,11 @@ namespace LocalVibes.DALs
 {
     public class UserDAL : DAL<User>
     {
-        protected override string TableName => "Users";
+        public UserDAL(string connectionString) : base(connectionString)
+        {
+        }
 
-        protected override string IdName => "IdUsers";
+        protected override string TableName => "Users";
 
         protected override User MapReaderToEntity(SqlDataReader reader)
         {
