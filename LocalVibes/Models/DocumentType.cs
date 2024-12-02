@@ -1,9 +1,9 @@
 ﻿namespace LocalVibes.Models
 {
+    // Tabla DocumentType
     public class DocumentType
     {
-        public int IdDocumentType { get; set; }
-
-        public string Name { get; set; }
+        public int IdDocumentType { get; set; } // PK
+        public string? NameDocumentType { get; set; } // AllowNull
     }
 }
