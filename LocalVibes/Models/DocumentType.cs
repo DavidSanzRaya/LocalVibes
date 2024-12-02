@@ -4,6 +4,6 @@
     public class DocumentType
     {
         public int IdDocumentType { get; set; } // PK
-        public string NameDocumentType { get; set; } 
+        public required string NameDocumentType { get; set; } 
     }
 }

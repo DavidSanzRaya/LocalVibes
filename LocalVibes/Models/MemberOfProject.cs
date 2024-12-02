@@ -4,7 +4,7 @@
     public class MemberOfProject
     {
         public int IdMember { get; set; } // PK
-        public string? MemberName { get; set; } // AllowNull
+        public required string MemberName { get; set; } 
         public string? ArtisticName { get; set; } // AllowNull
         public byte[]? MemberImage { get; set; } // AllowNull
 

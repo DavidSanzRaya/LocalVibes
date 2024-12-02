@@ -76,7 +76,7 @@ namespace LocalVibes.DALs
 
         public T GetById(int id)
         {
-            T entity = null;
+            T? entity = null;
 
             string query = $"SELECT * FROM {TableName} WHERE {IdName} = @Id";
 
