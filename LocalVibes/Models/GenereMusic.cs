@@ -4,6 +4,6 @@
     public class GenereMusic
     {
         public int IdGenereMusic { get; set; } // PK
-        public string GenereMusicName { get; set; }
+        public required string GenereMusicName { get; set; }
     }
 }

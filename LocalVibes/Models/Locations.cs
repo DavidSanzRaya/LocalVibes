@@ -4,8 +4,8 @@
     public class Locations
     {
         public int IdLocation { get; set; } // PK
-        public float Altitude { get; set; }
-        public float Latitude { get; set; }
-        public string NameLocation { get; set; } 
+        public required float Altitude { get; set; }
+        public required float Latitude { get; set; }
+        public required string NameLocation { get; set; } 
     }
 }

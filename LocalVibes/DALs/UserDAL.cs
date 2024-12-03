@@ -5,20 +5,19 @@ namespace LocalVibes.DALs
 {
     public class UserDAL : DAL<Users>
     {
-        public UserDAL(string connectionString) : base(connectionString)
-        {
-        }
+        public UserDAL(){}
 
         protected override string TableName => "Users";
 
         protected override Users MapReaderToEntity(SqlDataReader reader)
         {
+            GenereMusicDAL dalGM = new GenereMusicDAL();
             return new Users
             {
                 IdUser = (int)reader["IdUsers"],
                 UserName = (string)reader["UserName"],
                 FirstName = (string)reader["FirstName"],
-                LastName = reader["LastName"] != DBNull.Value 
+                LastName = reader["LastName"] != DBNull.Value
                             ? (string)reader["LastName"]
                             : null,
                 UserEmail = (string)reader["UserEmail"],
@@ -28,7 +27,7 @@ namespace LocalVibes.DALs
                 PasswordHash = (byte[])reader["PasswordHash"],
                 PasswordSalt = (byte[])reader["PasswordSalt"],
                 Birthdate = reader["Birthdate"] != DBNull.Value
-                            ? (DateOnly)reader["Birthdate"]
+                            ? (DateTime)reader["Birthdate"]
                             : null,
                 ProfileImage = reader["ProfileImage"] != DBNull.Value
                             ? (byte[])reader["ProfileImage"]
@@ -41,8 +40,10 @@ namespace LocalVibes.DALs
                 IdDocumentType = reader["IdDocumentType"] != DBNull.Value
                             ? (int)reader["IdDocumentType"]
                             : null,
-                IdTier = (int)reader["IdTier"]
+                IdTier = (int)reader["IdTier"],
+                userGeneresMusic = dalGM.GetGenresByUserId((int)reader["IdUsers"]) 
             };
         }
     }
 }
+

@@ -30,5 +30,6 @@ namespace LocalVibes.DALs
                 IdUserAdmin = (int)reader["IdUsersAdmin"]
             };
         }
+
     }
 }

@@ -16,7 +16,7 @@ namespace LocalVibes.Controllers
         {
             if (ModelState.IsValid)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Landing", "Home");
             }
 
             return View(model);
@@ -33,7 +33,7 @@ namespace LocalVibes.Controllers
         {
             if (ModelState.IsValid)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Landing", "Home");
             }
 
             return View(model);

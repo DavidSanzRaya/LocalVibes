@@ -5,13 +5,9 @@ namespace LocalVibes.DALs
 {
     public abstract class DAL<T> where T : class
     {
-        private readonly string _connectionString;
-        private DatabaseService _databaseService;
+        private readonly string _connectionString = "Server=85.208.21.117,54321;Database=AbelAlexiaDavidJoelLocalVibes;User Id=sa;Password=Sql#123456789;TrustServerCertificate=True;";
 
-        protected DAL(string connectionString)
-        {
-            _connectionString = _databaseService.GetConnectionString();
-        }
+        protected DAL(){}
 
         protected abstract string TableName { get; }
         protected string IdName { get; set; } = "";
@@ -77,7 +73,9 @@ namespace LocalVibes.DALs
 
         public T GetById(int id)
         {
-            T entity = null;
+            GetIdName();
+
+            T? entity = null;
 
             string query = $"SELECT * FROM {TableName} WHERE {IdName} = @Id";
 

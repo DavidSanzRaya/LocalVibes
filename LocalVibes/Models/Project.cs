@@ -4,9 +4,9 @@
     public class Project
     {
         public int IdProject { get; set; } // PK 
-        public string ProjectName { get; set; }
+        public required string ProjectName { get; set; }
         public string? Biography { get; set; } // AllowNull
-        public DateOnly? FormationDate { get; set; } // AllowNull
+        public DateTime? FormationDate { get; set; } // AllowNull
         public byte[]? ProjectImage {  get; set; } // AllowNull
         public int IdUserAdmin {  get; set; } // FK de Users. AllowNull
 
