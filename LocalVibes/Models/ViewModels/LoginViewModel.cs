@@ -8,11 +8,6 @@ namespace LocalVibes.Models.ViewModels
         [Display(Name = "User name")]
         public string Username { get; set; }
 
-        [Required(ErrorMessage = "La direccion email es obligatoria.")]
-        [DataType(DataType.EmailAddress)]
-        [Display(Name = "Email adress")]
-        public string Email { get; set; }
-
         [Required(ErrorMessage = "La contraseña es obligatoria.")]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]

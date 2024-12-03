@@ -59,6 +59,12 @@ namespace LocalVibes.Controllers
             return View();
         }
 
+        // Accion que redirije a Home
+        public IActionResult Home()
+        {
+            return View();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
