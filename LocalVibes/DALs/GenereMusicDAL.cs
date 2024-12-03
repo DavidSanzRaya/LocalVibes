@@ -13,8 +13,8 @@ namespace LocalVibes.DALs
         {
             return new GenereMusic
             {
-                IdGenereMusic = reader.GetInt32(reader.GetOrdinal("IdGenereMusic")),
-                GenereMusicName = reader.GetString(reader.GetOrdinal("GenereMusicName"))
+                IdGenereMusic = (int)reader["IdGenereMusic"],
+                GenereMusicName = (string)reader["GenereMusicName"]
             };
         }
 
