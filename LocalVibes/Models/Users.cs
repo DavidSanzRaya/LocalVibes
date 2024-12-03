@@ -24,7 +24,7 @@ namespace LocalVibes.Models
 
         public List<UserFavoriteProject>? UserFavoriteProjects { get; set; } // Lista de UserFavoriteProject. AllowNull
 
-        private List<GenereMusic> _userGeneresMusic;
+        private List<GenereMusic>? _userGeneresMusic;
         public List<GenereMusic> UserGeneresMusic
         {
             get
