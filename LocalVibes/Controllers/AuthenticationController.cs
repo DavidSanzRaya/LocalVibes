@@ -1,4 +1,5 @@
-﻿using LocalVibes.DALs;
+﻿using Azure.Identity;
+using LocalVibes.DALs;
 using LocalVibes.Models;
 using LocalVibes.Models.ViewModels;
 using LocalVibes.Tools;
@@ -10,11 +11,14 @@ namespace LocalVibes.Controllers
     {
 
         #region Login
+
+        // Acccion para mostrar la vista de Login
         public IActionResult Login()
         {
             return View();
         }
 
+        // Accion para realizar el login
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Login(LoginViewModel model)
@@ -35,7 +39,7 @@ namespace LocalVibes.Controllers
                     return RedirectToAction("Home", "Home");
                 }
 
-
+                // Autenticacion fracasada
                 ModelState.AddModelError("", "Usuario o contraseña incorrectos.");
             }
             return View(model);
@@ -44,30 +48,30 @@ namespace LocalVibes.Controllers
 
         #region SignUp User
 
+        // Accion para mostrar la vista Sign Up de User
         public IActionResult SignUpUser()
         {
             return View();
         }
 
-
+        // Accion para realizar el registro de User
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult SignUpUser(SignUpUserViewModel model)
         {
             if (ModelState.IsValid)
             {
-                // Aquí inyectas la dependencia UserDAL en lugar de instanciarla directamente.
                 UserDAL dal = new UserDAL();
 
-                // Verificar si el usuario ya existe
+                // Verificar si el usuario ya existe por el nombre de usuario
                 Users usuarioExistente = dal.GetUsuarioByUsername(model.Username);
+
                 if (usuarioExistente != null)
                 {
                     ModelState.AddModelError("", "El nombre de usuario ya está en uso.");
                     return View(model);
                 }
 
-                // Crear el usuario
                 Users nuevoUsuario = new Users
                 {
                     UserName = model.Username,
@@ -77,7 +81,9 @@ namespace LocalVibes.Controllers
                     Phone = model.Phone,
                     Birthdate = model.Birthdate,
                     DateRegister = DateTime.Now,
-                    IdGenere = 1, // Asumiendo un valor por defecto
+                    IdGenere = model.IdGenere, // Asignación del ID de género
+                    DocumentNumber = model.DocumentNumber,
+                    IdDocumentType = model.IdDocumentType, // Asignación del ID de tipo de documento
                     IdTier = 1, // Asumiendo un valor por defecto
                     UserPoints = 0 // Valor por defecto
                 };
@@ -106,16 +112,18 @@ namespace LocalVibes.Controllers
             return View(model);
         }
 
-
         #endregion
 
         #region SignUp Project
 
+        // Accion para mostrar la vista Sign Up de Project
         public IActionResult SignUpProject()
         {
             return View();
         }
 
+        // Accion para mrealizar el registro de Project
+        // TODO: Falta mejorar e implementar del sign up para projects
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult SignUpProject(SignUpUserViewModel model)

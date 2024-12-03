@@ -12,7 +12,6 @@ namespace LocalVibes
                                 ?? throw new ArgumentNullException("DefaultConnection", "Connection string cannot be null.");
         }
 
-
         public string GetConnectionString()
         {
             return _connectionString;

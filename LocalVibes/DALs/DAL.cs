@@ -1,9 +1,10 @@
 ﻿
 using Microsoft.Data.SqlClient;
+using System.Data;
 
 namespace LocalVibes.DALs
 {
-    public abstract class DAL<T> where T : class
+    public abstract class DAL<T> : IDal<T> where T : class
     {
         private readonly string _connectionString = "Server=85.208.21.117,54321;Database=AbelAlexiaDavidJoelLocalVibes;User Id=sa;Password=Sql#123456789;TrustServerCertificate=True;";
 
@@ -101,6 +102,33 @@ namespace LocalVibes.DALs
         public void Update(T entity)
         {
             throw new NotImplementedException();
+        }
+
+        protected List<T> Query(string query, Func<IDataReader, T> map, params SqlParameter[] parameters)
+        {
+            List<T> entities = new List<T>();
+
+            using(SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                SqlCommand command = new SqlCommand(query, connection);
+
+                if(parameters != null)
+                {
+                    command.Parameters.AddRange(parameters);
+                }
+
+                connection.Open();
+
+                using(SqlDataReader reader = command.ExecuteReader())
+                {
+                    while(reader.Read())
+                    {
+                        entities.Add(map(reader));
+                    }
+                }
+            }
+
+            return entities;
         }
     }
 }

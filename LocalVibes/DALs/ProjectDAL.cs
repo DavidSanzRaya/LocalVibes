@@ -1,5 +1,6 @@
 ﻿using LocalVibes.Models;
 using Microsoft.Data.SqlClient;
+using System.Data;
 
 namespace LocalVibes.DALs
 {
@@ -13,20 +14,18 @@ namespace LocalVibes.DALs
         {
             return new Project
             {
-                IdProject = reader.GetInt32(reader.GetOrdinal("IdProject")),
-                ProjectName = reader.GetString(reader.GetOrdinal("ProjectName")),
-                Biography = reader.IsDBNull(reader.GetOrdinal("Biography"))
-                ? null
-                : reader.GetString(reader.GetOrdinal("Biography")),
-                FormationDate = reader.IsDBNull(reader.GetOrdinal("FormationDate"))
-                ? null
-                : reader.GetDateTime(reader.GetOrdinal("FormationDate")),
-                ProjectImage = reader.IsDBNull(reader.GetOrdinal("ProjectImage"))
-                ? null
-                : (byte[])reader["ProjectImage"],
-                UserAdmin = reader.IsDBNull(reader.GetOrdinal("UserAdmin"))
-                ? null
-                : reader.GetInt32(reader.GetOrdinal("UserAdmin"))
+                IdProject = (int)reader["IdProject"],
+                ProjectName = (string)reader["ProjectName"],
+                Biography = reader["Biography"] != DBNull.Value
+                            ? (string)reader["Biography"]
+                            : null,
+                FormationDate = reader["FormationDate"] != DBNull.Value
+                            ? (DateTime)reader["FormationDate"]
+                            : null,
+                ProjectImage = reader["ProjectImage"] != DBNull.Value
+                            ? (byte[])reader["ProjectImage"]
+                            : null,
+                IdUserAdmin = (int)reader["IdUsersAdmin"]
             };
         }
 
