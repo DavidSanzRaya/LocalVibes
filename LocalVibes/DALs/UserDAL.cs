@@ -5,13 +5,12 @@ namespace LocalVibes.DALs
 {
     public class UserDAL : DAL<Users>
     {
-        public UserDAL(){}
+        public UserDAL() { }
 
         protected override string TableName => "Users";
 
         protected override Users MapReaderToEntity(SqlDataReader reader)
         {
-            GenereMusicDAL dalGM = new GenereMusicDAL();
             return new Users
             {
                 IdUser = (int)reader["IdUsers"],
@@ -41,8 +40,13 @@ namespace LocalVibes.DALs
                             ? (int)reader["IdDocumentType"]
                             : null,
                 IdTier = (int)reader["IdTier"],
-                userGeneresMusic = dalGM.GetGenresByUserId((int)reader["IdUsers"]) 
+                userGeneresMusic = GetGenresByUserId((int)reader["IdUsers"]) 
             };
+        }
+
+        public List<GenereMusic> GetGenresByUserId(int userId)
+        {
+            return new GenereMusicDAL().GetGenresByUserId(userId);                                 
         }
     }
 }

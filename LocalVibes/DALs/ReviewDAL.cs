@@ -5,9 +5,7 @@ namespace LocalVibes.DALs
 {
     public class ReviewDAL : DAL<Review>
     {
-        public ReviewDAL(string connectionString) : base(connectionString)
-        {
-        }
+        public ReviewDAL() { }
 
         protected override string TableName => "Review";
 

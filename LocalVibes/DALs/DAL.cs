@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.Data.SqlClient;
+using System.Data;
 
 namespace LocalVibes.DALs
 {
@@ -101,6 +102,33 @@ namespace LocalVibes.DALs
         public void Update(T entity)
         {
             throw new NotImplementedException();
+        }
+
+        protected List<T> Query(string query, Func<IDataReader, T> map, params SqlParameter[] parameters)
+        {
+            List<T> entities = new List<T>();
+
+            using(SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                SqlCommand command = new SqlCommand(query, connection);
+
+                if(parameters != null)
+                {
+                    command.Parameters.AddRange(parameters);
+                }
+
+                connection.Open();
+
+                using(SqlDataReader reader = command.ExecuteReader())
+                {
+                    while(reader.Read())
+                    {
+                        entities.Add(map(reader));
+                    }
+                }
+            }
+
+            return entities;
         }
     }
 }

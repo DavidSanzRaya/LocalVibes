@@ -6,9 +6,7 @@ namespace LocalVibes.DALs
 {
     public class ProjectDAL : DAL<Project>
     {
-        public ProjectDAL(string connectionString) : base(connectionString)
-        {
-        }
+        public ProjectDAL() { }
 
         protected override string TableName => "Project";
 
@@ -22,7 +20,7 @@ namespace LocalVibes.DALs
                             ? (string)reader["Biography"]
                             : null,
                 FormationDate = reader["FormationDate"] != DBNull.Value
-                            ? (DateOnly)reader["FormationDate"]
+                            ? (DateTime)reader["FormationDate"]
                             : null,
                 ProjectImage = reader["ProjectImage"] != DBNull.Value
                             ? (byte[])reader["ProjectImage"]
