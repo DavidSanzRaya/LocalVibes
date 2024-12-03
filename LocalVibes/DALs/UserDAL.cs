@@ -40,13 +40,7 @@ namespace LocalVibes.DALs
                             ? (int)reader["IdDocumentType"]
                             : null,
                 IdTier = (int)reader["IdTier"],
-                userGeneresMusic = GetGenresByUserId((int)reader["IdUsers"]) 
             };
-        }
-
-        public List<GenereMusic> GetGenresByUserId(int userId)
-        {
-            return new GenereMusicDAL().GetGenresByUserId(userId);                                 
         }
     }
 }

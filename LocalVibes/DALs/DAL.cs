@@ -4,7 +4,7 @@ using System.Data;
 
 namespace LocalVibes.DALs
 {
-    public abstract class DAL<T> where T : class
+    public abstract class DAL<T> : IDal<T> where T : class
     {
         private readonly string _connectionString = "Server=85.208.21.117,54321;Database=AbelAlexiaDavidJoelLocalVibes;User Id=sa;Password=Sql#123456789;TrustServerCertificate=True;";
 
