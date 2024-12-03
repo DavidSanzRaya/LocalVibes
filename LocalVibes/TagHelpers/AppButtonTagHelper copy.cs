@@ -4,7 +4,7 @@ namespace LocalVibes.TagHelpers
 {
     public class AppButtonTagHelper : TagHelper
     {
-        public string DefaultStyle { get; set; } = "all: unset;background-color: #FFF; border-radius: 999em 999em 999em 999em; text-aling:cente ;width: 200px;height: 40px;";
+        public string DefaultStyle { get; set; } = "all: unset; background-color: #FFF; border-radius: 999em; display: flex; justify-content: center; align-items: center; text-align: center; width: 200px; height: 40px;";
         public string ButtonText { get; set; }
 
         public string BorderStyle { get; set; }
