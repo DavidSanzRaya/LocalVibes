@@ -21,12 +21,12 @@
                             <li class="list-group-item">Nombre: @Users.UserName</li>
                             <li class="list-group-item">Fecha de registro: @Users.DateRegister.ToString()</li>
 
-                            @if (@Users.userGeneresMusic.Count > 0)
+                            @if (@Users.UserGeneresMusic.Count > 0)
                             {
                                 <li class="list-group-item">
                                     Generos de musica favoritos:
                                     <ul class="list-group">
-                                        @foreach (var GenereMusicUser in @Users.userGeneresMusic)
+                                        @foreach (var GenereMusicUser in @Users.UserGeneresMusic)
                                         {
                                             <li class="list-group-item">@GenereMusicUser.GenereMusicName</li>
                                         }
