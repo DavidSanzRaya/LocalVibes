@@ -17,6 +17,7 @@ namespace LocalVibes.Controllers
 
         }
 
+        // Accion principal
         public IActionResult Landing()
         {
             // Obtener la cadena de conexión
@@ -28,6 +29,7 @@ namespace LocalVibes.Controllers
             return View();
         }
 
+        // Accion que redirije a About
         public IActionResult About()
         {
             // Obtener la cadena de conexión
@@ -39,39 +41,7 @@ namespace LocalVibes.Controllers
             return View();
         }
 
-        public IActionResult SignUpUser()
-        {
-            // Obtener la cadena de conexión
-            var connectionString = _databaseService.GetConnectionString();
-
-            // Pasar la cadena de conexión a la vista o usarla en lógica
-            ViewBag.ConnectionString = connectionString;
-
-            return View();
-        }
-
-        public IActionResult SignUpProject()
-        {
-            // Obtener la cadena de conexión
-            var connectionString = _databaseService.GetConnectionString();
-
-            // Pasar la cadena de conexión a la vista o usarla en lógica
-            ViewBag.ConnectionString = connectionString;
-
-            return View();
-        }
-
-        public IActionResult Login()
-        {
-            // Obtener la cadena de conexión
-            var connectionString = _databaseService.GetConnectionString();
-
-            // Pasar la cadena de conexión a la vista o usarla en lógica
-            ViewBag.ConnectionString = connectionString;
-
-            return View();
-        }
-
+        // Accion que redirije a Prueba
         public IActionResult Prueba()
         {
             // Obtener la cadena de conexión
@@ -83,7 +53,7 @@ namespace LocalVibes.Controllers
             return View();
         }
 
-
+        // Accion que redirije a Privacity
         public IActionResult Privacy()
         {
             return View();

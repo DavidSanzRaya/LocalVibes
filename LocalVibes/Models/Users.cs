@@ -3,14 +3,14 @@
     // Tabla de Users
     public class Users
     {
-        public required int IdUser { get; set; } // PK
-        public required string UserName { get; set; } // AllowNull
+        public int IdUser { get; set; } // PK
+        public string UserName { get; set; } // AllowNull
         public string? FirstName { get; set; } // AllowNull
         public string? LastName { get; set; } // AllowNull
-        public required string UserEmail { get; set; } // AllowNull
+        public string UserEmail { get; set; } // AllowNull
         public string? Phone { get; set; } // AllowNull
-        public required byte[] PasswordHash { get; set; } 
-        public required byte[] PasswordSalt { get; set; }
+        public byte[] PasswordHash { get; set; } 
+        public byte[] PasswordSalt { get; set; }
         public DateTime? Birthdate {  get; set; } // AllowNull
         public byte[]? ProfileImage {  get; set; } // AllowNull
         public string? DocumentNumber {  get; set; } // AllowNull
