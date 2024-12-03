@@ -1,0 +1,44 @@
+@{
+	ViewData["Title"] = "Local Vibes";
+  Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>@ViewData["Title"]</title>
+  <link rel="stylesheet" href="~/css/Views/Landing/index.css" />
+</head>
+<body>
+  <div class="landing">
+
+      <div class="landing__content">
+          <div class="landing__content__header">
+              <img src="~/Assets/logo.png" asp-append-version="true" alt="Logo" class="landing__header__logo" width="90px">
+              <div class="landing__content__header__buttons">
+                  <app-button
+                      button-text="Login"
+                      button-type="primary"
+                  ></app-button>
+                  <app-button
+                      button-type="primary"
+                      button-text="Register"
+                  >
+                  </app-button>
+              </div>
+          </div>
+          <div class="landing__content__body">
+              <h1>VIU LA MUSICA <br> ESCOLTA LA BANDA</h1>
+          </div>
+      </div>
+
+
+      <div class="landing__background">
+        <div class="left"></div>
+        <div class="right"></div>
+      </div>
+  </div>
+</body>
+</html>

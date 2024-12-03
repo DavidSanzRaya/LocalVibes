@@ -8,98 +8,11 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>@ViewData["Title"]</title>
-
-	<!-- Bootstrap CSS -->
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-
-	<style>
-
-		/* Estilos personalizados */
-		body, html {
-			margin: 0;
-			padding: 0;
-			height: 100%;
-		}
-
-		/* Para la mitad de la izquierda un color morado */
-		.left-half {
-			background-color: #572364;
-			height: 70vh;
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			align-items: center;
-			text-align: center;
-		}
-
-		/* Para la mitad de la derecha un color negro */
-		.right-half {
-			background-color: #0f0f0f;
-			height: 70vh;
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			align-items: center;
-			text-align: center;
-		}
-
-		.row {
-			margin: 0;
-			padding: 0;
-		}
-
-		/* Estilo para el texto general */
-		.text-white {
-			color: white !important;
-		}
-
-		.middle-section {
-			text-align: center;
-			padding: 50px 0;
-			background-color: #222;
-		}
-
-			.middle-section img {
-				width: 200px;
-				margin: 0 10px;
-			}
-	</style>
 </head>
-
 <body>
 	<div class="container-fluid">
-		<div class="row">
-			<!-- Primera mitad -->
-			<div class="col-12 col-md-6 left-half">
-				<h1 class="text-white display-3">Logo de LocalVibes</h1>
-				<p class="text-white fs-4">Local Vibes</p>
-				<p class="text-white fs-5">Un projecto de Debug4ce</p>
-			</div>
-			<!-- Segunda mitad -->
-			<div class="col-12 col-md-6 right-half">
-				<p class="text-white fs-4">Aqui va el boton para la pagina de testing *Por ahora</p>
-				<p class="text-white fs-5">Aquí va una foto grande o incluso de fondo</p>
-				<form asp-action="Prueba" asp-controller="Prueba" method="get" class="text-center">
-					<button type="submit" class="btn btn-secondary btn-block shadow-sm">
-						Boton para la pagina de pruebas
-					</button>
-				</form>
-			</div>
-		</div>
-
-		<!-- Sección media con imágenes y texto -->
-		<div class="middle-section">
-			<h2 class="text-white">Galería de fotos</h2>
-			<p class="text-white fs-4">Subtítulo descriptivo debajo de las fotos</p>
-			<div class="d-flex justify-content-center">
-				<img src="https://via.placeholder.com/150" alt="Imagen 1" class="img-fluid">
-				<img src="https://via.placeholder.com/150" alt="Imagen 2" class="img-fluid">
-				<img src="https://via.placeholder.com/150" alt="Imagen 3" class="img-fluid">
-			</div>
-		</div>
+		<div class="left">left</div>
+		<div class="right">right</div>
 	</div>
-
-	<!-- Bootstrap JS -->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
