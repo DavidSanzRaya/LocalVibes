@@ -6,7 +6,7 @@ namespace LocalVibes.Models.ViewModels
     {
         // Nombre de usuario
         [Required(ErrorMessage = "El nombre de usuario es obligatorio.")]
-        [StringLength(50, ErrorMessage = "El nombre de usuario no puede tener mas de 50 caracteres.")]
+        [StringLength(50, ErrorMessage = "El nombre de usuario no puede tener más de 50 caracteres.")]
         public string Username { get; set; }
 
         // Nombre
@@ -43,5 +43,18 @@ namespace LocalVibes.Models.ViewModels
         [DataType(DataType.Password)]
         [Compare("Password", ErrorMessage = "Las contraseñas no coinciden.")]
         public string ConfirmPassword { get; set; }
+
+        // Género: ahora será un entero (ID)
+        [Required(ErrorMessage = "El género es obligatorio.")]
+        public int IdGenere { get; set; }
+
+        // Tipo de documento: ahora será un entero (ID)
+        [Required(ErrorMessage = "El tipo de documento es obligatorio.")]
+        public int IdDocumentType { get; set; }
+
+        // Número de documento
+        [Required(ErrorMessage = "El número de documento es obligatorio.")]
+        [StringLength(20, ErrorMessage = "El número de documento no puede tener más de 20 caracteres.")]
+        public string DocumentNumber { get; set; }
     }
 }
