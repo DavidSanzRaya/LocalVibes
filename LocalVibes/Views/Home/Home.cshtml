@@ -56,7 +56,7 @@
             popupAnchor: [0, -24]
         });
 
-        var genreName = musicGenres.find(g => g.IdGenereMusic === place.genreId)?.genereMusicName || "Unknown";
+        var genreName = musicGenres.find(g => g.IdGenereMusic === place.genreId)?.GenereMusicName || "Unknown";
 
         var marker = L.marker([place.lat, place.lng], { icon: locationIcon }).addTo(map);
 
@@ -82,5 +82,14 @@
         genreGroups[genreName]?.addLayer(marker);
     });
 
-    L.control.layers(null, genreGroups).addTo(map);
+    var layersControl = L.control.layers(null, genreGroups).addTo(map);
+
+    var layersControlContainer = layersControl.getContainer();
+
+    layersControlContainer.style.fontSize = "0.9rem";
+    layersControlContainer.style.textAlign = "left";
+
+    var layersControlButton = document.querySelector('.leaflet-control-layers-toggle');
+    layersControlButton.style.backgroundImage = "url('/Assets/music-note.png')";
+
 </script>
