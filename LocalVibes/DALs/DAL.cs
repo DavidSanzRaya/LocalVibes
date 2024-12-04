@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.Data.SqlClient;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 
 namespace LocalVibes.DALs
@@ -40,7 +41,28 @@ namespace LocalVibes.DALs
 
         public void Add(T entity)
         {
-            throw new NotImplementedException();
+            var properties = typeof(T).GetProperties()
+                              .Where(p => !Attribute.IsDefined(p, typeof(NotMappedAttribute)))
+                              .ToList();
+
+            string columns = string.Join(", ", properties.Select(p => p.Name));
+            string values = string.Join(", ", properties.Select(p => $"@{p.Name}"));
+
+            string query = $"INSERT INTO {TableName} ({columns}) VALUES ({values})";
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                SqlCommand command = new SqlCommand(query, connection);
+
+                foreach (var property in properties)
+                {
+                    var value = property.GetValue(entity) ?? DBNull.Value;
+                    command.Parameters.AddWithValue($"@{property.Name}", value);
+                }
+
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
         }
 
         public void Delete(int id)
@@ -129,6 +151,30 @@ namespace LocalVibes.DALs
             }
 
             return entities;
+        }
+        protected T QuerySingle(string query, Func<IDataReader, T> map, params SqlParameter[] parameters)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                SqlCommand command = new SqlCommand(query, connection);
+
+                if (parameters != null)
+                {
+                    command.Parameters.AddRange(parameters);
+                }
+
+                connection.Open();
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        return map(reader);
+                    }
+                }
+            }
+
+            return null;
         }
     }
 }

@@ -27,7 +27,7 @@ namespace LocalVibes.Controllers
             {
 
                 UserDAL dal = new UserDAL();
-                Users usuario = dal.GetUsuarioByUsername(model.Username);
+                Users usuario = dal.GetUserByUsername(model.Username);
 
                 //Validar usuario
                 if (usuario != null)
@@ -64,7 +64,7 @@ namespace LocalVibes.Controllers
                 UserDAL dal = new UserDAL();
 
                 // Verificar si el usuario ya existe por el nombre de usuario
-                Users usuarioExistente = dal.GetUsuarioByUsername(model.Username);
+                Users usuarioExistente = dal.GetUserByUsername(model.Username);
 
                 if (usuarioExistente != null)
                 {
@@ -94,10 +94,10 @@ namespace LocalVibes.Controllers
                 nuevoUsuario.PasswordSalt = passwordSalt;
 
                 // Guardar el nuevo usuario
-                dal.CreateUsuario(nuevoUsuario);
+                dal.Add(nuevoUsuario);
 
                 // Verificar que el usuario ha sido creado
-                Users validarCreacion = dal.GetUsuarioByUsername(model.Username);
+                Users validarCreacion = dal.GetUserByUsername(model.Username);
                 if (validarCreacion != null)
                 {
                     // Guardar el nombre de usuario en la sesión
@@ -135,7 +135,7 @@ namespace LocalVibes.Controllers
 
                 usuario.UserName = model.Username;
 
-                Users usuarioExistente = dal.GetUsuarioByUsername(usuario.UserName);
+                Users usuarioExistente = dal.GetUserByUsername(usuario.UserName);
 
                 // Validar Usuario
                 if (usuarioExistente != null)
@@ -144,9 +144,9 @@ namespace LocalVibes.Controllers
                     return View(model);
                 }
 
-                dal.CreateUsuario(usuario);
+                dal.Add(usuario);
 
-                Users validarCreacion = dal.GetUsuarioByUsername(model.Username);
+                Users validarCreacion = dal.GetUserByUsername(model.Username);
 
                 if (validarCreacion != null)
                 {

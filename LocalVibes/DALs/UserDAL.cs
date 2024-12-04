@@ -48,53 +48,41 @@ namespace LocalVibes.DALs
         }
 
         // Método para obtener el usuario por login
-        public Users GetUsuarioByUsername(string userName)
+        public Users GetUserByUsername(string userName)
         {
-            using (var connection = new SqlConnection(_connectionString))
-            {
-                var command = new SqlCommand(@"
-            SELECT IdUsers, UserName, FirstName, LastName, UserEmail, Phone, 
-                   PasswordHash, PasswordSalt, Birthdate, ProfileImage, 
-                   DocumentNumber, UserPoints, DateRegister, IdDocumentType, 
-                   IdGenere, IdTier
-            FROM Users
-            WHERE UserName = @UserName", connection);
+            string query = @"
+        SELECT IdUsers, UserName, FirstName, LastName, UserEmail, Phone, 
+               PasswordHash, PasswordSalt, Birthdate, ProfileImage, 
+               DocumentNumber, UserPoints, DateRegister, IdDocumentType, 
+               IdGenere, IdTier
+        FROM Users
+        WHERE UserName = @UserName";
 
-                command.Parameters.AddWithValue("@UserName", userName);
-
-                connection.Open();
-                using (var reader = command.ExecuteReader())
+            return QuerySingle(
+                query, 
+                reader => new Users
                 {
-                    if (reader.Read())
-                    {
-                        return new Users
-                        {
-                            IdUser = (int)reader["IdUsers"],
-                            UserName = (string)reader["UserName"],
-                            FirstName = reader["FirstName"] as string,
-                            LastName = reader["LastName"] as string,
-                            UserEmail = (string)reader["UserEmail"],
-                            Phone = reader["Phone"] as string,
-                            PasswordHash = reader["PasswordHash"] as byte[],
-                            PasswordSalt = reader["PasswordSalt"] as byte[],
-                            Birthdate = reader["Birthdate"] as DateTime?,
-                            ProfileImage = reader["ProfileImage"] as byte[],
-                            DocumentNumber = reader["DocumentNumber"] as string,
-                            UserPoints = reader["UserPoints"] as int?,
-                            DateRegister = (DateTime)reader["DateRegister"],
-                            IdDocumentType = reader["IdDocumentType"] as int?,
-                            IdGenere = (int)reader["IdGenere"],
-                            IdTier = (int)reader["IdTier"]
-                        };
-                    }
-                }
-            }
-            return null; // Si no se encuentra el usuario
+                    IdUser = (int)reader["IdUsers"],
+                    UserName = (string)reader["UserName"],
+                    FirstName = reader["FirstName"] as string,
+                    LastName = reader["LastName"] as string,
+                    UserEmail = (string)reader["UserEmail"],
+                    Phone = reader["Phone"] as string,
+                    PasswordHash = reader["PasswordHash"] as byte[],
+                    PasswordSalt = reader["PasswordSalt"] as byte[],
+                    Birthdate = reader["Birthdate"] as DateTime?,
+                    ProfileImage = reader["ProfileImage"] as byte[],
+                    DocumentNumber = reader["DocumentNumber"] as string,
+                    UserPoints = reader["UserPoints"] as int?,
+                    DateRegister = (DateTime)reader["DateRegister"],
+                    IdDocumentType = reader["IdDocumentType"] as int?,
+                    IdGenere = (int)reader["IdGenere"],
+                    IdTier = (int)reader["IdTier"]
+                }, 
+                new SqlParameter("@UserName", userName));
         }
 
 
-
-        // Método para crear un nuevo usuario
         public void CreateUsuario(Users usuario)
         {
             using (var connection = new SqlConnection(_connectionString))
