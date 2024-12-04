@@ -1,18 +1,210 @@
 ﻿@{
-	ViewData["Title"] = "Local Vibes";
+    ViewData["Title"] = "Local Vibes";
+    Layout = null;
 }
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>@ViewData["Title"]</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <!-- Enlace a Bootstrap -->
+    <style>
+        /* Asegura que las mitades lleguen hasta los bordes de la pantalla */
+        .left-half {
+            background-color: white;
+            width: 50%;
+            height: 100vh;
+            color: black;
+            padding: 50px; /* Espaciado del contenido */
+        }
+
+        .right-half {
+            background-color: #333333; /* Negro claro */
+            width: 50%;
+            height: 100vh;
+            color: white;
+            padding: 50px; /* Espaciado del contenido */
+            position: relative;
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
+            overflow: hidden;
+        }
+
+        /* Configuración para los botones */
+        .header-buttons {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+        }
+
+            .header-buttons a {
+                margin-left: 10px;
+            }
+
+        /* Estilo para la galería de fotos */
+        .photo-gallery {
+            display: flex;
+            justify-content: space-around;
+            gap: 10px;
+            padding: 20px 0;
+            background-color: #333333; /* Fondo negro para la galería */
+        }
+
+            .photo-gallery img {
+                width: 250px;
+                height: 200px; /* Ajustado para la relación 5:4 */
+                object-fit: cover;
+            }
+
+        /* Estilo para el footer */
+        footer {
+            background-color: #333333; /* Fondo negro */
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+        }
+
+            footer a {
+                color: white;
+                text-decoration: none;
+                margin: 0 15px;
+                font-size: 14px;
+            }
+
+                footer a:hover {
+                    text-decoration: underline;
+                }
+
+        .footer-bottom {
+            background-color: #222222; /* Fondo más oscuro para la parte inferior */
+            padding: 10px 0;
+            font-size: 12px;
+        }
+
+        /* Estilo para el texto en la parte derecha */
+        .right-half .text-content {
+            font-size: 1.5rem; /* Texto más pequeño */
+            color: white; /* Texto en blanco */
+            line-height: 1.2;
+            text-align: left; /* Alineación a la izquierda */
+            max-width: 100%;
+            overflow-wrap: break-word; /* Evitar que las palabras se salgan del contenedor */
+            height: 100%; /* Ocupa toda la altura del div */
+            display: flex;
+            flex-wrap: wrap;
+            align-items: flex-start;
+            justify-content: flex-start;
+            padding-top: 30px;
+        }
+
+            .right-half .text-content span {
+                display: block;
+                margin-right: 15px;
+                margin-bottom: 10px;
+            }
+
+    </style>
 </head>
-<body>
-	<div class="container-fluid">
-		<div class="left">left</div>
-		<div class="right">right</div>
-	</div>
+<body class="bg-light">
+
+    <!-- Contenedor principal -->
+    <div class="container-fluid p-0">
+
+        <!-- Cabecera -->
+        <header class="d-flex justify-content-between align-items-center py-3 px-4 bg-white shadow-sm position-relative">
+            <img src="~/Assets/logo.png" alt="Logo" width="90px" />
+            <div class="header-buttons">
+                <a asp-action="Login" asp-controller="Authentication" class="btn btn-primary rounded-pill">Login</a>
+                <a asp-action="SignUpUser" asp-controller="Authentication" class="btn btn-secondary rounded-pill">Sign Up User</a>
+                <a asp-action="SignUpProject" asp-controller="Authentication" class="btn btn-outline-primary rounded-pill">Sign Up Project</a>
+            </div>
+        </header>
+
+        <!-- Cuerpo -->
+        <div class="d-flex">
+            <!-- Mitad izquierda blanca -->
+            <div class="left-half d-flex flex-column justify-content-center">
+                <h1 class="display-4 fw-bold text-primary">VIU LA MUSICA</h1>
+                <p class="fs-3 text-secondary">ESCOLTA LA BANDA</p>
+            </div>
+
+            <!-- Mitad derecha negra -->
+            <div class="right-half d-flex flex-column justify-content-center">
+                <!-- Texto en la parte derecha -->
+                <div class="text-content">
+                    <span>CONCIERTOS</span>
+                    <span>ROCK</span>
+                    <span>BARCELONA</span>
+                    <span>POP</span>
+                    <span>RAP</span>
+                    <span>DESCUBRIR</span>
+                    <span>MUSICA</span>
+                    <span>DISFRUTAR</span>
+                    <span>FESTIVALES</span>
+                    <span>EVENTOS</span>
+                    <span>TICKETS</span>
+                    <span>REGUETON</span>
+                    <span>LATINOS</span>
+                    <span>ARTISTAS</span>
+                    <span>VIBES</span>
+                    <span>SONIDOS</span>
+                    <span>TENDENCIAS</span>
+                    <span>ESCENARIOS</span>
+                    <span>EN VIVO</span>
+                    <span>NUEVAS CANCIÓNES</span>
+                    <span>FANS</span>
+                    <span>EXPERIENCIA</span>
+                    <span>ESCUCHAR</span>
+                    <span>CANTANTES</span>
+                    <span>BANDA</span>
+                    <span>PLAYS</span>
+                    <span>GRUPOS</span>
+                    <span>GIRA</span>
+                    <span>ENCUENTROS</span>
+                    <span>VIBRACIONES</span>
+                    <span>ESCUCHA</span>
+                    <span>CULTURA</span>
+                    <span>NUEVAS SUGERENCIAS</span>
+                    <span>AMIGOS</span>
+                    <span>BEAT</span>
+                    <span>PERFORMANCE</span>
+                    <span>MOVIMIENTO</span>
+                    <span>LOCURA</span>
+                    <span>LUGAR</span>
+                    <span>SONIDOS EMERGENTES</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Galería de fotos horizontal entre las dos mitades -->
+        <div class="photo-gallery">
+            <img src="~/Assets/bandaJoel.jpg" alt="Image 1">
+            <img src="~/Assets/duo.jpg" alt="Image 2">
+            <img src="~/Assets/solista.jpg" alt="Image 3">
+            <img src="~/Assets/weDance.jpg" alt="Image 4">
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <div class="container">
+                <!-- Links principales -->
+                <div class="d-flex justify-content-center mb-3">
+                    <a asp-action="About" asp-controller="Home" class="btn btn-primary rounded-pill">About Us</a>                  
+                    <a asp-action="Privacy" asp-controller="Home" class="btn btn-primary rounded-pill">Privacy</a>
+                </div>
+                <!-- Footer Bottom -->
+                <div class="footer-bottom">
+                    <p>&copy; 2024 Local Vibes</p>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- Enlace a Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

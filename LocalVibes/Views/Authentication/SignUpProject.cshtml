@@ -1,5 +1,61 @@
-﻿@{
-    ViewData["Title"] = "Nuevo proyecto";
+﻿@using LocalVibes.Models.ViewModels
+@model SignUpProjectViewModel
+
+@{
+    ViewData["Title"] = "Registrar Proyecto";
 }
 
-<p>Pagina para crear un nuevo proyecto</p>
+<div class="signup-container">
+
+    <h2>Registrar Proyecto</h2>
+    <form asp-action="SignUpProject" method="post" enctype="multipart/form-data" asp-antiforgery="true">
+
+        <!-- Nombre del Proyecto -->
+        <div class="form-group">
+            <label asp-for="ProjectName">Nombre del Proyecto</label>
+            <input asp-for="ProjectName" class="form-control" />
+            <span asp-validation-for="ProjectName" class="text-danger"></span>
+        </div>
+
+        <!-- Biografía -->
+        <div class="form-group">
+            <label asp-for="Biography">Biografía</label>
+            <textarea asp-for="Biography" class="form-control"></textarea>
+            <span asp-validation-for="Biography" class="text-danger"></span>
+        </div>
+
+        <!-- Fecha de Formación -->
+        <div class="form-group">
+            <label asp-for="FormationDate">Fecha de Formación</label>
+            <input asp-for="FormationDate" type="date" class="form-control" />
+            <span asp-validation-for="FormationDate" class="text-danger"></span>
+        </div>
+
+        <!-- Imagen del Proyecto -->
+        <div class="form-group">
+            <label>Imagen del Proyecto</label>
+            <input type="file" name="ProjectImage" class="form-control" />
+            <span asp-validation-for="ProjectImage" class="text-danger"></span>
+        </div>
+
+        <!-- Administrador del Proyecto -->
+        <div class="form-group">
+            <label asp-for="IdUserAdmin">ID del Administrador</label>
+            <input asp-for="IdUserAdmin" class="form-control" />
+            <span asp-validation-for="IdUserAdmin" class="text-danger"></span>
+        </div>
+
+
+        <!-- Botón de Enviar -->
+        <button type="submit" class="btn btn-primary rounded-pill">Registrar Proyecto</button>
+
+        <!-- Enlace a Login -->
+        <div class="mt-3 text-center">
+            <p>
+                ¿Ya tienes una cuenta?
+                <a asp-controller="Authentication" asp-action="Login" class="btn btn-secondary ml-2 rounded-pill">Iniciar sesión</a>
+            </p>
+        </div>
+
+    </form>
+</div>

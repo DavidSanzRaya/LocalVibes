@@ -9,7 +9,6 @@ namespace LocalVibes.DALs
 
         private readonly string _connectionString = "Server=85.208.21.117,54321;Database=AbelAlexiaDavidJoelLocalVibes;User Id=sa;Password=Sql#123456789;TrustServerCertificate=True;";
 
-        public UserDAL() { }
 
         protected override string TableName => "Users";
 
