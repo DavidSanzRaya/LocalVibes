@@ -4,6 +4,10 @@ namespace LocalVibes.Models.ViewModels
 {
     public class SignUpUserViewModel
     {
+        // Imagen del Proyecto
+        [DataType(DataType.Upload)]
+        public byte[]? ProfileImage { get; set; }
+
         // Nombre de usuario
         [Required(ErrorMessage = "El nombre de usuario es obligatorio.")]
         [StringLength(50, ErrorMessage = "El nombre de usuario no puede tener más de 50 caracteres.")]
@@ -15,9 +19,8 @@ namespace LocalVibes.Models.ViewModels
         public string FirstName { get; set; }
 
         // Apellido
-        [Required(ErrorMessage = "El apellido es obligatorio.")]
         [StringLength(50, ErrorMessage = "El apellido no puede tener más de 50 caracteres.")]
-        public string LastName { get; set; }
+        public string? LastName { get; set; }
 
         // Correo electrónico
         [Required(ErrorMessage = "El correo electrónico es obligatorio.")]
@@ -26,11 +29,10 @@ namespace LocalVibes.Models.ViewModels
 
         // Teléfono
         [Phone(ErrorMessage = "El teléfono no es válido.")]
-        public string Phone { get; set; }
+        public string? Phone { get; set; }
 
         // Fecha de nacimiento
-        [Required(ErrorMessage = "La fecha de nacimiento es obligatoria.")]
-        public DateTime Birthdate { get; set; }
+        public DateTime? Birthdate { get; set; }
 
         // Contraseña
         [Required(ErrorMessage = "La contraseña es obligatoria.")]
@@ -49,12 +51,10 @@ namespace LocalVibes.Models.ViewModels
         public int IdGenere { get; set; }
 
         // Tipo de documento: ahora será un entero (ID)
-        [Required(ErrorMessage = "El tipo de documento es obligatorio.")]
-        public int IdDocumentType { get; set; }
+        public int? IdDocumentType { get; set; }
 
         // Número de documento
-        [Required(ErrorMessage = "El número de documento es obligatorio.")]
         [StringLength(20, ErrorMessage = "El número de documento no puede tener más de 20 caracteres.")]
-        public string DocumentNumber { get; set; }
+        public string? DocumentNumber { get; set; }
     }
 }

@@ -11,57 +11,73 @@
     <form asp-action="SignUpUser" method="post" asp-antiforgery="true">
 
         <div class="form-group">
-            <label asp-for="Username"></label>
-            <input asp-for="Username" class="form-control" />
-            <span asp-validation-for="Username" class="text-danger"></span>
+            <label asp-for="ProfileImage">Imagen del Proyecto</label>
+            <input asp-for="ProfileImage" type="file" class="form-control" />
+            <span asp-validation-for="ProfileImage" class="text-danger"></span>
         </div>
+        <br />
 
         <div class="form-group">
-            <label asp-for="FirstName"></label>
+            <label asp-for="Username">Nombre de Usuario</label>
+            <input asp-for="Username" class="form-control"/>
+            <span asp-validation-for="Username" class="text-danger"></span>
+        </div>
+        <br />
+
+        <div class="form-group">
+            <label asp-for="FirstName">Nombre</label>
             <input asp-for="FirstName" class="form-control" />
             <span asp-validation-for="FirstName" class="text-danger"></span>
         </div>
+        <br />
 
         <div class="form-group">
-            <label asp-for="LastName"></label>
+            <label asp-for="LastName">Apellido</label>
             <input asp-for="LastName" class="form-control" />
             <span asp-validation-for="LastName" class="text-danger"></span>
         </div>
+        <br />
 
         <div class="form-group">
-            <label asp-for="UserEmail"></label>
+            <label asp-for="UserEmail">Correo electrónico</label>
             <input asp-for="UserEmail" type="email" class="form-control" />
             <span asp-validation-for="UserEmail" class="text-danger"></span>
         </div>
+        <br />
 
         <div class="form-group">
-            <label asp-for="Phone"></label>
+            <label asp-for="Phone">Teléfono</label>
             <input asp-for="Phone" class="form-control" />
             <span asp-validation-for="Phone" class="text-danger"></span>
         </div>
+        <br />
 
         <div class="form-group">
-            <label asp-for="Birthdate"></label>
+            <label asp-for="Birthdate">Fecha de nacimiento</label>
             <input asp-for="Birthdate" type="date" class="form-control" />
             <span asp-validation-for="Birthdate" class="text-danger"></span>
         </div>
+        <br />
 
         <div class="form-group">
-            <label asp-for="Password"></label>
+            <label asp-for="Password">Contraseña</label>
             <input asp-for="Password" type="password" class="form-control" />
             <span asp-validation-for="Password" class="text-danger"></span>
         </div>
+        <br />
 
         <div class="form-group">
-            <label asp-for="ConfirmPassword"></label>
+            <label asp-for="ConfirmPassword">Confirmar contraseña</label>
             <input asp-for="ConfirmPassword" type="password" class="form-control" />
             <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
         </div>
+        <br />
 
         <!-- Género -->
         <div class="form-group">
             <label asp-for="IdGenere">Género</label>
             <select asp-for="IdGenere" class="form-control">
+                <option value="">Selecciona género</option>
                 <option value="1">Masculino</option> <!-- ID=1 para Masculino -->
                 <option value="2">Femenino</option> <!-- ID=2 para Femenino -->
                 <option value="3">No binario</option> <!-- ID=3 para No binario -->
@@ -70,11 +86,13 @@
             </select>
             <span asp-validation-for="IdGenere" class="text-danger"></span>
         </div>
+        <br />
 
         <!-- Tipo de documento -->
         <div class="form-group">
             <label asp-for="IdDocumentType">Tipo de documento</label>
             <select asp-for="IdDocumentType" class="form-control">
+                <option value="">Selecciona un documento</option>
                 <option value="1">DNI</option> <!-- ID=1 para DNI -->
                 <option value="2">NIE</option> <!-- ID=2 para NIE -->
                 <option value="3">Pasaporte</option> <!-- ID=3 para Pasaporte -->
@@ -82,13 +100,14 @@
             </select>
             <span asp-validation-for="IdDocumentType" class="text-danger"></span>
         </div>
-
+        <br />
 
         <div class="form-group">
             <label asp-for="DocumentNumber">Número de documento</label>
             <input asp-for="DocumentNumber" class="form-control" />
             <span asp-validation-for="DocumentNumber" class="text-danger"></span>
         </div>
+        <br />
 
         <button type="submit" class="btn btn-primary">Registrar</button>
 

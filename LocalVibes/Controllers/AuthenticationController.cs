@@ -126,38 +126,54 @@ namespace LocalVibes.Controllers
         // TODO: Falta mejorar e implementar del sign up para projects
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult SignUpProject(SignUpUserViewModel model)
+        public IActionResult SignUpProject(SignUpProjectViewModel model)
         {
             if (ModelState.IsValid)
             {
-                UserDAL dal = new UserDAL();
-                Users usuario = new Users();
+                ProjectDAL projectDal = new ProjectDAL();
+                Project newProject = new Project { 
+                    ProjectName = model.ProjectName,
+                    Biography = model.Biography,
+                    FormationDate = model.FormationDate,
+                    IdUserAdmin = model.IdUserAdmin
+                };
 
-                usuario.UserName = model.Username;
+                // Asignar valores desde el ViewModel al modelo
+                
 
-                Users usuarioExistente = dal.GetUserByUsername(usuario.UserName);
-
-                // Validar Usuario
-                if (usuarioExistente != null)
+                // Procesar imagen si está presente
+                if (model.ProjectImage != null && model.ProjectImage.Length > 0)
                 {
-                    ModelState.AddModelError("", "Usuario existente");
+                    newProject.ProjectImage = model.ProjectImage;
+                }
+
+                // Validar si ya existe un proyecto con el mismo nombre
+                var existingProject = projectDal.GetProjectByName(newProject.ProjectName);
+                if (existingProject != null)
+                {
+                    ModelState.AddModelError("", "Ya existe un proyecto con este nombre.");
                     return View(model);
                 }
 
-                dal.Add(usuario);
+                // Guardar el proyecto en la base de datos
+                projectDal.Add(newProject);
 
-                Users validarCreacion = dal.GetUserByUsername(model.Username);
-
-                if (validarCreacion != null)
+                // Verificar si se ha creado correctamente
+                var createdProject = projectDal.GetProjectByName(newProject.ProjectName);
+                if (createdProject != null)
                 {
-                    HttpContext.Session.SetString("Username", usuario.UserName);
-                    return RedirectToAction("Home", "Home");
+                    TempData["SuccessMessage"] = "Proyecto creado con éxito.";
+                    return RedirectToAction("ProjectList", "Project");
                 }
 
-                ModelState.AddModelError("", "No se ha podido crear usuario");
+                // Error en la creación
+                ModelState.AddModelError("", "No se ha podido crear el proyecto. Inténtelo nuevamente.");
             }
+
+            // Si hay errores, devolver el modelo a la vista
             return View(model);
         }
+
 
         #endregion
     }

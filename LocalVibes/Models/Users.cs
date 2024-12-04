@@ -7,7 +7,7 @@ namespace LocalVibes.Models
     {
         public int IdUser { get; set; } // PK
         public string UserName { get; set; } // AllowNull
-        public string? FirstName { get; set; } // AllowNull
+        public string FirstName { get; set; } // AllowNull
         public string? LastName { get; set; } // AllowNull
         public string UserEmail { get; set; } // AllowNull
         public string? Phone { get; set; } // AllowNull

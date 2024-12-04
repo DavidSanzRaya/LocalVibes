@@ -1,5 +1,71 @@
-﻿@{
-    ViewData["Title"] = "Nuevo proyecto";
+﻿@using LocalVibes.Models.ViewModels
+@model SignUpProjectViewModel
+@{
+    ViewData["Title"] = "Nuevo Proyecto";
 }
 
-<p>Pagina para crear un nuevo proyecto</p>
+<div class="project-container">
+    <h2>Crear Proyecto</h2>
+    <form asp-action="CreateProject" method="post" enctype="multipart/form-data" asp-antiforgery="true">
+        <!-- Nombre del Proyecto -->
+        <div class="form-group">
+            <label asp-for="ProjectName">Nombre del Proyecto</label>
+            <input asp-for="ProjectName" class="form-control" />
+            <span asp-validation-for="ProjectName" class="text-danger"></span>
+        </div>
+        <br />
+
+        <!-- Biografía -->
+        <div class="form-group">
+            <label asp-for="Biography">Biografía</label>
+            <textarea asp-for="Biography" class="form-control"></textarea>
+            <span asp-validation-for="Biography" class="text-danger"></span>
+        </div>
+        <br />
+
+        <!-- Fecha de Formación -->
+        <div class="form-group">
+            <label asp-for="FormationDate">Fecha de Formación</label>
+            <input asp-for="FormationDate" type="date" class="form-control" />
+            <span asp-validation-for="FormationDate" class="text-danger"></span>
+        </div>
+        <br />
+
+        <!-- Imagen del Proyecto -->
+        <div class="form-group">
+            <label asp-for="ProjectImage">Imagen del Proyecto</label>
+            <input asp-for="ProjectImage" type="file" class="form-control" />
+            <span asp-validation-for="ProjectImage" class="text-danger"></span>
+        </div>
+        <br />
+
+        <!-- Administrador -->
+        <div class="form-group">
+            <label asp-for="IdUserAdmin">Administrador del Proyecto</label>
+            <select asp-for="IdUserAdmin" class="form-control">
+                <option value="">Selecciona un Administrador</option>
+                <!-- Aquí deberías reemplazar con usuarios reales -->
+                <option value="1">Usuario 1</option>
+                <option value="2">Usuario 2</option>
+            </select>
+            <span asp-validation-for="IdUserAdmin" class="text-danger"></span>
+        </div>
+        <br />
+
+        <!-- Géneros Musicales -->
+        <div class="form-group">
+            <label for="SelectedGeneresMusic">Géneros Musicales</label>
+            <select asp-for="SelectedGeneresMusic" class="form-control" multiple>
+                <!-- Reemplazar con géneros reales -->
+                <option value="1">Rock</option>
+                <option value="2">Pop</option>
+                <option value="3">Jazz</option>
+            </select>
+            <span asp-validation-for="SelectedGeneresMusic" class="text-danger"></span>
+        </div>
+        <br />
+
+        <!-- Botón de Envío -->
+        <button type="submit" class="btn btn-primary">Crear Proyecto</button>
+    </form>
+</div>
