@@ -6,7 +6,6 @@ namespace LocalVibes.DALs
 {
     public class UserDAL : DAL<Users>
     {
-        public UserDAL(){}
 
         private readonly string _connectionString = "Server=85.208.21.117,54321;Database=AbelAlexiaDavidJoelLocalVibes;User Id=sa;Password=Sql#123456789;TrustServerCertificate=True;";
 
@@ -45,7 +44,6 @@ namespace LocalVibes.DALs
                             ? (int)reader["IdDocumentType"]
                             : null,
                 IdTier = (int)reader["IdTier"],
-                userGeneresMusic = dalGM.GetGenresByUserId((int)reader["IdUsers"]) 
             };
         }
 
