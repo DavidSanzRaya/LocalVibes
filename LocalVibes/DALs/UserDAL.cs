@@ -16,7 +16,7 @@ namespace LocalVibes.DALs
         {
             return new Users
             {
-                IdUser = (int)reader["IdUsers"],
+                IdUsers = (int)reader["IdUsers"],
                 UserName = (string)reader["UserName"],
                 FirstName = (string)reader["FirstName"],
                 LastName = reader["LastName"] != DBNull.Value
@@ -61,7 +61,7 @@ namespace LocalVibes.DALs
                 query, 
                 reader => new Users
                 {
-                    IdUser = (int)reader["IdUsers"],
+                    IdUsers = (int)reader["IdUsers"],
                     UserName = (string)reader["UserName"],
                     FirstName = reader["FirstName"] as string,
                     LastName = reader["LastName"] as string,
