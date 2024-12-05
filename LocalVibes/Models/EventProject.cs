@@ -30,13 +30,13 @@ namespace LocalVibes.Models
         private Locations _location;
         public Locations Location
         {
-            //get
-            //{
-            //    if(_location == null)
-            //        _location = new LocationsDAL().GetById(IdLocation);
+            get
+            {
+                if (_location == null)
+                    _location = new LocationsDAL().GetById(IdLocation);
 
-            //    return _location;
-            //}
+                return _location;
+            }
         }
     }
 }

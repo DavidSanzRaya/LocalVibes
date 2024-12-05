@@ -142,7 +142,7 @@ namespace LocalVibes.DALs
 
         public T GetByName(string value)
         {
-            string columnName = GetColumnName<T>();
+            string columnName = GetColumnName();
 
             T? entity = null;
 
@@ -213,7 +213,7 @@ namespace LocalVibes.DALs
             return null;
         }
 
-        private string GetColumnName() where T : class
+        private string GetColumnName()
         {
             var properties = typeof(T).GetProperties();
             foreach (var property in properties)

@@ -8,8 +8,8 @@ namespace LocalVibes.Models
         [Key]
 
         public int IdLocation { get; set; } // PK
-        public required float Altitude { get; set; }
-        public required float Latitude { get; set; }
+        public required double Latitude { get; set; }
+        public required double Longitude { get; set; }
         public required string NameLocation { get; set; } 
     }
 }

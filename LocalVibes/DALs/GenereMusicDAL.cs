@@ -44,7 +44,7 @@ namespace LocalVibes.DALs
             return Query(
                 query,
                 reader => MapReaderToEntity((SqlDataReader)reader),
-                new SqlParameter("@UserId", projectId)
+                new SqlParameter("@ProjectId", projectId)
             );
         }
     }

@@ -30,7 +30,7 @@
 
 </div>
 
-<script>
+@* <script>
     var map = L.map('map').setView([40.416775, -3.703790], 13);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -44,6 +44,7 @@
     ];
 
     var musicGenres = @Html.Raw(musicGenresJson);
+    var events = @Html.Raw(eventsJson);
 
     var genreGroups = {};
 
@@ -95,4 +96,61 @@
     var layersControlButton = document.querySelector('.leaflet-control-layers-toggle');
     layersControlButton.style.backgroundImage = "url('/Assets/music-note.png')";
 
+</script> *@
+
+<script>
+    var map = L.map('map').setView([40.416775, -3.703790], 13);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: 'Map data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    var musicGenres = @Html.Raw(musicGenresJson);
+    var events = @Html.Raw(eventsJson);
+
+    var genreGroups = {};
+
+    musicGenres.forEach(function (genre) {
+        genreGroups[genre.GenereMusicName] = L.layerGroup().addTo(map);
+    });
+
+    events.forEach(function (e) {
+        var locationIcon = L.icon({
+            iconUrl: '/Assets/location-marker.png',
+            iconSize: [24, 24],
+            iconAnchor: [12, 24],
+            popupAnchor: [0, -24]
+        });
+
+        var marker = L.marker([e.Location.Latitude, e.Location.Longitude], { icon: locationIcon }).addTo(map);
+
+        marker.on('mouseover', function (e) {
+            marker
+                .bindPopup(`
+                        <div class="card" style="width: 12rem;">
+                            <img src="https://placehold.co/10" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">Título del lugar</h5>
+                                <p class="card-text">Este es un ejemplo de contenido Bootstrap en un popup de Leaflet.</p>
+                                <a href="#" class="btn btn-primary">Ver más</a>
+                            </div>
+                        </div>
+                    `)
+                .openPopup();
+        });
+
+        marker.on('mouseout', function (e) {
+            map.closePopup();
+        });
+    });
+
+    var layersControl = L.control.layers(null, genreGroups).addTo(map);
+
+    var layersControlContainer = layersControl.getContainer();
+
+    layersControlContainer.style.fontSize = "0.9rem";
+    layersControlContainer.style.textAlign = "left";
+
+    var layersControlButton = document.querySelector('.leaflet-control-layers-toggle');
+    layersControlButton.style.backgroundImage = "url('/Assets/music-note.png')";
 </script>
