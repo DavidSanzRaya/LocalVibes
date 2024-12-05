@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 using LocalVibes.Tools;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace LocalVibes.DALs
 {
@@ -224,6 +225,38 @@ namespace LocalVibes.DALs
 
             throw new InvalidOperationException($"No searchable property found in {typeof(T).Name}");
         }
+
+        public IEnumerable<SelectListItem> GetAllEnum(Func<T, string> textSelector, Func<T, string> valueSelector)
+        {
+            List<SelectListItem> listItems = new List<SelectListItem>();
+
+            string query = $"SELECT * FROM {TableName}";
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                SqlCommand command = new SqlCommand(query, connection);
+                connection.Open();
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        T entity = MapReaderToEntity(reader);
+                        string text = textSelector(entity);
+                        string value = valueSelector(entity);
+
+                        listItems.Add(new SelectListItem
+                        {
+                            Text = text,
+                            Value = value
+                        });
+                    }
+                }
+            }
+
+            return listItems;
+        }
+
 
     }
 }
