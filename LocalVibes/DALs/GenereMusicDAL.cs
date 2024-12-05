@@ -20,31 +20,6 @@ namespace LocalVibes.DALs
 
         public List<GenereMusic> GetGenresByUserId(int userId)
         {
-            //var genres = new List<GenereMusic>();
-            //using (var connection = new SqlConnection(_connectionString))
-            //{
-            //    connection.Open();
-            //    using (var command = new SqlCommand(
-            //        @"SELECT gm.IdGenereMusic, gm.GenereMusicName
-            //          FROM UsersGenereMusic ug
-            //          INNER JOIN GenereMusic gm ON ug.idGenereMusic = gm.IdGenereMusic
-            //          WHERE ug.idUsers = @UserId", connection))
-            //    {
-            //        command.Parameters.AddWithValue("@UserId", userId);
-            //        using (var reader = command.ExecuteReader())
-            //        {
-            //            while (reader.Read())
-            //            {
-            //                genres.Add(new GenereMusic
-            //                {
-            //                    IdGenereMusic = (int)reader["IdGenereMusic"],
-            //                    GenereMusicName = (string)reader["GenereMusicName"]
-            //                });
-            //            }
-            //        }
-            //    }
-            //}
-            //return genres;
             string query = @"
                             SELECT gm.IdGenereMusic, gm.GenereMusicName
                             FROM UsersGenereMusic ug
@@ -53,11 +28,7 @@ namespace LocalVibes.DALs
 
             return Query(
                 query,
-                reader => new GenereMusic
-                {
-                    IdGenereMusic = (int)reader["IdGenereMusic"],
-                    GenereMusicName = (string)reader["GenereMusicName"]
-                },
+                reader => MapReaderToEntity((SqlDataReader)reader),
                 new SqlParameter("@UserId", userId)
             );
         }

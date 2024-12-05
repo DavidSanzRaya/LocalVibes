@@ -34,24 +34,6 @@ namespace LocalVibes.DALs
         // Método para buscar un proyecto por nombre
         public Project? GetProjectByName(string projectName)
         {
-            //using (var connection = new SqlConnection(_connectionString))
-            //{
-            //    connection.Open();
-            //    string query = $"SELECT * FROM {TableName} WHERE ProjectName = @ProjectName";
-            //    using (var command = new SqlCommand(query, connection))
-            //    {
-            //        command.Parameters.AddWithValue("@ProjectName", projectName);
-            //        using (var reader = command.ExecuteReader())
-            //        {
-            //            if (reader.Read())
-            //            {
-            //                return MapReaderToEntity(reader);
-            //            }
-            //        }
-            //    }
-            //}
-            //return null;
-
             string query = $"SELECT * FROM {TableName} WHERE ProjectName = @ProjectName";
 
             return QuerySingle
