@@ -23,8 +23,8 @@ namespace LocalVibes.DALs
             string query = @"
                             SELECT gm.IdGenereMusic, gm.GenereMusicName
                             FROM UsersGenereMusic ug
-                            INNER JOIN GenereMusic gm ON ug.idGenereMusic = gm.IdGenereMusic
-                            WHERE ug.idUsers = @UserId";
+                            INNER JOIN GenereMusic gm ON ug.IdGenereMusic = gm.IdGenereMusic
+                            WHERE ug.IdUsers = @UserId";
 
             return Query(
                 query,
@@ -33,5 +33,19 @@ namespace LocalVibes.DALs
             );
         }
 
+        public List<GenereMusic> GetGenresByProjectId(int projectId)
+        {
+            string query = @"
+                            SELECT gm.IdGenereMusic, gm.GenereMusicName
+                            FROM ProjectGenereMusic pg
+                            INNER JOIN GenereMusic gm ON pg.IdGenereMusic = gm.IdGenereMusic
+                            WHERE pg.IdProject = @ProjectId";
+
+            return Query(
+                query,
+                reader => MapReaderToEntity((SqlDataReader)reader),
+                new SqlParameter("@UserId", projectId)
+            );
+        }
     }
 }

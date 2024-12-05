@@ -84,7 +84,6 @@ namespace LocalVibes.DALs
             }
         }
 
-
         public void Delete(int id)
         {
             throw new NotImplementedException();
@@ -157,7 +156,6 @@ namespace LocalVibes.DALs
             );
         }
 
-
         public void Update(T entity)
         {
             throw new NotImplementedException();
@@ -189,6 +187,7 @@ namespace LocalVibes.DALs
 
             return entities;
         }
+
         protected T QuerySingle(string query, Func<IDataReader, T> map, params SqlParameter[] parameters)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -214,7 +213,7 @@ namespace LocalVibes.DALs
             return null;
         }
 
-        private string GetColumnName<T>() where T : class
+        private string GetColumnName() where T : class
         {
             var properties = typeof(T).GetProperties();
             foreach (var property in properties)

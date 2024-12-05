@@ -6,6 +6,9 @@
 
     List<GenereMusic> musicGenres = new GenereMusicDAL().GetAll();
     var musicGenresJson = JsonSerializer.Serialize(musicGenres);
+
+    List<EventProject> events = new EventProjectDAL().GetAll();
+    var eventsJson = JsonSerializer.Serialize(events);
 }
 
 <head>

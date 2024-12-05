@@ -1,4 +1,5 @@
-﻿using LocalVibes.Tools;
+﻿using LocalVibes.DALs;
+using LocalVibes.Tools;
 using System.ComponentModel.DataAnnotations;
 
 namespace LocalVibes.Models
@@ -16,7 +17,23 @@ namespace LocalVibes.Models
         public byte[]? ProjectImage {  get; set; } // AllowNull
         public int IdUserAdmin {  get; set; } // FK de Users. AllowNull
 
-        public List<ProjectGenereMusic>? generesMusic { get; set; } // Lista de ProjectGenereMusic. AllowNull
+        private List<GenereMusic>? _generesMusic;
+        public List<GenereMusic> GeneresMusic 
+        {
+            get
+            {
+                if( _generesMusic == null )
+                    _generesMusic = new GenereMusicDAL().GetGenresByProjectId(IdProject);
+
+                return _generesMusic;
+            }
+
+            set
+            {
+                _generesMusic = value;
+            }
+        
+        } // Lista de GenereMusic. AllowNull
 
         public List<ProjectSocialMedia>? socialMedias { get; set; } // Lista de ProjectSocialMedia. AllowNull
 
