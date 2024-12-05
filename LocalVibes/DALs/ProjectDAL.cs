@@ -34,45 +34,14 @@ namespace LocalVibes.DALs
         // Método para buscar un proyecto por nombre
         public Project? GetProjectByName(string projectName)
         {
-            using (var connection = new SqlConnection(_connectionString))
-            {
-                connection.Open();
-                string query = $"SELECT * FROM {TableName} WHERE ProjectName = @ProjectName";
-                using (var command = new SqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@ProjectName", projectName);
-                    using (var reader = command.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
-                            return MapReaderToEntity(reader);
-                        }
-                    }
-                }
-            }
-            return null;
-        }
+            string query = $"SELECT * FROM {TableName} WHERE ProjectName = @ProjectName";
 
-        // Método para agregar un nuevo proyecto
-        public void CreateProject(Project project)
-        {
-            using (var connection = new SqlConnection(_connectionString))
-            {
-                var command = new SqlCommand(@"
-                    INSERT INTO Project
-                    (ProjectName, Biography, FormationDate, ProjectImage, IdUserAdmin) 
-                    VALUES 
-                    (@ProjectName, @Biography, @FormationDate, @ProjectImage, @IdUserAdmin)", connection);
-
-                command.Parameters.AddWithValue("@ProjectName", project.ProjectName);
-                command.Parameters.AddWithValue("@Biography", (object?)project.Biography ?? DBNull.Value);
-                command.Parameters.AddWithValue("@FormationDate", (object?)project.FormationDate ?? DBNull.Value);
-                command.Parameters.AddWithValue("@ProjectImage", (object?)project.ProjectImage ?? DBNull.Value);
-                command.Parameters.AddWithValue("@IdUserAdmin", project.IdUserAdmin);
-
-                connection.Open();
-                command.ExecuteNonQuery();
-            }
+            return QuerySingle
+            (
+                query,
+                reader => MapReaderToEntity((SqlDataReader)reader),
+                new SqlParameter("@ProjectName", projectName)
+            );
         }
     }
 }
