@@ -32,9 +32,6 @@ namespace LocalVibes.Controllers
                 //Validar usuario
                 if (usuario != null)
                 {
-
-                    HttpContext.Session.SetString("Username", model.Username);
-
                     // Autenticacion exitosa
                     return RedirectToAction("Home", "Home");
                 }

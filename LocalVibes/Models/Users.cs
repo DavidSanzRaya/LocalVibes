@@ -1,11 +1,13 @@
 ﻿using LocalVibes.DALs;
+using System.ComponentModel.DataAnnotations;
 
 namespace LocalVibes.Models
 {
     // Tabla de Users
     public class Users
     {
-        public int IdUser { get; set; } // PK
+        [Key]
+        public int IdUsers { get; set; } // PK
         public string UserName { get; set; } // AllowNull
         public string FirstName { get; set; } // AllowNull
         public string? LastName { get; set; } // AllowNull
@@ -30,7 +32,7 @@ namespace LocalVibes.Models
             get
             {
                 if(_userGeneresMusic == null)
-                    _userGeneresMusic = new GenereMusicDAL().GetGenresByUserId(IdUser);
+                    _userGeneresMusic = new GenereMusicDAL().GetGenresByUserId(IdUsers);
                 
                 return _userGeneresMusic;
             }
