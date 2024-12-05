@@ -27,7 +27,7 @@ namespace LocalVibes.Controllers
             {
 
                 UserDAL dal = new UserDAL();
-                Users usuario = dal.GetUserByUsername(model.Username);
+                Users usuario = dal.GetByName(model.Username);
 
                 //Validar usuario
                 if (usuario != null)
@@ -61,7 +61,7 @@ namespace LocalVibes.Controllers
                 UserDAL dal = new UserDAL();
 
                 // Verificar si el usuario ya existe por el nombre de usuario
-                Users usuarioExistente = dal.GetUserByUsername(model.Username);
+                Users usuarioExistente = dal.GetByName(model.Username);
 
                 if (usuarioExistente != null)
                 {
@@ -94,7 +94,7 @@ namespace LocalVibes.Controllers
                 dal.Add(nuevoUsuario);
 
                 // Verificar que el usuario ha sido creado
-                Users validarCreacion = dal.GetUserByUsername(model.Username);
+                Users validarCreacion = dal.GetByName(model.Username);
                 if (validarCreacion != null)
                 {
                     // Guardar el nombre de usuario en la sesión
@@ -145,7 +145,7 @@ namespace LocalVibes.Controllers
                 }
 
                 // Validar si ya existe un proyecto con el mismo nombre
-                var existingProject = projectDal.GetProjectByName(newProject.ProjectName);
+                var existingProject = projectDal.GetByName(newProject.ProjectName);
                 if (existingProject != null)
                 {
                     ModelState.AddModelError("", "Ya existe un proyecto con este nombre.");
@@ -156,7 +156,7 @@ namespace LocalVibes.Controllers
                 projectDal.Add(newProject);
 
                 // Verificar si se ha creado correctamente
-                var createdProject = projectDal.GetProjectByName(newProject.ProjectName);
+                var createdProject = projectDal.GetByName(newProject.ProjectName);
                 if (createdProject != null)
                 {
                     TempData["SuccessMessage"] = "Proyecto creado con éxito.";

@@ -1,8 +1,12 @@
-﻿namespace LocalVibes.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace LocalVibes.Models
 {
     // Tabla Review que conecta Users con Project
     public class Review
     {
+        [Key]
+
         public int IdReview { get; set; } // PK
         public string? ReviewText { get; set; } // AllowNull
         public DateTime ReviewDate { get; set; } //GetDate();
