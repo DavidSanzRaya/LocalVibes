@@ -76,13 +76,8 @@
         <!-- Género -->
         <div class="form-group">
             <label asp-for="IdGenere">Género</label>
-            <select asp-for="IdGenere" class="form-control">
-                <option value="">Selecciona género</option>
-                <option value="1">Masculino</option> <!-- ID=1 para Masculino -->
-                <option value="2">Femenino</option> <!-- ID=2 para Femenino -->
-                <option value="3">No binario</option> <!-- ID=3 para No binario -->
-                <option value="4">Otro</option> <!-- ID=4 para Otro -->
-                <option value="5">No Especificar</option> <!-- ID=5 para No Especificar -->
+            <select asp-for="IdGenere" class="form-control" asp-items="Model.Generes">
+                <option value="">Selecciona género</option> <!-- Opción por defecto -->
             </select>
             <span asp-validation-for="IdGenere" class="text-danger"></span>
         </div>

@@ -4,6 +4,7 @@ using LocalVibes.Models;
 using LocalVibes.Models.ViewModels;
 using LocalVibes.Tools;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace LocalVibes.Controllers
 {
@@ -67,10 +68,22 @@ namespace LocalVibes.Controllers
 
         #region SignUp User
 
-        // Accion para mostrar la vista Sign Up de User
         public IActionResult SignUpUser()
         {
-            return View();
+            var model = new SignUpUserViewModel();
+
+            // Llamar al DAL para obtener la lista de géneros
+            GenereDAL dal = new GenereDAL();
+            var generes = dal.GetAll();
+
+            // Mapear los géneros a SelectListItem
+            model.Generes = generes.Select(g => new SelectListItem
+            {
+                Value = g.IdGenere.ToString(), // El ID del género
+                Text = g.GenereName           // El nombre del género
+            });
+
+            return View(model);
         }
 
         // Accion para realizar el registro de User

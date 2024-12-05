@@ -7,7 +7,7 @@ namespace LocalVibes.Models
     {
         [Key]
 
-        public int IdGenero { get; set; } // PK
+        public int IdGenere { get; set; } // PK
         public required string GenereName { get; set; } 
     }
 }
