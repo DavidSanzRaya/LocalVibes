@@ -25,7 +25,7 @@ namespace LocalVibes.DALs
                 ProjectImage = reader["ProjectImage"] != DBNull.Value
                             ? (byte[])reader["ProjectImage"]
                             : null,
-                IdUserAdmin = (int)reader["IdUserAdmin"]
+                IdUsersAdmin = (int)reader["IdUsersAdmin"]
             };
         }
     }

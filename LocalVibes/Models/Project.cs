@@ -14,7 +14,7 @@ namespace LocalVibes.Models
         public string? Biography { get; set; } // AllowNull
         public DateTime? FormationDate { get; set; } // AllowNull
         public byte[]? ProjectImage {  get; set; } // AllowNull
-        public int IdUserAdmin {  get; set; } // FK de Users. AllowNull
+        public int IdUsersAdmin {  get; set; } // FK de Users. AllowNull
 
         public List<ProjectGenereMusic>? generesMusic { get; set; } // Lista de ProjectGenereMusic. AllowNull
 

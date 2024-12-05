@@ -25,19 +25,41 @@ namespace LocalVibes.Controllers
         {
             if (ModelState.IsValid)
             {
-
-                UserDAL dal = new UserDAL();
-                Users usuario = dal.GetByName(model.Username);
-
-                //Validar usuario
-                if ((usuario != null) && PasswordHelper.VerifityPasswordHash(model.Password, usuario.PasswordHash, usuario.PasswordSalt))
+                if (!model.IsABand)
                 {
-                    // Autenticacion exitosa
-                    return RedirectToAction("Home", "Home");
-                }
+                    UserDAL dal = new UserDAL();
+                    Users usuario = dal.GetByName(model.Username);
 
-                // Autenticacion fracasada
-                ModelState.AddModelError("", "Usuario o contraseña incorrectos.");
+                    //Validar usuario
+                    if ((usuario != null) && PasswordHelper.VerifityPasswordHash(model.Password, usuario.PasswordHash, usuario.PasswordSalt))
+                    {
+                        // Autenticacion exitosa
+                        return RedirectToAction("Home", "Home");
+                    }
+
+                    // Autenticacion fracasada
+                    ModelState.AddModelError("", "Usuario o contraseña incorrectos.");
+                }
+                else
+                {
+                    ProjectDAL dalProject = new ProjectDAL();
+                    Project project = dalProject.GetByName(model.Username);
+
+                    int idUser = project.IdUsersAdmin;
+                    
+                    UserDAL dalUsuario = new UserDAL();
+                    Users usuario = dalUsuario.GetById(idUser);
+
+                    //Validar usuario
+                    if ((project != null) && PasswordHelper.VerifityPasswordHash(model.Password, usuario.PasswordHash, usuario.PasswordSalt))
+                    {
+                        // Autenticacion exitosa
+                        return RedirectToAction("Home", "Home");
+                    }
+
+                    // Autenticacion fracasada
+                    ModelState.AddModelError("", "Usuario o contraseña incorrectos.");
+                }
             }
             return View(model);
         }
@@ -132,7 +154,7 @@ namespace LocalVibes.Controllers
                     ProjectName = model.ProjectName,
                     Biography = model.Biography,
                     FormationDate = model.FormationDate,
-                    IdUserAdmin = model.IdUserAdmin
+                    IdUsersAdmin = model.IdUsersAdmin
                 };
 
                 // Asignar valores desde el ViewModel al modelo
