@@ -57,61 +57,13 @@ namespace LocalVibes.DALs
         FROM Users
         WHERE UserName = @UserName";
 
-            return QuerySingle(
-                query, 
-                reader => new Users
-                {
-                    IdUsers = (int)reader["IdUsers"],
-                    UserName = (string)reader["UserName"],
-                    FirstName = reader["FirstName"] as string,
-                    LastName = reader["LastName"] as string,
-                    UserEmail = (string)reader["UserEmail"],
-                    Phone = reader["Phone"] as string,
-                    PasswordHash = reader["PasswordHash"] as byte[],
-                    PasswordSalt = reader["PasswordSalt"] as byte[],
-                    Birthdate = reader["Birthdate"] as DateTime?,
-                    ProfileImage = reader["ProfileImage"] as byte[],
-                    DocumentNumber = reader["DocumentNumber"] as string,
-                    UserPoints = reader["UserPoints"] as int?,
-                    DateRegister = (DateTime)reader["DateRegister"],
-                    IdDocumentType = reader["IdDocumentType"] as int?,
-                    IdGenere = (int)reader["IdGenere"],
-                    IdTier = (int)reader["IdTier"]
-                }, 
-                new SqlParameter("@UserName", userName));
+            return QuerySingle
+            (
+                query,
+                reader => MapReaderToEntity((SqlDataReader)reader),
+                new SqlParameter("@UserName", userName)
+            );
         }
-
-
-        public void CreateUsuario(Users usuario)
-        {
-            using (var connection = new SqlConnection(_connectionString))
-            {
-                var command = new SqlCommand(@"
-            INSERT INTO Users (UserName, FirstName, LastName, UserEmail, Phone, 
-                               Birthdate, PasswordHash, PasswordSalt, DateRegister, 
-                               IdGenere, IdTier, UserPoints)
-            VALUES (@UserName, @FirstName, @LastName, @UserEmail, @Phone, 
-                    @Birthdate, @PasswordHash, @PasswordSalt, @DateRegister, 
-                    @IdGenere, @IdTier, @UserPoints)", connection);
-
-                command.Parameters.AddWithValue("@UserName", usuario.UserName);
-                command.Parameters.AddWithValue("@FirstName", usuario.FirstName);
-                command.Parameters.AddWithValue("@LastName", usuario.LastName);
-                command.Parameters.AddWithValue("@UserEmail", usuario.UserEmail);
-                command.Parameters.AddWithValue("@Phone", usuario.Phone);
-                command.Parameters.AddWithValue("@Birthdate", usuario.Birthdate);
-                command.Parameters.AddWithValue("@PasswordHash", usuario.PasswordHash);
-                command.Parameters.AddWithValue("@PasswordSalt", usuario.PasswordSalt);
-                command.Parameters.AddWithValue("@DateRegister", usuario.DateRegister);
-                command.Parameters.AddWithValue("@IdGenere", usuario.IdGenere);
-                command.Parameters.AddWithValue("@IdTier", usuario.IdTier);
-                command.Parameters.AddWithValue("@UserPoints", usuario.UserPoints);
-
-                connection.Open();
-                command.ExecuteNonQuery();
-            }
-        }
-
     }
 }
 
