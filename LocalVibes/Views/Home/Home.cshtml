@@ -43,24 +43,27 @@
 
     events.forEach(function (e) {
         var locationIcon = L.icon({
-            iconUrl: '/Assets/location-marker.png',
-            iconSize: [24, 24],
-            iconAnchor: [12, 24],
-            popupAnchor: [0, -24]
+            iconUrl: '/Assets/guitar.png',
+            iconSize: [40, 40],
+            iconAnchor: [20, 40],
+            popupAnchor: [0, -40]
         });
 
         var marker = L.marker([e.Location.Latitude, e.Location.Longitude], { icon: locationIcon }).addTo(map);
 
         marker.bindPopup(`
-            <div class="card" style="width: 12rem;">
-                <img src="https://placehold.co/10" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Título del lugar</h5>
-                    <p class="card-text">Este es un ejemplo de contenido Bootstrap en un popup de Leaflet.</p>
-                    <a href="#" class="btn btn-primary">Ver más</a>
+            <div class="card" style="width: 10rem; padding: 0.5rem;">
+                <img src="https://placehold.co/100x100" class="card-img-top" alt="..." style="height: 100px; object-fit: cover;">
+                <div class="card-body" style="padding: 0.5rem;">
+                    <h5 class="card-title" style="font-size: 0.8rem; margin-bottom: 0.3rem;">Título del evento</h5>
+                    <p class="card-text" style="font-size: 0.7rem; line-height: 1rem; margin-bottom: 0.5rem;">
+                        Descripción más compacta.
+                    </p>
+                    <a href="#" class="btn btn-primary btn-sm" style="font-size: 0.7rem; padding: 0.2rem 0.5rem;">Ver más</a>
                 </div>
             </div>
         `);
+
 
         e.GeneresMusic.forEach(function (genre) {
             var genreGroup = genreGroups[genre.GenereMusicName];
