@@ -26,7 +26,7 @@ namespace LocalVibes.Models.ViewModels
 
         // Administrador del Proyecto (ID de Usuario)
         [Required(ErrorMessage = "El administrador del proyecto es obligatorio.")]
-        public int IdUserAdmin { get; set; }
+        public int IdUsersAdmin { get; set; }
 
         // Géneros Musicales
         public List<int>? SelectedGeneresMusic { get; set; }
