@@ -145,8 +145,6 @@ namespace LocalVibes.DALs
         {
             string columnName = GetColumnName<T>();
 
-            T? entity = null;
-
             string query = $"SELECT * FROM {TableName} WHERE {columnName} = @Value";
 
             return QuerySingle

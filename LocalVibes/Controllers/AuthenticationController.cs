@@ -30,7 +30,7 @@ namespace LocalVibes.Controllers
                 Users usuario = dal.GetByName(model.Username);
 
                 //Validar usuario
-                if (usuario != null)
+                if ((usuario != null) && PasswordHelper.VerifityPasswordHash(model.Password, usuario.PasswordHash, usuario.PasswordSalt))
                 {
                     // Autenticacion exitosa
                     return RedirectToAction("Home", "Home");
