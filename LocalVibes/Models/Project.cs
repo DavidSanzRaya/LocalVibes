@@ -1,9 +1,15 @@
-﻿namespace LocalVibes.Models
+﻿using LocalVibes.Tools;
+using System.ComponentModel.DataAnnotations;
+
+namespace LocalVibes.Models
 {
     // Tabla Project
     public class Project
     {
+        [Key]
+
         public int IdProject { get; set; } // PK 
+        [Name]
         public required string ProjectName { get; set; }
         public string? Biography { get; set; } // AllowNull
         public DateTime? FormationDate { get; set; } // AllowNull

@@ -1,5 +1,6 @@
 ﻿using LocalVibes.DALs;
 using System.ComponentModel.DataAnnotations;
+using LocalVibes.Tools;
 
 namespace LocalVibes.Models
 {
@@ -8,6 +9,7 @@ namespace LocalVibes.Models
     {
         [Key]
         public int IdUsers { get; set; } // PK
+        [Name]
         public string UserName { get; set; } // AllowNull
         public string FirstName { get; set; } // AllowNull
         public string? LastName { get; set; } // AllowNull

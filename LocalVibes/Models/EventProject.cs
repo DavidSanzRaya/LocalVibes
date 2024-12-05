@@ -1,8 +1,11 @@
-﻿namespace LocalVibes.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace LocalVibes.Models
 {
     // Tabla EventProject
     public class EventProject
     {
+        [Key]
         public int IdEvent { get; set; } // PK
         public int? Capacity { get; set; } // AllowNull
         public bool IsSoldOut { get; set; } // AllowNull

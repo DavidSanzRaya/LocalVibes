@@ -4,6 +4,7 @@ using System.Collections;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
+using LocalVibes.Tools;
 
 namespace LocalVibes.DALs
 {
@@ -140,6 +141,23 @@ namespace LocalVibes.DALs
             return entity;
         }
 
+        public T GetByName(string value)
+        {
+            string columnName = GetColumnName<T>();
+
+            T? entity = null;
+
+            string query = $"SELECT * FROM {TableName} WHERE {columnName} = @Value";
+
+            return QuerySingle
+            (
+                query,
+                 reader => MapReaderToEntity((SqlDataReader)reader),
+                 new SqlParameter("@Value", value)
+            );
+        }
+
+
         public void Update(T entity)
         {
             throw new NotImplementedException();
@@ -195,5 +213,20 @@ namespace LocalVibes.DALs
 
             return null;
         }
+
+        private string GetColumnName<T>() where T : class
+        {
+            var properties = typeof(T).GetProperties();
+            foreach (var property in properties)
+            {
+                if (Attribute.IsDefined(property, typeof(NameAttribute)))
+                {
+                    return property.Name;
+                }
+            }
+
+            throw new InvalidOperationException($"No searchable property found in {typeof(T).Name}");
+        }
+
     }
 }
