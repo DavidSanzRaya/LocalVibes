@@ -9,7 +9,5 @@ namespace LocalVibes.DALs
         void Add(T entity);
         void Update(T entity);
         void Delete(int id);
-        IEnumerable<SelectListItem> GetAllEnum(Func<T, string> textSelector, Func<T, string> valueSelector);
-
     }
 }
