@@ -143,7 +143,7 @@ namespace LocalVibes.DALs
 
         public T GetByName(string value)
         {
-            string columnName = GetColumnName<T>();
+            string columnName = GetColumnName();
 
             string query = $"SELECT * FROM {TableName} WHERE {columnName} = @Value";
 
