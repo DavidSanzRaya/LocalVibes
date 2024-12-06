@@ -1,10 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System.ComponentModel.DataAnnotations;
 
 namespace LocalVibes.Models.ViewModels
 {
     public class SignUpProjectViewModel
     {
-        // ID del Proyecto (sólo lectura)
+        // ID del Proyecto (solo lectura)
         public int IdProject { get; set; }
 
         // Nombre del Proyecto
@@ -17,30 +18,34 @@ namespace LocalVibes.Models.ViewModels
         public string? Biography { get; set; }
 
         // Fecha de Formación
-        [DataType(DataType.Date)]
+        [Required(ErrorMessage = "La fecha de formación es obligatoria.")]
+        [DataType(DataType.Date, ErrorMessage = "El formato de la fecha no es válido.")]
         public DateTime? FormationDate { get; set; }
 
         // Imagen del Proyecto
         [DataType(DataType.Upload)]
-        public byte[]? ProjectImage { get; set; }
+        public IFormFile? ProjectImage { get; set; } // Usar IFormFile para manejar archivos subidos
 
         // Administrador del Proyecto (ID de Usuario)
         [Required(ErrorMessage = "El administrador del proyecto es obligatorio.")]
-        public int IdUsersAdmin { get; set; }
+        public string UsernameAdmin { get; set; } // Cambiado a string para reflejar nombres de usuario
 
-        // Géneros Musicales
-        public List<int>? SelectedGeneresMusic { get; set; }
+        // Género Musical
+        public int IdGenereMusical { get; set; }
+        [Required(ErrorMessage = "El género musical es obligatorio.")]
 
-        // Redes Sociales
-        public List<int>? SelectedSocialMediaIds { get; set; }
+        public IEnumerable<SelectListItem> SelectedGeneresMusic { get; set; } = new List<SelectListItem>();
 
-        // Miembros del Proyecto
-        public List<int>? SelectedMembers { get; set; }
+        // Redes Sociales (Opcional)
+        public List<int>? SelectedSocialMediaIds { get; set; } = new List<int>();
 
-        // Eventos Asociados
-        public List<int>? SelectedEvents { get; set; }
+        // Miembros del Proyecto (Opcional)
+        public List<int>? SelectedMembers { get; set; } = new List<int>();
 
-        // Reseñas
-        public List<int>? SelectedReviews { get; set; }
+        // Eventos Asociados (Opcional)
+        public List<int>? SelectedEvents { get; set; } = new List<int>();
+
+        // Reseñas (Opcional)
+        public List<int>? SelectedReviews { get; set; } = new List<int>();
     }
 }

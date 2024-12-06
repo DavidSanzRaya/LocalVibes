@@ -1,71 +1,89 @@
 ﻿@using LocalVibes.Models.ViewModels
 @model SignUpProjectViewModel
 @{
-    ViewData["Title"] = "Nuevo Proyecto";
+	ViewData["Title"] = "Nuevo Proyecto";
 }
 
-<div class="project-container">
-    <h2>Crear Proyecto</h2>
-    <form asp-action="SignUpProject" method="post" enctype="multipart/form-data" asp-antiforgery="true">
-        <!-- Nombre del Proyecto -->
-        <div class="form-group">
-            <label asp-for="ProjectName">Nombre del Proyecto</label>
-            <input asp-for="ProjectName" class="form-control" />
-            <span asp-validation-for="ProjectName" class="text-danger"></span>
-        </div>
-        <br />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/css/Views/Authentication/Login.css" />
+</head>
+<body>
+	<!-- Titulo de la pagina -->
+	<div class="signUp-container">
+		<div class="signUp-title">
+			<h2>REGISTRAR UNA BANDA O ARTISTA NUEVO</h2>
+		</div>
 
-        <!-- Biografía -->
-        <div class="form-group">
-            <label asp-for="Biography">Biografía</label>
-            <textarea asp-for="Biography" class="form-control"></textarea>
-            <span asp-validation-for="Biography" class="text-danger"></span>
-        </div>
-        <br />
+		<form asp-action="SignUpProject" method="post" enctype="multipart/form-data" asp-antiforgery="true">
+			<!-- Nombre del Proyecto -->
+			<div class="form-group">
+				<label asp-for="ProjectName">Nombre del Proyecto</label>
+				<input asp-for="ProjectName" class="form-control" />
+				<span asp-validation-for="ProjectName" class="text-danger"></span>
+			</div>
 
-        <!-- Fecha de Formación -->
-        <div class="form-group">
-            <label asp-for="FormationDate">Fecha de Formación</label>
-            <input asp-for="FormationDate" type="date" class="form-control" />
-            <span asp-validation-for="FormationDate" class="text-danger"></span>
-        </div>
-        <br />
+			<!-- Biografía -->
+			<div class="form-group">
+				<label asp-for="Biography">Biografía</label>
+				<textarea asp-for="Biography" class="form-control"></textarea>
+				<span asp-validation-for="Biography" class="text-danger"></span>
+			</div>
 
-        <!-- Imagen del Proyecto -->
-        <div class="form-group">
-            <label asp-for="ProjectImage">Imagen del Proyecto</label>
-            <input asp-for="ProjectImage" type="file" class="form-control" />
-            <span asp-validation-for="ProjectImage" class="text-danger"></span>
-        </div>
-        <br />
+			<!-- Fecha de Formación -->
+			<div class="form-group">
+				<label asp-for="FormationDate">Fecha de Formación</label>
+				<input asp-for="FormationDate" type="date" class="form-control" />
+				<span asp-validation-for="FormationDate" class="text-danger"></span>
+			</div>
 
-        <!-- Administrador -->
-        <div class="form-group">
-            <label asp-for="IdUsersAdmin">Administrador del Proyecto</label>
-            <select asp-for="IdUsersAdmin" class="form-control">
-                <option value="">Selecciona un Administrador</option>
-                <!-- Aquí deberías reemplazar con usuarios reales -->
-                <option value="1">Usuario 1</option>
-                <option value="2">Usuario 2</option>
-            </select>
-            <span asp-validation-for="IdUsersAdmin" class="text-danger"></span>
-        </div>
-        <br />
+			<!-- Administrador -->
+			<div class="form-group">
+				<label asp-for="UsernameAdmin">Nombre del usuario Admin</label>
+				<input asp-for="UsernameAdmin" class="form-control" />
+				<small class="form-text text-muted">El usuario debe existir y se usará su contraseña para acceder.</small>
+				<span asp-validation-for="UsernameAdmin" class="text-danger"></span>
+			</div>
 
-        <!-- Géneros Musicales -->
-        <div class="form-group">
-            <label for="SelectedGeneresMusic">Géneros Musicales</label>
-            <select asp-for="SelectedGeneresMusic" class="form-control" multiple>
-                <!-- Reemplazar con géneros reales -->
-                <option value="1">Rock</option>
-                <option value="2">Pop</option>
-                <option value="3">Jazz</option>
-            </select>
-            <span asp-validation-for="SelectedGeneresMusic" class="text-danger"></span>
-        </div>
-        <br />
+			<!-- Género Musical -->
+			@if (Model.SelectedGeneresMusic == null || !Model.SelectedGeneresMusic.Any())
+			{
+				<div class="alert alert-warning">No se pudieron cargar los géneros musicales. Intenta más tarde.</div>
+			}
+			else
+			{
+				<div class="form-group">
+					<label asp-for="IdGenereMusical">Género</label>
+					<select asp-for="IdGenereMusical" class="form-control" asp-items="Model.SelectedGeneresMusic">
+						<option value="">Selecciona género</option>
+					</select>
+					<span asp-validation-for="IdGenereMusical" class="text-danger"></span>
+				</div>
+			}
 
-        <!-- Botón de Envío -->
-        <button type="submit" class="btn btn-primary">Crear Proyecto</button>
-    </form>
-</div>
+			<!-- Imagen del Proyecto -->
+			<div class="form-group">
+				<label asp-for="ProjectImage">Imagen del Proyecto</label>
+				<input asp-for="ProjectImage" type="file" accept="image/png, image/jpeg" class="form-control" />
+				<small class="form-text text-muted">Solo se permiten imágenes en formato PNG o JPEG.</small>
+				<span asp-validation-for="ProjectImage" class="text-danger"></span>
+			</div>
+
+			<!-- Botón de Envío -->
+			<button type="submit" class="btn btn-primary rounded-pill">Crear Proyecto</button>
+
+			<!-- Redirección a Login -->
+			<div class="mt-3 text-center">
+				<p>
+					¿Ya tienes cuenta?
+					<a asp-controller="Authentication" asp-action="Login" class="btn btn-secondary ml-2 rounded-pill">Iniciar sesión</a>
+				</p>
+			</div>
+		</form>
+
+	</div>
+</body>
+</html>

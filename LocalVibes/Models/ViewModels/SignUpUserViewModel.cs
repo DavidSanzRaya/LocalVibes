@@ -5,59 +5,65 @@ namespace LocalVibes.Models.ViewModels
 {
     public class SignUpUserViewModel
     {
-        // Imagen del Proyecto
-        [DataType(DataType.Upload)]
-        public byte[]? ProfileImage { get; set; }
-
-        // Nombre de usuario
+        // Nombre de Usuario
         [Required(ErrorMessage = "El nombre de usuario es obligatorio.")]
         [StringLength(50, ErrorMessage = "El nombre de usuario no puede tener más de 50 caracteres.")]
         public string Username { get; set; }
 
         // Nombre
         [Required(ErrorMessage = "El nombre es obligatorio.")]
-        [StringLength(50, ErrorMessage = "El nombre no puede tener más de 50 caracteres.")]
+        [StringLength(100, ErrorMessage = "El nombre no puede tener más de 100 caracteres.")]
         public string FirstName { get; set; }
 
         // Apellido
-        [StringLength(50, ErrorMessage = "El apellido no puede tener más de 50 caracteres.")]
-        public string? LastName { get; set; }
+        [Required(ErrorMessage = "El apellido es obligatorio.")]
+        [StringLength(100, ErrorMessage = "El apellido no puede tener más de 100 caracteres.")]
+        public string LastName { get; set; }
 
-        // Correo electrónico
+        // Correo Electrónico
         [Required(ErrorMessage = "El correo electrónico es obligatorio.")]
         [EmailAddress(ErrorMessage = "El formato del correo electrónico no es válido.")]
         public string UserEmail { get; set; }
 
         // Teléfono
-        [Phone(ErrorMessage = "El teléfono no es válido.")]
+        [Phone(ErrorMessage = "El formato del teléfono no es válido.")]
         public string? Phone { get; set; }
-
-        // Fecha de nacimiento
-        public DateTime? Birthdate { get; set; }
 
         // Contraseña
         [Required(ErrorMessage = "La contraseña es obligatoria.")]
+        [StringLength(100, MinimumLength = 6, ErrorMessage = "La contraseña debe tener entre 6 y 100 caracteres.")]
         [DataType(DataType.Password)]
-        [StringLength(235, MinimumLength = 6, ErrorMessage = "La contraseña debe tener al menos 6 caracteres.")]
         public string Password { get; set; }
 
-        // Confirmación de contraseña
-        [Required(ErrorMessage = "Debe confirmar la contraseña.")]
-        [DataType(DataType.Password)]
+        // Confirmación de Contraseña
+        [Required(ErrorMessage = "La confirmación de contraseña es obligatoria.")]
         [Compare("Password", ErrorMessage = "Las contraseñas no coinciden.")]
+        [DataType(DataType.Password)]
         public string ConfirmPassword { get; set; }
 
-        // Género: ahora será un entero (ID)
-        [Required(ErrorMessage = "El género es obligatorio.")]
+        // Fecha de Nacimiento
+        [Required(ErrorMessage = "La fecha de nacimiento es obligatoria.")]
+        [DataType(DataType.Date, ErrorMessage = "El formato de la fecha no es válido.")]
+        public DateTime Birthdate { get; set; }
+
+        // Género
         public int IdGenere { get; set; }
-        public IEnumerable<SelectListItem> Generes { get; set; } // Lista de géneros
+        [Required(ErrorMessage = "El género es obligatorio.")]
 
+        public IEnumerable<SelectListItem> Generes { get; set; } = new List<SelectListItem>();
 
-        // Tipo de documento: ahora será un entero (ID)
-        public int? IdDocumentType { get; set; }
+        // Tipo de Documento
+        public int IdDocumentType { get; set; }
+        [Required(ErrorMessage = "El tipo de documento es obligatorio.")]
+        public IEnumerable<SelectListItem> Documents { get; set; } = new List<SelectListItem>();
 
-        // Número de documento
+        // Número de Documento
+        [Required(ErrorMessage = "El número de documento es obligatorio.")]
         [StringLength(20, ErrorMessage = "El número de documento no puede tener más de 20 caracteres.")]
-        public string? DocumentNumber { get; set; }
+        public string DocumentNumber { get; set; }
+
+        // Imagen de Perfil
+        [DataType(DataType.Upload)]
+        public IFormFile? ProfileImage { get; set; } // Cambiado de byte[] a IFormFile para manejo directo del archivo subido
     }
 }
