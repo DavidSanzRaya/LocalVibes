@@ -18,12 +18,6 @@
 		<h2>REGISTRAR USUARIO NUEVO</h2>
 		<form asp-action="SignUpUser" method="post" asp-antiforgery="true">
 
-			<div class="form-group">
-				<label asp-for="ProfileImage">Imagen del Proyecto</label>
-				<input asp-for="ProfileImage" type="file" class="form-control" />
-				<span asp-validation-for="ProfileImage" class="text-danger"></span>
-			</div>
-			<br />
 
 			<div class="form-group">
 				<label asp-for="Username">Nombre de Usuario</label>
@@ -61,13 +55,6 @@
 			<br />
 
 			<div class="form-group">
-				<label asp-for="Birthdate">Fecha de nacimiento</label>
-				<input asp-for="Birthdate" type="date" class="form-control" />
-				<span asp-validation-for="Birthdate" class="text-danger"></span>
-			</div>
-			<br />
-
-			<div class="form-group">
 				<label asp-for="Password">Contraseña</label>
 				<input asp-for="Password" type="password" class="form-control" />
 				<span asp-validation-for="Password" class="text-danger"></span>
@@ -81,6 +68,13 @@
 			</div>
 			<br />
 
+			<div class="form-group">
+				<label asp-for="Birthdate">Fecha de nacimiento</label>
+				<input asp-for="Birthdate" type="date" class="form-control" />
+				<span asp-validation-for="Birthdate" class="text-danger"></span>
+			</div>
+			<br />
+
 			<!-- Género -->
 			<div class="form-group">
 				<label asp-for="IdGenere">Género</label>
@@ -91,15 +85,11 @@
 			</div>
 			<br />
 
-			<!-- Tipo de documento -->
+			<!-- Género -->
 			<div class="form-group">
 				<label asp-for="IdDocumentType">Tipo de documento</label>
-				<select asp-for="IdDocumentType" class="form-control">
-					<option value="">Selecciona un documento</option>
-					<option value="1">DNI</option> <!-- ID=1 para DNI -->
-					<option value="2">NIE</option> <!-- ID=2 para NIE -->
-					<option value="3">Pasaporte</option> <!-- ID=3 para Pasaporte -->
-					<option value="4">Otro</option> <!-- ID=4 para Otro -->
+				<select asp-for="IdDocumentType" class="form-control" asp-items="Model.Documents">
+					<option value="">Selecciona un tipo de documento</option> <!-- Opción por defecto -->
 				</select>
 				<span asp-validation-for="IdDocumentType" class="text-danger"></span>
 			</div>
@@ -109,6 +99,13 @@
 				<label asp-for="DocumentNumber">Número de documento</label>
 				<input asp-for="DocumentNumber" class="form-control" />
 				<span asp-validation-for="DocumentNumber" class="text-danger"></span>
+			</div>
+			<br />
+
+			<div class="form-group">
+				<label asp-for="ProfileImage">Imagen del Usuario</label>
+				<input asp-for="ProfileImage" type="file" class="form-control" />
+				<span asp-validation-for="ProfileImage" class="text-danger"></span>
 			</div>
 			<br />
 

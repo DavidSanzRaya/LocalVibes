@@ -1,5 +1,99 @@
 ﻿@{
-    ViewData["Title"] = "Quienes somos?";
+    ViewData["Title"] = "Quiénes somos?";
 }
 
-<p>Somos 4 chavales muy simpaticos</p>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - LocalVibes</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="content-wrapper">
+        <div class="container">
+            <main role="main" class="pb-3">
+                <div class="text-center">
+                    <h1>@ViewData["Title"]</h1>
+                    <p class="lead">Somos un equipo dinámico y apasionado por lo que hacemos. Aquí te contamos un poco más sobre nosotros.</p>
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <h2>Nuestra Historia</h2>
+                            <p>Empezamos como un grupo de amigos con una pasión en común: la música. Desde el primer día, decidimos que queríamos crear algo único, algo que reflejara nuestra visión y la cultura que amamos.</p>
+                        </div>
+                        <div class="col-lg-6">
+                            <h2>Nuestra Misión</h2>
+                            <p>Conectar artistas y fans a través de una plataforma que celebre la música, la creatividad y la colaboración. Queremos ofrecer a todos la oportunidad de compartir su talento con el mundo.</p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <h2>Visión</h2>
+                            <p>Ser la plataforma líder en la promoción de artistas emergentes, brindando un espacio seguro y creativo donde todos puedan expresarse libremente y hacer crecer su carrera.</p>
+                        </div>
+                        <div class="col-lg-6">
+                            <h2>Valores</h2>
+                            <ul>
+                                <li><strong>Creatividad:</strong> Fomentamos la innovación y la originalidad en todos nuestros proyectos.</li>
+                                <li><strong>Colaboración:</strong> Creemos en el poder de la comunidad y el trabajo en equipo.</li>
+                                <li><strong>Integridad:</strong> Actuamos con transparencia y respeto hacia todos.</li>
+                                <li><strong>Pasion:</strong> Amamos lo que hacemos y lo transmitimos en cada proyecto.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-5">
+                        <h2>El Equipo</h2>
+                        <p>Conoce a los integrantes de nuestro equipo:</p>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <img src="~/images/team-member-1.jpg" class="card-img-top" alt="Miembro 1" />
+                                    <div class="card-body">
+                                        <h5 class="card-title">Joel</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <img src="~/images/team-member-2.jpg" class="card-img-top" alt="Miembro 2" />
+                                    <div class="card-body">
+                                        <h5 class="card-title">Alexia</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <img src="~/images/team-member-3.jpg" class="card-img-top" alt="Miembro 3" />
+                                    <div class="card-body">
+                                        <h5 class="card-title">Abel</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <img src="~/images/team-member-4.jpg" class="card-img-top" alt="Miembro 4" />
+                                    <div class="card-body">
+                                        <h5 class="card-title">David</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="mt-5">Si tienes preguntas o quieres saber más sobre nosotros, no dudes en ponerte en contacto.</p>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+</html>
