@@ -1,29 +1,85 @@
+/* Ajuste del tamaño base de fuente para todo el HTML */
 html {
-  font-size: 14px;
+    font-size: 15px; /* Un tamaño ligeramente más grande */
+    position: relative;
+    min-height: 100%;
+    scroll-behavior: smooth; /* Suaviza el scroll */
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
+/* Ajustes generales del cuerpo */
 body {
-  margin-bottom: 60px;
+    margin: 0;
+    padding: 0;
+    background-color: #121212; /* Fondo gris oscuro para toda la página */
+    color: #ffffff; /* Texto blanco predeterminado */
+    font-family: 'Roboto', sans-serif;
+    margin-bottom: 60px;
 }
 
+/* Estilo para botones en todo el sitio */
+.btn {
+    border-radius: 8px; /* Bordes redondeados */
+    transition: all 0.3s ease-in-out;
+}
+
+/* Botón principal: morado */
+.btn-primary {
+    background-color: #6A0DAD; /* Morado */
+    border-color: #6A0DAD;
+}
+
+    .btn-primary:hover {
+        background-color: #7A1FA2; /* Morado más oscuro */
+        border-color: #7A1FA2;
+    }
+
+/* Botón secundario: amarillo */
+.btn-secondary {
+    background-color: #FDD835; /* Amarillo */
+    border-color: #FDD835;
+}
+
+    .btn-secondary:hover {
+        background-color: #FFC400; /* Amarillo más vibrante */
+        border-color: #FFC400;
+    }
+
+/* Botón terciario: blanco sucio */
+.btn-tertiary {
+    background-color: #D8D8D8; /* Blanco sucio */
+    border-color: #D8D8D8;
+}
+
+    .btn-tertiary:hover {
+        background-color: #B8B8B8; /* Blanco sucio más oscuro */
+        border-color: #B8B8B8;
+    }
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #FDD835; /* Amarillo vibrante */
+}
+
+/* Placeholder para inputs */
 .input-placeholder::placeholder {
-  margin-left: 1em;
-  color: #D9D9D9 !important;
-  font-weight: 600;
-  opacity: 0.2;
+    color: #D9D9D9 !important; /* Gris claro */
+    font-weight: 600;
+    opacity: 0.5; /* Mayor visibilidad */
+}
+
+/* Enlaces en todo el sitio */
+a {
+    color: #FDD835; /* Amarillo como color principal */
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+}
+
+    a:hover {
+        color: #FFC400; /* Amarillo más vibrante */
+    }
+
+/* Ajustes responsivos */
+@media (min-width: 768px) {
+    html {
+        font-size: 16px; /* Tamaño de fuente más grande en pantallas mayores */
+    }
 }

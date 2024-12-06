@@ -1,0 +1,71 @@
+﻿/* Ajuste del tamaño base de fuente para todo el HTML */
+html {
+    font-size: 15px; /* Un tamaño ligeramente más grande */
+    position: relative;
+    min-height: 100%;
+    scroll-behavior: smooth; /* Suaviza el scroll */
+}
+
+/* Ajustes generales del cuerpo */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #121212; /* Fondo gris oscuro para toda la página */
+    color: #ffffff; /* Texto blanco predeterminado */
+    font-family: 'Roboto', sans-serif;
+    margin-bottom: 60px;
+}
+
+/* Estilo para la mitad izquierda (logo grande) */
+.left-half {
+    background-color: white;
+    width: 50%;
+    height: 100vh;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.logo-large {
+    width: 70%; /* Ajusta el tamaño del logo al 70% del ancho */
+    max-width: 400px; /* Asegura que no sea más grande que 400px */
+}
+
+/* Estilo para la mitad derecha (explicación de la aplicación) */
+.right-half {
+    background-color: #333333; /* Fondo gris oscuro */
+    width: 50%;
+    height: 100vh;
+    color: white;
+    padding: 50px; /* Espaciado del contenido */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.text-content h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.text-content p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+}
+
+/* Galería de fotos horizontal */
+.photo-gallery {
+    display: flex;
+    justify-content: space-around;
+    gap: 10px;
+    padding: 20px 0;
+    background-color: #333333; /* Fondo negro para la galería */
+}
+
+    .photo-gallery img {
+        width: 250px;
+        height: 200px; /* Ajustado para la relación 5:4 */
+        object-fit: cover;
+    }
