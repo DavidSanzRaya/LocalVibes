@@ -35,6 +35,8 @@ namespace LocalVibes.Models
         
         } // Lista de GenereMusic. AllowNull
 
+        // TODO: Algunos atributos estan en mayus y otros da toc XDXD juasjuas
+
         public List<ProjectSocialMedia>? socialMedias { get; set; } // Lista de ProjectSocialMedia. AllowNull
 
         public List<MemberOfProject>? membersOfProjects { get; set; } // Lista de MemberOfProjects. AllowNull
