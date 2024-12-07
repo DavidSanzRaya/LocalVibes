@@ -1,6 +1,75 @@
 ﻿@{
-    ViewData["Title"] = "Politica de privacidad";
+    ViewData["Title"] = "Política de privacidad";
 }
-<h1>@ViewData["Title"]</h1>
 
-<p>Robamos datos y los vendemos caros</p>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - LocalVibes</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="content-wrapper">
+
+        <div class="container">
+            <main role="main" class="pb-3">
+                <h1>@ViewData["Title"]</h1>
+
+                <p>En LocalVibes, tu privacidad es una de nuestras principales preocupaciones. Este documento describe cómo recopilamos, usamos y protegemos tus datos personales cuando interactúas con nuestra plataforma.</p>
+
+                <h2>Recopilación de Información</h2>
+                <p>Cuando te registras en nuestro sitio o utilizas nuestros servicios, podemos recopilar los siguientes tipos de información:</p>
+                <ul>
+                    <li><strong>Datos personales:</strong> Nombre, dirección de correo electrónico, información de contacto.</li>
+                    <li><strong>Datos de acceso:</strong> Nombre de usuario, contraseña (encriptada), datos de sesión.</li>
+                    <li><strong>Datos de uso:</strong> Información sobre cómo usas nuestros servicios, preferencias, historial de navegación.</li>
+                </ul>
+
+                <h2>Uso de la Información</h2>
+                <p>Los datos que recopilamos se utilizan para los siguientes fines:</p>
+                <ul>
+                    <li><strong>Proporcionar nuestros servicios:</strong> Para registrar tu cuenta y ofrecerte acceso a nuestras funcionalidades.</li>
+                    <li><strong>Mejorar la experiencia del usuario:</strong> Para personalizar contenido y mejorar nuestros servicios.</li>
+                    <li><strong>Seguridad:</strong> Para mantener la seguridad de nuestras plataformas y protegerte a ti y a otros usuarios de accesos no autorizados.</li>
+                </ul>
+
+                <h2>Protección de Datos</h2>
+                <p>Tomamos medidas de seguridad apropiadas para proteger tus datos. Esto incluye:</p>
+                <ul>
+                    <li><strong>Encriptación de contraseñas:</strong> Todas las contraseñas se encriptan utilizando estándares de encriptación avanzados (bcrypt).</li>
+                    <li><strong>Protección de datos sensibles:</strong> Los datos sensibles, como la información personal y de pago, también se almacenan de forma segura y cifrada.</li>
+                    <li><strong>Acceso restringido:</strong> Solo el personal autorizado tiene acceso a la información personal de los usuarios.</li>
+                </ul>
+
+                <h2>Compartir Información</h2>
+                <p>No vendemos ni compartimos tu información personal con terceros sin tu consentimiento, excepto en las siguientes circunstancias:</p>
+                <ul>
+                    <li>Cuando sea necesario para cumplir con la ley o una solicitud legal.</li>
+                    <li>Cuando sea necesario para proteger nuestros derechos y la seguridad de nuestros usuarios.</li>
+                </ul>
+
+                <h2>Tus Derechos</h2>
+                <p>Como usuario, tienes el derecho de:</p>
+                <ul>
+                    <li>Acceder a la información personal que tenemos sobre ti.</li>
+                    <li>Solicitar la corrección o eliminación de tus datos personales.</li>
+                    <li>Oponerte al tratamiento de tus datos en ciertas circunstancias.</li>
+                    <li>Revocar tu consentimiento en cualquier momento.</li>
+                </ul>
+
+                <h2>Cambio en la Política de Privacidad</h2>
+                <p>Nos reservamos el derecho de modificar esta política de privacidad en cualquier momento. Las modificaciones serán publicadas en esta página con la fecha de actualización.</p>
+
+                <p>Si tienes alguna pregunta sobre nuestra política de privacidad, no dudes en ponerte en contacto con nosotros.</p>
+            </main>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+</html>

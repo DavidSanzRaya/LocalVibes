@@ -1,24 +1,102 @@
-html {
-  font-size: 14px;
+/* Variables globales */
+:root {
+    --background-dark: #1e1e1e; /* Fondo oscuro */
+    --primary-color: #6A0DAD; /* Morado */
+    --secondary-color: #EDC40E; /* Amarillo */
+    --tertiary-color: #D8D8D8; /* Blanco sucio */
+    --text-light: #ffffff; /* Texto blanco */
+    --text-dark: #000000; /* Texto negro */
+    --border-radius: 8px; /* Bordes redondeados */
+    --border-thin: 1px solid #ffffff; /* Bordes finos */
+    --font-family: 'Poppins', sans-serif; /* Fuente redondeada y moderna */
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
+/* Fondo y cuerpo */
 body {
-  margin-bottom: 60px;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-dark);
+    color: var(--text-light);
+    font-family: var(--font-family);
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+/* Botones generales */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: var(--border-radius);
+    border: var(--border-thin);
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); /* Sombra suave en texto */
+}
+
+/* Botón principal (Morado) */
+.btn-primary {
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    border-color: var(--primary-color);
+}
+
+    .btn-primary:hover {
+        background-color: #7A1FA2; /* Morado más intenso */
+        color: var(--text-light);
+        border-color: #7A1FA2;
+    }
+
+/* Botón secundario (Amarillo) */
+.btn-secondary {
+    background-color: var(--secondary-color);
+    color: var(--text-dark); /* Texto negro para buen contraste */
+    border-color: var(--secondary-color);
+}
+
+    .btn-secondary:hover {
+        background-color: #FFC400; /* Amarillo más vibrante */
+        color: var(--text-dark);
+        border-color: #FFC400;
+    }
+
+/* Botón terciario (Blanco Sucio) */
+.btn-tertiary {
+    background-color: var(--tertiary-color);
+    color: var(--text-dark);
+    border-color: var(--tertiary-color);
+}
+
+    .btn-tertiary:hover {
+        background-color: #B8B8B8; /* Blanco más oscuro */
+        color: var(--text-dark);
+        border-color: #B8B8B8;
+    }
+
+/* Enlaces */
+a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+    a:hover {
+        color: #FFC400; /* Amarillo vibrante */
+        text-decoration: underline;
+    }
+
+/* Input y campos de formulario */
+input, textarea, select {
+    font-family: var(--font-family);
+    border: var(--border-thin);
+    border-radius: var(--border-radius);
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #2e2e2e;
+    color: var(--text-light);
 }
 
 .input-placeholder::placeholder {
@@ -28,4 +106,29 @@ body {
   opacity: 0.2;
 }
 
+
+
+input:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 5px var(--secondary-color);
+}
+
+/* Footer */
+footer {
+    padding: 20px;
+    text-align: center;
+    background-color: #1a1a1a;
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+footer a {
+  color: var(--secondary-color);
+  text-decoration: none;
+}
+
+footer a:hover {
+    color: #FFC400;
+}
 

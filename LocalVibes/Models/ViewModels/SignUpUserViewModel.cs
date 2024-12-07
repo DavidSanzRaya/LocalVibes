@@ -3,61 +3,71 @@ using System.ComponentModel.DataAnnotations;
 
 namespace LocalVibes.Models.ViewModels
 {
+    // Modelo de vista para el registro de un usuario.
     public class SignUpUserViewModel
     {
-        // Imagen del Proyecto
-        [DataType(DataType.Upload)]
-        public byte[]? ProfileImage { get; set; }
-
-        // Nombre de usuario
+        // Propiedad que representa el nombre de usuario (Nickname)
         [Required(ErrorMessage = "El nombre de usuario es obligatorio.")]
         [StringLength(50, ErrorMessage = "El nombre de usuario no puede tener más de 50 caracteres.")]
         public string Username { get; set; }
 
-        // Nombre
+        // Propiedad que representa el nombre real de un usuario
         [Required(ErrorMessage = "El nombre es obligatorio.")]
-        [StringLength(50, ErrorMessage = "El nombre no puede tener más de 50 caracteres.")]
+        [StringLength(100, ErrorMessage = "El nombre no puede tener más de 100 caracteres.")]
         public string FirstName { get; set; }
 
-        // Apellido
-        [StringLength(50, ErrorMessage = "El apellido no puede tener más de 50 caracteres.")]
-        public string? LastName { get; set; }
+        // Propiedad que representa el apellido de un usuario
+        [Required(ErrorMessage = "El apellido es obligatorio.")]
+        [StringLength(100, ErrorMessage = "El apellido no puede tener más de 100 caracteres.")]
+        public string LastName { get; set; }
 
-        // Correo electrónico
+        // Propiedad que representa el mail
         [Required(ErrorMessage = "El correo electrónico es obligatorio.")]
         [EmailAddress(ErrorMessage = "El formato del correo electrónico no es válido.")]
         public string UserEmail { get; set; }
 
-        // Teléfono
-        [Phone(ErrorMessage = "El teléfono no es válido.")]
+        // Propiedad que representa un telefono
+        [Phone(ErrorMessage = "El formato del teléfono no es válido.")]
         public string? Phone { get; set; }
 
-        // Fecha de nacimiento
-        public DateTime? Birthdate { get; set; }
-
-        // Contraseña
+        // Propiedad que representa la contraseña
         [Required(ErrorMessage = "La contraseña es obligatoria.")]
+        [StringLength(100, MinimumLength = 6, ErrorMessage = "La contraseña debe tener entre 6 y 100 caracteres.")]
         [DataType(DataType.Password)]
-        [StringLength(235, MinimumLength = 6, ErrorMessage = "La contraseña debe tener al menos 6 caracteres.")]
         public string Password { get; set; }
 
-        // Confirmación de contraseña
-        [Required(ErrorMessage = "Debe confirmar la contraseña.")]
-        [DataType(DataType.Password)]
+        // Propiedad que representa la confirmación de Contraseña
+        [Required(ErrorMessage = "La confirmación de contraseña es obligatoria.")]
         [Compare("Password", ErrorMessage = "Las contraseñas no coinciden.")]
+        [DataType(DataType.Password)]
         public string ConfirmPassword { get; set; }
 
-        // Género: ahora será un entero (ID)
-        [Required(ErrorMessage = "El género es obligatorio.")]
+        // Propiedad que representra la fecha de Nacimiento
+        [Required(ErrorMessage = "La fecha de nacimiento es obligatoria.")]
+        [DataType(DataType.Date, ErrorMessage = "El formato de la fecha no es válido.")]
+        public DateTime Birthdate { get; set; }
+
+        // Propiedad que represenra el género
         public int IdGenere { get; set; }
-        public IEnumerable<SelectListItem> Generes { get; set; } // Lista de géneros
+        [Required(ErrorMessage = "El género es obligatorio.")]
 
+        // Lista de géneros disponibles para seleccionar.
+        public IEnumerable<SelectListItem> Generes { get; set; } = new List<SelectListItem>();
 
-        // Tipo de documento: ahora será un entero (ID)
-        public int? IdDocumentType { get; set; }
+        // Propiedad que representa el tipo de Documento
+        public int IdDocumentType { get; set; }
+        [Required(ErrorMessage = "El tipo de documento es obligatorio.")]
 
-        // Número de documento
+        // Lista de tipos de documentos disponibles para seleccionar.
+        public IEnumerable<SelectListItem> Documents { get; set; } = new List<SelectListItem>();
+
+        // Propiedad que representra el número de Documento
+        [Required(ErrorMessage = "El número de documento es obligatorio.")]
         [StringLength(20, ErrorMessage = "El número de documento no puede tener más de 20 caracteres.")]
-        public string? DocumentNumber { get; set; }
+        public string DocumentNumber { get; set; }
+
+        // Propiedad que representa la imagen de Perfil
+        [DataType(DataType.Upload)]
+        public IFormFile? ProfileImage { get; set; } 
     }
 }
