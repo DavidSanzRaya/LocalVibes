@@ -17,7 +17,7 @@ namespace LocalVibes.Controllers
 
         }
 
-        // Accion principal
+        // Accion principal que muestra el Landing de la pagina web
         public IActionResult Landing()
         {
             // Obtener la cadena de conexión
@@ -59,11 +59,20 @@ namespace LocalVibes.Controllers
             return View();
         }
 
-        // Accion que redirije a Home
+        // Acción que redirige a Home o muestra Landing si no hay sesión activa.
         public IActionResult Home()
         {
+            // Verifica si la sesión contiene un indicador de usuario autenticado.
+            if (HttpContext.Session.GetString("UserId") == null)
+            {
+                // Redirige a la página de aterrizaje si no hay un usuario autenticado.
+                return RedirectToAction("Landing", "Home");
+            }
+
+            // Si hay sesión activa, muestra la vista de Home.
             return View();
         }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
