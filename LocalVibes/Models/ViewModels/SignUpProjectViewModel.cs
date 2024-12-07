@@ -1,46 +1,41 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System.ComponentModel.DataAnnotations;
 
 namespace LocalVibes.Models.ViewModels
 {
+    // Modelo de vista para el registro de un proyecto.
     public class SignUpProjectViewModel
     {
-        // ID del Proyecto (sólo lectura)
+        // ID del Proyecto (propiedad de solo lectura, asignada automáticamente al crear el proyecto).
         public int IdProject { get; set; }
 
-        // Nombre del Proyecto
+        // Propiedad que representa el nombre del Proyecto (Banda o artista)
         [Required(ErrorMessage = "El nombre del proyecto es obligatorio.")]
         [StringLength(100, ErrorMessage = "El nombre del proyecto no puede tener más de 100 caracteres.")]
         public string ProjectName { get; set; }
 
-        // Biografía
+        // Propiedad que representa la biografia
         [StringLength(1000, ErrorMessage = "La biografía no puede tener más de 1000 caracteres.")]
         public string? Biography { get; set; }
 
-        // Fecha de Formación
-        [DataType(DataType.Date)]
+        // Propiedad que representa la fecha de Formación
+        [Required(ErrorMessage = "La fecha de formación es obligatoria.")]
+        [DataType(DataType.Date, ErrorMessage = "El formato de la fecha no es válido.")]
         public DateTime? FormationDate { get; set; }
 
-        // Imagen del Proyecto
-        [DataType(DataType.Upload)]
-        public byte[]? ProjectImage { get; set; }
-
-        // Administrador del Proyecto (ID de Usuario)
+        // Propiedad que representa el nombre de usuario del Admin
         [Required(ErrorMessage = "El administrador del proyecto es obligatorio.")]
-        public int IdUsersAdmin { get; set; }
+        public string UsernameAdmin { get; set; }
 
-        // Géneros Musicales
-        public List<int>? SelectedGeneresMusic { get; set; }
+        // Propiedad que representa el género Musical
+        public int IdGenereMusical { get; set; }
+        [Required(ErrorMessage = "El género musical es obligatorio.")]
 
-        // Redes Sociales
-        public List<int>? SelectedSocialMediaIds { get; set; }
+        // Lista de géneros musicales disponibles para seleccionar.
+        public IEnumerable<SelectListItem> SelectedGeneresMusic { get; set; } = new List<SelectListItem>();
 
-        // Miembros del Proyecto
-        public List<int>? SelectedMembers { get; set; }
-
-        // Eventos Asociados
-        public List<int>? SelectedEvents { get; set; }
-
-        // Reseñas
-        public List<int>? SelectedReviews { get; set; }
+        // Propiedad que representa la imagen
+        [DataType(DataType.Upload)]
+        public IFormFile? ProjectImage { get; set; }
     }
 }

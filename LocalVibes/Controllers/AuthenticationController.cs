@@ -5,6 +5,7 @@ using LocalVibes.Models.ViewModels;
 using LocalVibes.Tools;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Reflection;
 
 namespace LocalVibes.Controllers
 {
@@ -19,51 +20,59 @@ namespace LocalVibes.Controllers
             return View();
         }
 
-        // Accion para realizar el login
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Login(LoginViewModel model)
         {
             if (ModelState.IsValid)
             {
+                UserDAL userDal = new UserDAL();
+                ProjectDAL projectDal = new ProjectDAL();
+
                 if (!model.IsABand)
                 {
-                    UserDAL dal = new UserDAL();
-                    Users usuario = dal.GetByName(model.Username);
+                    // Autenticación de usuario regular
+                    var usuario = userDal.GetByName(model.Username);
 
-                    //Validar usuario
-                    if ((usuario != null) && PasswordHelper.VerifityPasswordHash(model.Password, usuario.PasswordHash, usuario.PasswordSalt))
+                    if (usuario != null && PasswordHelper.VerifityPasswordHash(model.Password, usuario.PasswordHash, usuario.PasswordSalt))
                     {
-                        // Autenticacion exitosa
+                        // Registrar la sesión
+                        HttpContext.Session.SetString("UserId", usuario.IdUsers.ToString());
+                        HttpContext.Session.SetString("Username", usuario.UserName);
+                        HttpContext.Session.SetString("Role", "User");
+
+                        TempData["SuccessMessage"] = "¡Bienvenido, " + usuario.FirstName + "!";
                         return RedirectToAction("Home", "Home");
                     }
-
-                    // Autenticacion fracasada
-                    ModelState.AddModelError("", "Usuario o contraseña incorrectos.");
                 }
                 else
                 {
-                    ProjectDAL dalProject = new ProjectDAL();
-                    Project project = dalProject.GetByName(model.Username);
+                    // Autenticación de una banda/proyecto
+                    var proyecto = projectDal.GetByName(model.Username);
 
-                    int idUser = project.IdUsersAdmin;
-                    
-                    UserDAL dalUsuario = new UserDAL();
-                    Users usuario = dalUsuario.GetById(idUser);
-
-                    //Validar usuario
-                    if ((project != null) && PasswordHelper.VerifityPasswordHash(model.Password, usuario.PasswordHash, usuario.PasswordSalt))
+                    if (proyecto != null)
                     {
-                        // Autenticacion exitosa
-                        return RedirectToAction("Home", "Home");
-                    }
+                        var adminUsuario = userDal.GetById(proyecto.IdUsersAdmin);
+                        if (adminUsuario != null && PasswordHelper.VerifityPasswordHash(model.Password, adminUsuario.PasswordHash, adminUsuario.PasswordSalt))
+                        {
+                            // Registrar la sesión para la banda
+                            HttpContext.Session.SetString("ProjectId", proyecto.IdProject.ToString());
+                            HttpContext.Session.SetString("ProjectName", proyecto.ProjectName);
+                            HttpContext.Session.SetString("Role", "Band");
 
-                    // Autenticacion fracasada
-                    ModelState.AddModelError("", "Usuario o contraseña incorrectos.");
+                            TempData["SuccessMessage"] = "¡Bienvenido, " + proyecto.ProjectName + "!";
+                            return RedirectToAction("Home", "Home");
+                        }
+                    }
                 }
+
+                // Error de autenticación
+                ModelState.AddModelError("", "Usuario o contraseña incorrectos.");
             }
+
             return View(model);
         }
+
         #endregion
 
         #region SignUp User
@@ -72,76 +81,104 @@ namespace LocalVibes.Controllers
         {
             var model = new SignUpUserViewModel();
 
-            // Llamar al DAL para obtener la lista de géneros
-            GenereDAL dal = new GenereDAL();
-            var generes = dal.GetAll();
-
-            // Mapear los géneros a SelectListItem
-            model.Generes = generes.Select(g => new SelectListItem
-            {
-                Value = g.IdGenere.ToString(), // El ID del género
-                Text = g.GenereName           // El nombre del género
-            });
+            ReloadSignUpUserViewModelLists(model);
 
             return View(model);
         }
 
-        // Accion para realizar el registro de User
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult SignUpUser(SignUpUserViewModel model)
+        public async Task<IActionResult> SignUpUser(SignUpUserViewModel model)
         {
             if (ModelState.IsValid)
             {
-                UserDAL dal = new UserDAL();
-
-                // Verificar si el usuario ya existe por el nombre de usuario
-                Users usuarioExistente = dal.GetByName(model.Username);
-
-                if (usuarioExistente != null)
+                try
                 {
-                    ModelState.AddModelError("", "El nombre de usuario ya está en uso.");
-                    return View(model);
+                    UserDAL dal = new UserDAL();
+                    var usuarioExistente = dal.GetByName(model.Username);
+
+                    if (usuarioExistente != null)
+                    {
+                        ModelState.AddModelError("", "El nombre de usuario ya está en uso.");
+                        ReloadSignUpUserViewModelLists(model);
+                        return View(model);
+                    }
+
+                    var nuevoUsuario = new Users
+                    {
+                        UserName = model.Username,
+                        FirstName = model.FirstName,
+                        LastName = model.LastName,
+                        UserEmail = model.UserEmail,
+                        Phone = model.Phone,
+                        Birthdate = model.Birthdate,
+                        DateRegister = DateTime.Now,
+                        IdGenere = model.IdGenere,
+                        DocumentNumber = model.DocumentNumber,
+                        IdDocumentType = model.IdDocumentType,
+                        IdTier = 1,
+                        UserPoints = 0
+                    };
+
+                    PasswordHelper.CreatePasswordHash(model.Password, out byte[] passwordHash, out byte[] passwordSalt);
+                    nuevoUsuario.PasswordHash = passwordHash;
+                    nuevoUsuario.PasswordSalt = passwordSalt;
+
+                    if (model.ProfileImage != null && model.ProfileImage.Length > 0)
+                    {
+                        using (var memoryStream = new MemoryStream())
+                        {
+                            await model.ProfileImage.CopyToAsync(memoryStream);
+                            nuevoUsuario.ProfileImage = memoryStream.ToArray();
+                        }
+                    }
+
+                    dal.Add(nuevoUsuario);
+                    var usuarioCreado = dal.GetByName(model.Username);
+
+                    if (usuarioCreado != null)
+                    {
+                        // Registrar la sesión automáticamente después del registro
+                        HttpContext.Session.SetString("UserId", usuarioCreado.IdUsers.ToString());
+                        HttpContext.Session.SetString("Username", usuarioCreado.UserName);
+                        HttpContext.Session.SetString("Role", "User");
+
+                        TempData["SuccessMessage"] = "Usuario registrado con éxito. ¡Bienvenido, " + usuarioCreado.FirstName + "!";
+                        return RedirectToAction("Home", "Home");
+                    }
+
+                    ModelState.AddModelError("", "No se ha podido crear el usuario. Inténtelo nuevamente.");
                 }
-
-                Users nuevoUsuario = new Users
+                catch (Exception ex)
                 {
-                    UserName = model.Username,
-                    FirstName = model.FirstName,
-                    LastName = model.LastName,
-                    UserEmail = model.UserEmail,
-                    Phone = model.Phone,
-                    Birthdate = model.Birthdate,
-                    DateRegister = DateTime.Now,
-                    IdGenere = model.IdGenere, // Asignación del ID de género
-                    DocumentNumber = model.DocumentNumber,
-                    IdDocumentType = model.IdDocumentType, // Asignación del ID de tipo de documento
-                    IdTier = 1, // Asumiendo un valor por defecto
-                    UserPoints = 0 // Valor por defecto
-                };
-
-                // Generar el hash y salt para la contraseña
-                PasswordHelper.CreatePasswordHash(model.Password, out byte[] passwordHash, out byte[] passwordSalt);
-                nuevoUsuario.PasswordHash = passwordHash;
-                nuevoUsuario.PasswordSalt = passwordSalt;
-
-                // Guardar el nuevo usuario
-                dal.Add(nuevoUsuario);
-
-                // Verificar que el usuario ha sido creado
-                Users validarCreacion = dal.GetByName(model.Username);
-                if (validarCreacion != null)
-                {
-                    // Guardar el nombre de usuario en la sesión
-                    HttpContext.Session.SetString("Username", nuevoUsuario.UserName);
-                    return RedirectToAction("Home", "Home");
+                    ModelState.AddModelError("", "Ocurrió un error inesperado. Por favor, inténtelo nuevamente.");
                 }
-
-                ModelState.AddModelError("", "No se ha podido crear el usuario.");
             }
 
-            // Si hay errores de validación, regresa a la vista
+            ReloadSignUpUserViewModelLists(model);
             return View(model);
+        }
+
+        private void ReloadSignUpUserViewModelLists(SignUpUserViewModel model)
+        {
+            // Recargar géneros
+            GenereDAL dalGenere = new GenereDAL();
+            var generes = dalGenere.GetAll();
+            model.Generes = generes.Select(g => new SelectListItem
+            {
+                Value = g.IdGenere.ToString(),
+                Text = g.GenereName
+            }).ToList();
+
+            // Recargar tipos de documentos
+            DocumentTypeDAL dalDocument = new DocumentTypeDAL();
+            var documentTypes = dalDocument.GetAll();
+            model.Documents = documentTypes.Select(d => new SelectListItem
+            {
+                Value = d.IdDocumentType.ToString(),
+                Text = d.NameDocumentType
+            }).ToList();
         }
 
         #endregion
@@ -151,63 +188,125 @@ namespace LocalVibes.Controllers
         // Accion para mostrar la vista Sign Up de Project
         public IActionResult SignUpProject()
         {
-            return View();
+            var model = new SignUpProjectViewModel();
+
+            ReloadSignUpProjectViewModelLists(model);
+
+            return View(model);
         }
 
-        // Accion para mrealizar el registro de Project
-        // TODO: Falta mejorar e implementar del sign up para projects
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult SignUpProject(SignUpProjectViewModel model)
+        public async Task<IActionResult> SignUpProject(SignUpProjectViewModel model)
         {
             if (ModelState.IsValid)
             {
-                ProjectDAL projectDal = new ProjectDAL();
-                Project newProject = new Project { 
-                    ProjectName = model.ProjectName,
-                    Biography = model.Biography,
-                    FormationDate = model.FormationDate,
-                    IdUsersAdmin = model.IdUsersAdmin
-                };
-
-                // Asignar valores desde el ViewModel al modelo
-                
-
-                // Procesar imagen si está presente
-                if (model.ProjectImage != null && model.ProjectImage.Length > 0)
+                try
                 {
-                    newProject.ProjectImage = model.ProjectImage;
-                }
+                    ProjectDAL projectDal = new ProjectDAL();
+                    UserDAL userDal = new UserDAL();
 
-                // Validar si ya existe un proyecto con el mismo nombre
-                var existingProject = projectDal.GetByName(newProject.ProjectName);
-                if (existingProject != null)
+                    // Verificar si el usuario administrador existe
+                    var usuarioExistente = userDal.GetByName(model.UsernameAdmin);
+                    if (usuarioExistente == null)
+                    {
+                        ModelState.AddModelError("", "El usuario administrador no existe.");
+                        ReloadSignUpProjectViewModelLists(model);
+                        return View(model);
+                    }
+
+                    // Validar si ya existe un proyecto con el mismo nombre
+                    var existingProject = projectDal.GetByName(model.ProjectName);
+                    if (existingProject != null)
+                    {
+                        ModelState.AddModelError("", "Ya existe un proyecto con este nombre.");
+                        ReloadSignUpProjectViewModelLists(model);
+                        return View(model);
+                    }
+
+                    // Crear el nuevo proyecto
+                    var newProject = new Project
+                    {
+                        ProjectName = model.ProjectName,
+                        Biography = model.Biography,
+                        FormationDate = model.FormationDate,
+                        IdUsersAdmin = usuarioExistente.IdUsers // Relacionar al administrador
+                    };
+
+                    // Procesar imagen del proyecto si está presente
+                    if (model.ProjectImage != null)
+                    {
+                        using (var memoryStream = new MemoryStream())
+                        {
+                            await model.ProjectImage.CopyToAsync(memoryStream);
+                            newProject.ProjectImage = memoryStream.ToArray();
+                        }
+                    }
+
+                    // Guardar el nuevo proyecto en la base de datos
+                    projectDal.Add(newProject);
+
+                    // Confirmar que el proyecto se creó correctamente
+                    var createdProject = projectDal.GetByName(newProject.ProjectName);
+                    if (createdProject != null)
+                    {
+                        // Registrar la sesión del proyecto
+                        HttpContext.Session.SetString("ProjectId", createdProject.IdProject.ToString());
+                        HttpContext.Session.SetString("ProjectName", createdProject.ProjectName);
+                        HttpContext.Session.SetString("Username", usuarioExistente.UserName);
+                        HttpContext.Session.SetString("UserId", usuarioExistente.IdUsers.ToString());
+
+                        HttpContext.Session.SetString("Role", "Band");
+
+                        TempData["SuccessMessage"] = "Proyecto registrado con éxito. ¡Bienvenido, " + createdProject.ProjectName + "!";
+                        return RedirectToAction("Home", "Home");
+                    }
+
+                    // Error en la creación del proyecto
+                    ModelState.AddModelError("", "No se ha podido crear el proyecto. Inténtelo nuevamente.");
+                }
+                catch (Exception ex)
                 {
-                    ModelState.AddModelError("", "Ya existe un proyecto con este nombre.");
-                    return View(model);
+                    // Manejo de errores
+                    ModelState.AddModelError("", "Ocurrió un error inesperado. Por favor, inténtelo nuevamente.");
+                    Console.WriteLine(ex); // Opcional: Log del error
                 }
-
-                // Guardar el proyecto en la base de datos
-                projectDal.Add(newProject);
-
-                // Verificar si se ha creado correctamente
-                var createdProject = projectDal.GetByName(newProject.ProjectName);
-                if (createdProject != null)
-                {
-                    TempData["SuccessMessage"] = "Proyecto creado con éxito.";
-                    return RedirectToAction("ProjectList", "Project");
-                }
-
-                // Error en la creación
-                ModelState.AddModelError("", "No se ha podido crear el proyecto. Inténtelo nuevamente.");
             }
 
-            // Si hay errores, devolver el modelo a la vista
+            // Recargar listas dinámicas si hay errores
+            ReloadSignUpProjectViewModelLists(model);
             return View(model);
+        }
+
+        private void ReloadSignUpProjectViewModelLists(SignUpProjectViewModel model)
+        {
+
+            // Llamar al DAL para obtener la lista de géneros musicales
+            GenereMusicDAL dal = new GenereMusicDAL();
+            var genereMusics = dal.GetAll();
+
+            // Verifica si la lista de géneros está vacía o es nula
+            if (genereMusics == null || !genereMusics.Any())
+            {
+                ModelState.AddModelError("", "No se pudieron cargar los géneros musicales.");
+            }
+
+            // Mapear los géneros musicales a SelectListItem
+            model.SelectedGeneresMusic = genereMusics.Select(g => new SelectListItem
+            {
+                Value = g.IdGenereMusic.ToString(),
+                Text = g.GenereMusicName
+            }).ToList();
         }
 
 
         #endregion
+
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear(); // Limpiar sesión
+            return RedirectToAction("Landing", "Home");
+        }
     }
 }
 

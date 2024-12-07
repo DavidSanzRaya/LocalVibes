@@ -2,52 +2,64 @@
 @model LoginViewModel
 
 @{
-    ViewData["Title"] = "Login";
+	ViewData["Title"] = "Login";
 }
 
-<div class="login-container">
-    <div class="login-title">
-        <h2>Login</h2>
-    </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/css/Views/Authentication/Login.css" />
+</head>
+<body>
 
-    <form asp-action="Login" method="post" asp-antiforgery="true">
-        
-        <!-- Campo para el Nombre de Usuario -->
-        <div class="form-group">
-            <label asp-for="Username"></label>
-            <input asp-for="Username" class="form-control" />
-            <span asp-validation-for="Username" class="text-danger"></span>
-        </div>
+	<!-- Titulo de la pagina -->
+	<div class="login-container">
+		<div class="login-title">
+			<h2>INICIAR SESION COMO USUARIO, ARTISTA </h2>
+		</div>
 
-        <!-- Campo para la Contraseña -->
-        <div class="form-group">
-            <label asp-for="Password"></label>
-            <input asp-for="Password" type="password" class="form-control" />
-            <span asp-validation-for="Password" class="text-danger"></span>
-        </div>
+		<form asp-action="Login" method="post" asp-antiforgery="true">
 
-        <!-- Checkbox para verificar si es una Banda -->
-        <div class="form-group">
-            <div class="form-check">
-                <input asp-for="IsABand" type="checkbox" class="form-check-input" id="IsBand" />
-                <label class="form-check-label" for="IsBand">Soy una banda</label>
-            </div>
-        </div>
+			<!-- Campo para el Nombre de Usuario -->
+			<div class="form-group">
+				<label asp-for="Username">Nombre de Usuario</label>
+				<input asp-for="Username" class="form-control" />
+				<span asp-validation-for="Username" class="text-danger"></span>
+			</div>
 
-        <!-- Resumen de validación -->
-        <div asp-validation-summary="All" class="text-danger"></div>
+			<!-- Campo para la Contraseña -->
+			<div class="form-group">
+				<label asp-for="Password">Contraseña</label>
+				<input asp-for="Password" type="password" class="form-control" />
+				<span asp-validation-for="Password" class="text-danger"></span>
+			</div>
 
-        <!-- Botón de Enviar -->
-        <button class="btn btn-primary rounded-pill" onclick="submit">Entrar</button>
+			<!-- Checkbox para verificar si es una Banda -->
+			<div class="form-group">
+				<div class="form-check">
+					<input asp-for="IsABand" type="checkbox" class="form-check-input" id="IsBand" />
+					<label class="form-check-label" for="IsBand">Soy una banda</label>
+				</div>
+			</div>
 
+			<!-- Resumen de validación -->
+			<div asp-validation-summary="All" class="text-danger"></div>
 
-        <!-- Botones para Redirigir a Registro -->
-        <div class="mt-3 text-center">
-            <p>
-                ¿No tienes cuenta?
-                <a asp-controller="Authentication" asp-action="SignUpUser" class="btn btn-secondary ml-2 rounded-pill">Registrarse como usuario nuevo</a>
-                <a asp-controller="Authentication" asp-action="SignUpProject" class="btn btn-secondary ml-2 rounded-pill">Registrarse como artista o banda nueva</a>
-            </p>
-        </div>
-    </form>
-</div>
+			<!-- Botón de Enviar -->
+			<button class="btn btn-primary rounded-pill" onclick="submit">Entrar</button>
+
+			<!-- Botones para Redirigir a Registro -->
+			<div class="mt-3 text-center">
+				<p>
+					¿No tienes cuenta? Registrate como:
+					<a asp-controller="Authentication" asp-action="SignUpUser" class="btn btn-secondary ml-2 rounded-pill">Usuario nuevo</a>
+					<a asp-controller="Authentication" asp-action="SignUpProject" class="btn btn-secondary ml-2 rounded-pill">Banda/Artista nuevo</a>
+				</p>
+			</div>
+		</form>
+	</div>
+
+</body>
+</html>
