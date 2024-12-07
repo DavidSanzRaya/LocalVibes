@@ -1,0 +1,30 @@
+@model LocalVibes.Models.MemberCardRowModel
+
+<div class="musician-row">
+    <div class="musician-image">
+        <img src="@Model.Member.MemberName" alt="Foto" />
+    </div>
+    <div class="musician-info">
+        <span class="musician-name">
+            @if (!string.IsNullOrEmpty(Model.Member.ArtisticName))
+            {
+                <span>@Model.Member.ArtisticName</span>
+            }
+            else
+            {
+                @Model.Member.MemberName 
+            }
+        </span>
+        <span class="musician-instrument">
+            @if (Model.Member.Instruments != null && Model.Member.Instruments.Any())
+            {
+                @string.Join(", ", Model.Member.Instruments.Select(instrument => instrument.NameInstrument))
+            }
+            else
+            {
+                <span>No instruments listed</span>
+            }
+        </span>
+    </div>
+</div>
+

@@ -1,0 +1,61 @@
+
+html,body{
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  width: 100vw;
+  height: 100vh;
+}
+.Profile__page-grid {
+    display: grid;
+    grid-template-areas:
+        "photo-section photo-section card-section"
+        "left-section right-section card-section";
+    grid-template-columns: 2fr 2fr 1.5fr;
+    grid-template-rows: 350px auto;
+    background-color: #333333; /* Dark background */
+    color: #fff;
+    width: 100%;
+}
+
+.Profile__photo-section {
+    background-image: url('https://wallpapers.com/images/hd/yellow-house-and-greenery-best-hd-h5hf3cmcwkls52wo.jpg');
+    background-size: cover;
+    background-position: center; 
+    background-repeat: no-repeat;
+    grid-area: photo-section;
+    display: flex;
+    flex-direction: column-reverse;
+    padding-left:3em;
+}
+
+.Profile__card-section {
+    grid-area: card-section;
+    padding: 2em;
+    display: flex;
+    flex-direction: column;
+    gap: 3em;
+}
+
+.Profile__left-section {
+    padding-top: 3em;
+    display: flex;
+    flex-direction: column;
+    gap: 3em;
+    grid-area: left-section;
+    padding-left:3em;
+    padding-right:2em;
+}
+
+.Profile__right-section {
+    padding-top: 3em;
+    display: flex;
+    flex-direction: column;
+    grid-area: right-section;
+}
+.Profile__left-section__labels {
+    display: flex;
+    flex-direction:row;
+    flex-wrap: wrap;
+    gap : 1em;
+}
