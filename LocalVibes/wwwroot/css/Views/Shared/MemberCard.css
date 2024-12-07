@@ -1,0 +1,19 @@
+.MemberCard {
+  background-color: #FFF;
+  display: flex;
+  border-radius: 2em 2em 2em 2em;
+  flex-direction: column;
+  color: #333333;
+  padding: 2em 0 2em 0;
+  gap: 1em;
+}
+.MemberCard__header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.MemberCard__rows {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}

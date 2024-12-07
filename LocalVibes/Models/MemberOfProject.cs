@@ -13,5 +13,6 @@ namespace LocalVibes.Models
         public byte[]? MemberImage { get; set; } // AllowNull
 
         public List<MemberInstrument>? MemberInstruments { get; set; } // Lista de MemberInstrument. AllowNull
+        public List<Instrument>? Instruments { get; set; }
     }
 }

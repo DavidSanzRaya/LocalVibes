@@ -1,0 +1,23 @@
+@model LocalVibes.Models.MemberCardModel
+
+<div class="MemberCard">
+    <div class="MemberCard__header">
+        <span>Foto</span>
+        <span>Nombre</span>
+        <span>Instrumento</span>
+    </div>
+    <div class="MemberCard__rows">
+        @if (@Model.Members != null)
+        {
+            @foreach (var Member in @Model.Members)
+            {
+                @Html.Partial("_MusicianRow", @Member)
+            }
+        }
+        else 
+        {
+            <span>Datos no encontrado</span>
+        }
+    </div>
+</div>
+

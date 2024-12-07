@@ -9,5 +9,6 @@ namespace LocalVibes.Models
 
         public int IdSocialMedia {  get; set; } // PK
         public required string NameSocialMedia { get; set; } 
+        public required string UrlSocialMedia { get; set; } 
     }
 }

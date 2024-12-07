@@ -36,7 +36,7 @@ body {
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); /* Sombra suave en texto */
 }
 
-/* Botón principal (Morado) */
+/* BotÃ³n principal (Morado) */
 .btn-primary {
     background-color: var(--primary-color);
     color: var(--text-light);
@@ -44,12 +44,12 @@ body {
 }
 
     .btn-primary:hover {
-        background-color: #7A1FA2; /* Morado más intenso */
+        background-color: #7A1FA2; /* Morado mÃ¡s intenso */
         color: var(--text-light);
         border-color: #7A1FA2;
     }
 
-/* Botón secundario (Amarillo) */
+/* BotÃ³n secundario (Amarillo) */
 .btn-secondary {
     background-color: var(--secondary-color);
     color: var(--text-dark); /* Texto negro para buen contraste */
@@ -57,12 +57,12 @@ body {
 }
 
     .btn-secondary:hover {
-        background-color: #FFC400; /* Amarillo más vibrante */
+        background-color: #FFC400; /* Amarillo mÃ¡s vibrante */
         color: var(--text-dark);
         border-color: #FFC400;
     }
 
-/* Botón terciario (Blanco Sucio) */
+/* BotÃ³n terciario (Blanco Sucio) */
 .btn-tertiary {
     background-color: var(--tertiary-color);
     color: var(--text-dark);
@@ -70,7 +70,7 @@ body {
 }
 
     .btn-tertiary:hover {
-        background-color: #B8B8B8; /* Blanco más oscuro */
+        background-color: #B8B8B8; /* Blanco mÃ¡s oscuro */
         color: var(--text-dark);
         border-color: #B8B8B8;
     }
@@ -99,11 +99,20 @@ input, textarea, select {
     color: var(--text-light);
 }
 
-    input:focus, textarea:focus, select:focus {
-        outline: none;
-        border-color: var(--secondary-color);
-        box-shadow: 0 0 5px var(--secondary-color);
-    }
+.input-placeholder::placeholder {
+  margin-left: 1em;
+  color: #D9D9D9 !important;
+  font-weight: 600;
+  opacity: 0.2;
+}
+
+
+
+input:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 5px var(--secondary-color);
+}
 
 /* Footer */
 footer {
@@ -114,11 +123,12 @@ footer {
     font-size: 0.9rem;
 }
 
-    footer a {
-        color: var(--secondary-color);
-        text-decoration: none;
-    }
+footer a {
+  color: var(--secondary-color);
+  text-decoration: none;
+}
 
-        footer a:hover {
-            color: #FFC400;
-        }
+footer a:hover {
+    color: #FFC400;
+}
+
