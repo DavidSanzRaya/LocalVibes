@@ -1,85 +1,95 @@
 ﻿@using LocalVibes.DALs
 @using System.Text.Json
 @{
-    ViewData["Title"] = "Home Page";
-    var privacyUrl = Url.Action("Privacy", "Home");
+	ViewData["Title"] = "Home Page";
+	var privacyUrl = Url.Action("Privacy", "Home");
 
-    List<GenereMusic> musicGenres = new GenereMusicDAL().GetAll();
-    var musicGenresJson = JsonSerializer.Serialize(musicGenres);
+	List<GenereMusic> musicGenres = new GenereMusicDAL().GetAll();
+	var musicGenresJson = JsonSerializer.Serialize(musicGenres);
 
-    List<EventProject> events = new EventProjectDAL().GetAll();
-    var eventsJson = JsonSerializer.Serialize(events);
+	List<EventProject> events = new EventProjectDAL().GetAll();
+	var eventsJson = JsonSerializer.Serialize(events);
 }
 
+<!DOCTYPE html>
+<html lang="es">
 <head>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-    <script src='https://unpkg.com/wicg-inert@latest/dist/inert.min.js'></script>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"] - LocalVibes</title>
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+	<script src='https://unpkg.com/wicg-inert@latest/dist/inert.min.js'></script>
 </head>
+<body>
+	<div class="text-center">
+		<h1 class="display-4">Welcome</h1>
+		<p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+		<div id="map" style="height: 500px"></div>
+		<div id='decorative-map' inert></div>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-    <div id="map" style="height: 500px"></div>
-    <div id='decorative-map' inert></div>
+	</div>
 
-</div>
+	<script>
+		var map = L.map('map').setView([41.38879, 2.15899], 13);
 
-<script>
-    var map = L.map('map').setView([41.38879, 2.15899], 13);
+		L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+			attribution: 'Map data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+		}).addTo(map);
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: 'Map data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map);
+		var musicGenres = @Html.Raw(musicGenresJson);
+		var events = @Html.Raw(eventsJson);
 
-    var musicGenres = @Html.Raw(musicGenresJson);
-    var events = @Html.Raw(eventsJson);
+		var genreGroups = {};
 
-    var genreGroups = {};
+		musicGenres.forEach(function (genre) {
+			genreGroups[genre.GenereMusicName] = L.layerGroup().addTo(map);
+		});
 
-    musicGenres.forEach(function (genre) {
-        genreGroups[genre.GenereMusicName] = L.layerGroup().addTo(map);
-    });
+		events.forEach(function (e) {
+			var locationIcon = L.icon({
+				iconUrl: '/Assets/guitar.png',
+				iconSize: [40, 40],
+				iconAnchor: [20, 40],
+				popupAnchor: [0, -40]
+			});
 
-    events.forEach(function (e) {
-        var locationIcon = L.icon({
-            iconUrl: '/Assets/guitar.png',
-            iconSize: [40, 40],
-            iconAnchor: [20, 40],
-            popupAnchor: [0, -40]
-        });
+			var marker = L.marker([e.Location.Latitude, e.Location.Longitude], { icon: locationIcon }).addTo(map);
 
-        var marker = L.marker([e.Location.Latitude, e.Location.Longitude], { icon: locationIcon }).addTo(map);
-
-        marker.bindPopup(`
-            <div class="card" style="width: 10rem; padding: 0.5rem;">
-                <img src="https://placehold.co/100x100" class="card-img-top" alt="..." style="height: 100px; object-fit: cover;">
-                <div class="card-body" style="padding: 0.5rem;">
-                    <h5 class="card-title" style="font-size: 0.8rem; margin-bottom: 0.3rem;">Título del evento</h5>
-                    <p class="card-text" style="font-size: 0.7rem; line-height: 1rem; margin-bottom: 0.5rem;">
-                        Descripción más compacta.
-                    </p>
-                    <a href="#" class="btn btn-primary btn-sm" style="font-size: 0.7rem; padding: 0.2rem 0.5rem;">Ver más</a>
-                </div>
-            </div>
-        `);
+			marker.bindPopup(`
+				<div class="card" style="width: 10rem; padding: 0.5rem;">
+					<img src="https://placehold.co/100x100" class="card-img-top" alt="..." style="height: 100px; object-fit: cover;">
+					<div class="card-body" style="padding: 0.5rem;">
+						<h5 class="card-title" style="font-size: 0.8rem; margin-bottom: 0.3rem;">Título del evento</h5>
+						<p class="card-text" style="font-size: 0.7rem; line-height: 1rem; margin-bottom: 0.5rem;">
+							Descripción más compacta.
+						</p>
+						<a href="#" class="btn btn-primary btn-sm" style="font-size: 0.7rem; padding: 0.2rem 0.5rem;">Ver más</a>
+					</div>
+				</div>
+			`);
 
 
-        e.GeneresMusic.forEach(function (genre) {
-            var genreGroup = genreGroups[genre.GenereMusicName];
-            if (genreGroup) {
-                genreGroup.addLayer(marker);
-            }
-        });
-    });
+			e.GeneresMusic.forEach(function (genre) {
+				var genreGroup = genreGroups[genre.GenereMusicName];
+				if (genreGroup) {
+					genreGroup.addLayer(marker);
+				}
+			});
+		});
 
-    var layersControl = L.control.layers(null, genreGroups).addTo(map);
+		var layersControl = L.control.layers(null, genreGroups).addTo(map);
 
-    var layersControlContainer = layersControl.getContainer();
+		var layersControlContainer = layersControl.getContainer();
 
-    layersControlContainer.style.fontSize = "0.9rem";
-    layersControlContainer.style.textAlign = "left";
+		layersControlContainer.style.fontSize = "0.9rem";
+		layersControlContainer.style.textAlign = "left";
 
-    var layersControlButton = document.querySelector('.leaflet-control-layers-toggle');
-    layersControlButton.style.backgroundImage = "url('/Assets/music-note.png')";
-</script>
+		var layersControlButton = document.querySelector('.leaflet-control-layers-toggle');
+		layersControlButton.style.backgroundImage = "url('/Assets/music-note.png')";
+	</script>
+</body>
+</html>

@@ -254,6 +254,8 @@ namespace LocalVibes.Controllers
                         HttpContext.Session.SetString("ProjectId", createdProject.IdProject.ToString());
                         HttpContext.Session.SetString("ProjectName", createdProject.ProjectName);
                         HttpContext.Session.SetString("Username", usuarioExistente.UserName);
+                        HttpContext.Session.SetString("UserId", usuarioExistente.IdUsers.ToString());
+
                         HttpContext.Session.SetString("Role", "Band");
 
                         TempData["SuccessMessage"] = "Proyecto registrado con éxito. ¡Bienvenido, " + createdProject.ProjectName + "!";

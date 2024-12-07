@@ -57,7 +57,7 @@
 			{
 				<div class="form-group">
 					<label asp-for="IdGenereMusical">Género</label>
-					<select asp-for="IdGenereMusical" class="form-control" asp-items="Model.SelectedGeneresMusic">
+					<select asp-for="IdGenereMusical" class="form-control" asp-items="Model.SelectedGeneresMusic" multiple>
 						<option value="">Selecciona género</option>
 					</select>
 					<span asp-validation-for="IdGenereMusical" class="text-danger"></span>

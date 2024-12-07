@@ -1,85 +1,124 @@
-/* Ajuste del tamaño base de fuente para todo el HTML */
-html {
-    font-size: 15px; /* Un tamaño ligeramente más grande */
-    position: relative;
-    min-height: 100%;
-    scroll-behavior: smooth; /* Suaviza el scroll */
+/* Variables globales */
+:root {
+    --background-dark: #1e1e1e; /* Fondo oscuro */
+    --primary-color: #6A0DAD; /* Morado */
+    --secondary-color: #EDC40E; /* Amarillo */
+    --tertiary-color: #D8D8D8; /* Blanco sucio */
+    --text-light: #ffffff; /* Texto blanco */
+    --text-dark: #000000; /* Texto negro */
+    --border-radius: 8px; /* Bordes redondeados */
+    --border-thin: 1px solid #ffffff; /* Bordes finos */
+    --font-family: 'Poppins', sans-serif; /* Fuente redondeada y moderna */
 }
 
-/* Ajustes generales del cuerpo */
+/* Fondo y cuerpo */
 body {
     margin: 0;
     padding: 0;
-    background-color: #121212; /* Fondo gris oscuro para toda la página */
-    color: #ffffff; /* Texto blanco predeterminado */
-    font-family: 'Roboto', sans-serif;
-    margin-bottom: 60px;
+    background-color: var(--background-dark);
+    color: var(--text-light);
+    font-family: var(--font-family);
+    font-size: 16px;
+    scroll-behavior: smooth;
 }
 
-/* Estilo para botones en todo el sitio */
+/* Botones generales */
 .btn {
-    border-radius: 8px; /* Bordes redondeados */
-    transition: all 0.3s ease-in-out;
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: var(--border-radius);
+    border: var(--border-thin);
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); /* Sombra suave en texto */
 }
 
-/* Botón principal: morado */
+/* Botón principal (Morado) */
 .btn-primary {
-    background-color: #6A0DAD; /* Morado */
-    border-color: #6A0DAD;
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    border-color: var(--primary-color);
 }
 
     .btn-primary:hover {
-        background-color: #7A1FA2; /* Morado más oscuro */
+        background-color: #7A1FA2; /* Morado más intenso */
+        color: var(--text-light);
         border-color: #7A1FA2;
     }
 
-/* Botón secundario: amarillo */
+/* Botón secundario (Amarillo) */
 .btn-secondary {
-    background-color: #FDD835; /* Amarillo */
-    border-color: #FDD835;
+    background-color: var(--secondary-color);
+    color: var(--text-dark); /* Texto negro para buen contraste */
+    border-color: var(--secondary-color);
 }
 
     .btn-secondary:hover {
         background-color: #FFC400; /* Amarillo más vibrante */
+        color: var(--text-dark);
         border-color: #FFC400;
     }
 
-/* Botón terciario: blanco sucio */
+/* Botón terciario (Blanco Sucio) */
 .btn-tertiary {
-    background-color: #D8D8D8; /* Blanco sucio */
-    border-color: #D8D8D8;
+    background-color: var(--tertiary-color);
+    color: var(--text-dark);
+    border-color: var(--tertiary-color);
 }
 
     .btn-tertiary:hover {
-        background-color: #B8B8B8; /* Blanco sucio más oscuro */
+        background-color: #B8B8B8; /* Blanco más oscuro */
+        color: var(--text-dark);
         border-color: #B8B8B8;
     }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus {
-    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #FDD835; /* Amarillo vibrante */
-}
-
-/* Placeholder para inputs */
-.input-placeholder::placeholder {
-    color: #D9D9D9 !important; /* Gris claro */
-    font-weight: 600;
-    opacity: 0.5; /* Mayor visibilidad */
-}
-
-/* Enlaces en todo el sitio */
+/* Enlaces */
 a {
-    color: #FDD835; /* Amarillo como color principal */
+    color: var(--secondary-color);
     text-decoration: none;
-    transition: color 0.3s ease-in-out;
+    font-weight: bold;
 }
 
     a:hover {
-        color: #FFC400; /* Amarillo más vibrante */
+        color: #FFC400; /* Amarillo vibrante */
+        text-decoration: underline;
     }
 
-/* Ajustes responsivos */
-@media (min-width: 768px) {
-    html {
-        font-size: 16px; /* Tamaño de fuente más grande en pantallas mayores */
-    }
+/* Input y campos de formulario */
+input, textarea, select {
+    font-family: var(--font-family);
+    border: var(--border-thin);
+    border-radius: var(--border-radius);
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #2e2e2e;
+    color: var(--text-light);
 }
+
+    input:focus, textarea:focus, select:focus {
+        outline: none;
+        border-color: var(--secondary-color);
+        box-shadow: 0 0 5px var(--secondary-color);
+    }
+
+/* Footer */
+footer {
+    padding: 20px;
+    text-align: center;
+    background-color: #1a1a1a;
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+    footer a {
+        color: var(--secondary-color);
+        text-decoration: none;
+    }
+
+        footer a:hover {
+            color: #FFC400;
+        }

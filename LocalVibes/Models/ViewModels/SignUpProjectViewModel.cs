@@ -3,49 +3,39 @@ using System.ComponentModel.DataAnnotations;
 
 namespace LocalVibes.Models.ViewModels
 {
+    // Modelo de vista para el registro de un proyecto.
     public class SignUpProjectViewModel
     {
-        // ID del Proyecto (solo lectura)
+        // ID del Proyecto (propiedad de solo lectura, asignada automáticamente al crear el proyecto).
         public int IdProject { get; set; }
 
-        // Nombre del Proyecto
+        // Propiedad que representa el nombre del Proyecto (Banda o artista)
         [Required(ErrorMessage = "El nombre del proyecto es obligatorio.")]
         [StringLength(100, ErrorMessage = "El nombre del proyecto no puede tener más de 100 caracteres.")]
         public string ProjectName { get; set; }
 
-        // Biografía
+        // Propiedad que representa la biografia
         [StringLength(1000, ErrorMessage = "La biografía no puede tener más de 1000 caracteres.")]
         public string? Biography { get; set; }
 
-        // Fecha de Formación
+        // Propiedad que representa la fecha de Formación
         [Required(ErrorMessage = "La fecha de formación es obligatoria.")]
         [DataType(DataType.Date, ErrorMessage = "El formato de la fecha no es válido.")]
         public DateTime? FormationDate { get; set; }
 
-        // Imagen del Proyecto
-        [DataType(DataType.Upload)]
-        public IFormFile? ProjectImage { get; set; } // Usar IFormFile para manejar archivos subidos
-
-        // Administrador del Proyecto (ID de Usuario)
+        // Propiedad que representa el nombre de usuario del Admin
         [Required(ErrorMessage = "El administrador del proyecto es obligatorio.")]
-        public string UsernameAdmin { get; set; } // Cambiado a string para reflejar nombres de usuario
+        public string UsernameAdmin { get; set; }
 
-        // Género Musical
+        // Propiedad que representa el género Musical
         public int IdGenereMusical { get; set; }
         [Required(ErrorMessage = "El género musical es obligatorio.")]
 
+        // Lista de géneros musicales disponibles para seleccionar.
         public IEnumerable<SelectListItem> SelectedGeneresMusic { get; set; } = new List<SelectListItem>();
 
-        // Redes Sociales (Opcional)
-        public List<int>? SelectedSocialMediaIds { get; set; } = new List<int>();
-
-        // Miembros del Proyecto (Opcional)
-        public List<int>? SelectedMembers { get; set; } = new List<int>();
-
-        // Eventos Asociados (Opcional)
-        public List<int>? SelectedEvents { get; set; } = new List<int>();
-
-        // Reseñas (Opcional)
-        public List<int>? SelectedReviews { get; set; } = new List<int>();
+        // Propiedad que representa la imagen
+        [DataType(DataType.Upload)]
+        public IFormFile? ProjectImage { get; set; }
     }
 }
