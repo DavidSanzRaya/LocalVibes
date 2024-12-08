@@ -302,6 +302,37 @@ namespace LocalVibes.Controllers
 
         #endregion
 
+        #region
+        public IActionResult SignUpShift()
+        {
+            var model = new SignUpViewModel
+            {
+                User = new SignUpViewModel.UserRegistrationData
+                {
+                    Generes = GetGeneres()
+                },
+
+                Band = new SignUpViewModel.BandRegistrationData
+                {
+                    SelectedGeneresMusic = GetGeneres()
+                }
+            };
+
+            return View(model);
+        }
+
+        //Método de prueba
+        private IEnumerable<SelectListItem> GetGeneres()
+        {
+            return new List<SelectListItem>
+            {
+                new SelectListItem { Value = "1", Text = "Rock" },
+                new SelectListItem { Value = "2", Text = "Pop" },
+                new SelectListItem { Value = "3", Text = "Jazz" }
+            };
+        }
+        #endregion
+
         public IActionResult Logout()
         {
             HttpContext.Session.Clear(); // Limpiar sesión
