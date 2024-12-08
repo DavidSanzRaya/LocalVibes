@@ -302,7 +302,7 @@ namespace LocalVibes.Controllers
 
         #endregion
 
-        #region
+        #region SignUp Shift
         public IActionResult SignUpShift()
         {
             var model = new SignUpViewModel
