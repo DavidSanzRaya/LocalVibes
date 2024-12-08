@@ -12,6 +12,7 @@ namespace LocalVibes.Models
         public DateTime ReviewDate { get; set; } //GetDate();
         public int Rating { get; set; } // 1-5
         public int IdUser { get; set; } // FK de Users. 
+        public Users User { get; set; } // Hacer lasyload
         public int IdProject { get; set; } // FK de Project. 
     }
 }
