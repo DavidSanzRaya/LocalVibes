@@ -14,7 +14,7 @@ namespace LocalVibes.Models
         public DateTime EventDate { get; set; } 
         public int IdProject { get; set; } // FK de Project
         public int IdLocation { get; set; } // FK de Location
-
+        // TODO: Me falta descripcion y precio y fotoCartel y projects
         private List<GenereMusic>? _generesMusic;
         public List<GenereMusic> GeneresMusic
         {
@@ -38,5 +38,6 @@ namespace LocalVibes.Models
                 return _location;
             }
         }
+        public List<Project> Projects { get; set; } // Hacer lazy load y cambiara en base de dato para que event pueda teneer varios projects
     }
 }

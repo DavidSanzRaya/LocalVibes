@@ -1,0 +1,65 @@
+@{
+	ViewData["Title"] = "Local Vibes";
+	Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>@ViewData["Title"]</title>
+	<link rel="stylesheet" href="~/css/Views/Profile/Event.css" />
+	<link rel="stylesheet" href="~/css/Views/Shared/SocialMediaCard.css"/>
+	<link rel="stylesheet" href="~/css/Views/Shared/Avatar.css"/>
+</head>
+<body>
+    <div class="Event__page-grid">
+        <div class="Event__left-section">
+            <h1>
+                @if (@Model.Event != null)
+                {
+                    @Model.Event.TitleEvent
+                }
+                else
+                {
+                    @:Event Title
+                }
+            </h1>
+            <div>
+                <h2>DESCRIPCION</h2>
+                <p>adlkjfaskldjglksjfglañsfjglfkjgalfñjgadlñfgjaldfkzgjalñfgjaslñfjgalsfkgjaslfkg</p>
+                <p>adlkjfaskldjglksjfglañsfjglfkjgalfñjgadlñfgjaldfkzgjalñfgjaslñfjgalsfkgjaslfkg</p>
+                <p>adlkjfaskldjglksjfglañsfjglfkjgalfñjgadlñfgjaldfkzgjalñfgjaslñfjgalsfkgjaslfkg</p>
+            </div>
+            <div class="Event__left-section__labels">
+                <app-label
+                    text="label 1"
+                    color="red"
+                >
+                </app-label>
+                <app-label
+                    text="label 1"
+                    color="blue"
+                >
+                </app-label>
+                <app-label
+                    text="label 1"
+                    color="purple"
+                >
+                </app-label>
+            </div>
+            <div class="Event__left-section__avatars">
+                @Html.Partial("_Avatar", new AvatarModel())
+                @Html.Partial("_Avatar", new AvatarModel())
+                @Html.Partial("_Avatar", new AvatarModel())
+            </div>
+            <div>
+                map
+            </div>
+        </div>
+        <div class="Event__right-section">
+            <img src="https://pbs.twimg.com/media/GI5yJ4XX0AA_fTs?format=jpg&name=large" alt="">
+        </div>
+    </div>
+</body>
+</html>
