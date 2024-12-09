@@ -37,13 +37,26 @@ namespace LocalVibes.Models
 
         // TODO: Algunos atributos estan en mayus y otros da toc XDXD juasjuas
 
-        public List<ProjectSocialMedia>? SocialMedias { get; set; } // Lista de ProjectSocialMedia. AllowNull
+        public List<Review>? Reviews { get; set; } = new List<Review>();
+        public List<ProjectSocialMedia>? SocialMedias { get; set; } = new List<ProjectSocialMedia>();
+        private List<MemberOfProject>? _members;
+        public List<MemberOfProject> MembersOfProjects
+        {
+            get
+            {
+                if (_members == null)
+                {
+                    _members = new ProjectDAL().GetMembersByProjectId(IdProject);
+                }
+                return _members;
+            }
 
-        public List<MemberOfProject>? MembersOfProjects { get; set; } // Lista de MemberOfProjects. AllowNull
-
-        public List<EventProject>? EventsProject { get; set; } // Lista de EventProject. AllowNull
-
-        public List<Review>? Reviews { get; set; } // Lista de Review. AllowNull
+            set
+            {
+                _members = value;
+            }
+        }
+        public List<EventProject>? EventsProject { get; set; } = new List<EventProject>();
 
     }
 }

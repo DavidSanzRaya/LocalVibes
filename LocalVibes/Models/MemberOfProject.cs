@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using LocalVibes.DALs;
+using System.ComponentModel.DataAnnotations;
 
 namespace LocalVibes.Models
 {
@@ -12,7 +13,21 @@ namespace LocalVibes.Models
         public string? ArtisticName { get; set; } // AllowNull
         public byte[]? MemberImage { get; set; } // AllowNull
 
-        public List<MemberInstrument>? MemberInstruments { get; set; } // Lista de MemberInstrument. AllowNull
-        public List<Instrument>? Instruments { get; set; } // Hacer lazy load
+        private List<Instrument>? _instruments;
+        public List<Instrument> Instruments
+        {
+            get
+            {
+                if (_instruments == null)
+                    _instruments = new InstrumentDAL().GetMemberInstrumentsByMemberId(IdMember);
+
+                return _instruments;
+            }
+            set
+            {
+                _instruments = value;
+            }
+        }
+
     }
 }

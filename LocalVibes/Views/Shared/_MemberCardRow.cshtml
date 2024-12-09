@@ -2,7 +2,7 @@
 
 <div class="musician-row">
     <div class="musician-image">
-        <img src="@Model.Member.MemberName" alt="Foto" />
+        <img src="data:image/png;base64,@(Model.Member.MemberImage != null ? Convert.ToBase64String(Model.Member.MemberImage) : string.Empty)" alt="Foto" />
     </div>
     <div class="musician-info">
         <span class="musician-name">
@@ -12,7 +12,7 @@
             }
             else
             {
-                @Model.Member.MemberName 
+                @Model.Member.MemberName
             }
         </span>
         <span class="musician-instrument">
@@ -27,4 +27,3 @@
         </span>
     </div>
 </div>
-

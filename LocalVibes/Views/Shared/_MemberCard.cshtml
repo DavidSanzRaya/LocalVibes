@@ -9,9 +9,20 @@
     <div class="MemberCard__rows">
         @if (@Model.Members != null)
         {
-            @foreach (var Member in @Model.Members)
+            @foreach (var member in Model.Members)
             {
-                @Html.Partial("_MusicianRow", @Member)
+                <div class="MemberCard">
+                    <h4>@member.MemberName</h4>
+                    <p>@member.ArtisticName</p>
+                    <span>INSTRUMENTOS:</span>
+                    <ul>
+                        @foreach (var instrument in member.Instruments)
+                        {
+                            <li>@instrument.NameInstrument</li>
+                        }
+                    </ul>
+                    <img src="data:image/png;base64,@(member.MemberImage != null ? Convert.ToBase64String(member.MemberImage) : string.Empty)" alt="@member.MemberName" />
+                </div>
             }
         }
         else 
