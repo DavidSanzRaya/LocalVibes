@@ -1,7 +1,10 @@
+@using LocalVibes.Models.ViewModels
+@model ProfileProjectViewModel
 
 @{
-	ViewData["Title"] = "Local Vibes";
-	Layout = null;
+    ViewData["Title"] = "Local Vibes";
+    Layout = "_Layout";
+    var vm = Model;
 }
 
 <!DOCTYPE html>
@@ -19,12 +22,12 @@
 <body>
     <div class="Profile__page-grid">
         <div class="Profile__photo-section">
-            <h1>PROJECT NAME</h1>
+            <h1>@vm.Project.ProjectName</h1>
         </div>
         <div class="Profile__left-section">
             <div>
                 <h2>DESCRIPCION</h2>
-                <p>dlsfjalsñjdfalkssñldjfalsñdfjaskldfjaslkdfñjaslñdkjfaslñdjfasldñkjfasldñjfsaldkñfjsakl</p>
+                <p>@vm.Project.Biography</p>
             </div>
             <div class="Profile__left-section__labels">
                 <app-label
