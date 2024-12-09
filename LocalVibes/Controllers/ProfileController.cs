@@ -22,16 +22,16 @@ namespace LocalVibes.Controllers
         // Accion principal
         public IActionResult Project()
         {
-            // Verifica si la sesión contiene un indicador de usuario autenticado.
+            // Verifica si la sesiÃ³n contiene un indicador de usuario autenticado.
             if (HttpContext.Session.GetString("UserId") == null)
             {
-                // Redirige a la página de aterrizaje si no hay un usuario autenticado.
+                // Redirige a la pÃ¡gina de aterrizaje si no hay un usuario autenticado.
                 return RedirectToAction("Landing", "Home");
             }
             
             ProjectDAL projectDal = new ProjectDAL();
 
-            // Obtención de ProjectId 
+            // ObtenciÃ³n de ProjectId 
             int.TryParse(HttpContext.Session.GetString("ProjectId"), out int projectId);
 
             var project = projectDal.GetById(projectId);
@@ -54,15 +54,15 @@ namespace LocalVibes.Controllers
 
             return View(vm);
         }
-
+        
         public IActionResult User()
         {
             //ProfilUserViewModel vm = new ProfileUserViewModel();
 
-            // Verifica si la sesión contiene un indicador de usuario autenticado.
+            // Verifica si la sesiÃ³n contiene un indicador de usuario autenticado.
             if (HttpContext.Session.GetString("UserId") == null)
             {
-                // Redirige a la página de aterrizaje si no hay un usuario autenticado.
+                // Redirige a la pÃ¡gina de aterrizaje si no hay un usuario autenticado.
                 return RedirectToAction("Landing", "Home");
             }
 

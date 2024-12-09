@@ -1,0 +1,65 @@
+@{
+	ViewData["Title"] = "Local Vibes";
+	Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>@ViewData["Title"]</title>
+	<link rel="stylesheet" href="~/css/Views/Profile/User.css" />
+	<link rel="stylesheet" href="~/css/Views/Shared/SocialMediaCard.css"/>
+	<link rel="stylesheet" href="~/css/Views/Shared/Avatar.css"/>
+	<link rel="stylesheet" href="~/css/Views/Shared/HorizontalCard.css"/>
+</head>
+<body>
+    <div class="User__page-grid">
+        <div class="User__user-section">
+            @Html.Partial("_Avatar", new AvatarModel{Size="200px"})
+            <h1>User name</h1>
+            <div>
+                <h2>Bio</h2>
+                <p>lskdfjaslkdfjklsd</p>
+                <p>lskdfjaslkdfjklsd</p>
+                <p>lskdfjaslkdfjklsd</p>
+            </div>
+            <div class="User__user-section__labels">
+                <app-label text="label 1" color="red"></app-label>
+                <app-label text="label 2" color="blue"></app-label>
+                <app-label text="label 3" color="pink"></app-label>
+            </div>
+            <div class="User__user-section__labels">
+                @Html.Partial("_SocialMediaCard", new SocialMediaCardModel
+                {
+                    SocialMedia = new SocialMedia
+                    { 
+                        IdSocialMedia = 1,
+                        NameSocialMedia = "Instagram",
+                        UrlSocialMedia = "https://www.instagram.com"
+                    }
+                })
+                @Html.Partial("_SocialMediaCard", new SocialMediaCardModel
+                {
+                    SocialMedia = new SocialMedia
+                    {
+                        IdSocialMedia = 1,
+                        NameSocialMedia = "YouTube",
+                        UrlSocialMedia = "https://www.instagram.com"
+                    }
+                })
+            </div>
+        </div>
+        <div class="User__project-seciton">
+            @Html.Partial("_HorizontalCard", new CardModel())
+            @Html.Partial("_HorizontalCard", new CardModel())
+            @Html.Partial("_HorizontalCard", new CardModel())
+        </div>
+        <div class="User__event-seciton">
+            @Html.Partial("_VerticalCard", new CardModel())
+            @Html.Partial("_VerticalCard", new CardModel())
+            @Html.Partial("_VerticalCard", new CardModel())
+        </div>
+    </div>
+</body>
+</html>
