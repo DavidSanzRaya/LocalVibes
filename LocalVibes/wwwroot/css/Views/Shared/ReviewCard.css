@@ -1,0 +1,23 @@
+.ReviewCard {
+    background-color: #FFF;
+    display: flex;
+    width: 80%;
+    flex-direction: column;
+    border-radius: 2em;
+    padding: 2em;
+    color: #333333;
+}
+.ReviewCard__header {
+    display: flex;
+    gap:1em;
+    flex-direction: row;
+    align-items: center;
+}
+.ReviewCard__header__date{
+    color: #B3B3B3;
+}
+.ReviewCard__comment p {
+    text-align: center;
+    line-break: auto;
+}
+
