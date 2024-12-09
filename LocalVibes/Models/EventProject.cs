@@ -27,7 +27,7 @@ namespace LocalVibes.Models
             }
         }
 
-        private Locations _location;
+        private Locations? _location;
         public Locations Location
         {
             get

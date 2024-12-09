@@ -1,4 +1,6 @@
-﻿using LocalVibes.Models;
+﻿using System.Collections.Generic;
+using System.Data;
+using LocalVibes.Models;
 using Microsoft.Data.SqlClient;
 
 namespace LocalVibes.DALs
@@ -6,6 +8,8 @@ namespace LocalVibes.DALs
     public class ProjectDAL : DAL<Project>
     {
         public ProjectDAL() { }
+
+        private readonly string _connectionString = "Server=85.208.21.117,54321;Database=AbelAlexiaDavidJoelLocalVibes;User Id=sa;Password=Sql#123456789;TrustServerCertificate=True;";
 
         protected override string TableName => "Project";
 
@@ -27,6 +31,44 @@ namespace LocalVibes.DALs
                             : null,
                 IdUsersAdmin = (int)reader["IdUsersAdmin"]
             };
+        }
+
+        public List<MemberOfProject> GetMembersByProjectId(int projectId)
+        {
+            var members = new List<MemberOfProject>();
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = @"
+                        SELECT m.IdMember, m.MemberName, m.ArtisticName, m.MemberImage
+                        FROM MemberOfProject m
+                        JOIN ProjectMember pm ON m.IdMember = pm.IdMember
+                        WHERE pm.IdProject = @projectId";
+
+                    command.Parameters.Add(new SqlParameter("@projectId", SqlDbType.Int) { Value = projectId });
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            members.Add(new MemberOfProject
+                            {
+                                IdMember = (int)reader["IdMember"],
+                                MemberName = (string)reader["MemberName"],
+                                ArtisticName = (string)reader["ArtisticName"],
+                                MemberImage = reader["MemberImage"] != DBNull.Value
+                                            ? (byte[])reader["ImageUrl"]
+                                            : null
+                            });
+                        }
+                    }
+                }
+            }
+
+            return members;
         }
     }
 }

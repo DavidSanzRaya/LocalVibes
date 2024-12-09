@@ -1,80 +1,132 @@
+@using LocalVibes.Models.ViewModels
+@model ProfileProjectViewModel
 
 @{
-	ViewData["Title"] = "Local Vibes";
-	Layout = null;
+    ViewData["Title"] = "Local Vibes";
+    Layout = "_Layout";
+
+    // Lista de colores a alternar
+    var colors = new[] { "red", "blue", "purple", "green", "yellow" };
+    int colorIndex = 0;
 }
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>@ViewData["Title"]</title>
-	<link rel="stylesheet" href="~/css/Views/Shared/MemberCard.css"/>
-	<link rel="stylesheet" href="~/css/Views/Shared/ReviewCard.css"/>
-	<link rel="stylesheet" href="~/css/Views/Shared/Avatar.css"/>
-	<link rel="stylesheet" href="~/css/Views/Profile/Project.css" />
-	<link rel="stylesheet" href="~/css/Views/Shared/SocialMediaCard.css"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/css/Views/Shared/MemberCard.css" />
+    <link rel="stylesheet" href="~/css/Views/Shared/ReviewCard.css" />
+    <link rel="stylesheet" href="~/css/Views/Shared/Avatar.css" />
+    <link rel="stylesheet" href="~/css/Views/Profile/Project.css" />
+    <link rel="stylesheet" href="~/css/Views/Shared/SocialMediaCard.css" />
 </head>
 <body>
     <div class="Profile__page-grid">
         <div class="Profile__photo-section">
-            <h1>PROJECT NAME</h1>
+            <h1>@Model.Project.ProjectName</h1>
         </div>
         <div class="Profile__left-section">
+
+            <!-- Descripción -->
             <div>
                 <h2>DESCRIPCION</h2>
-                <p>dlsfjalsñjdfalkssñldjfalsñdfjaskldfjaslkdfñjaslñdkjfaslñdjfasldñkjfasldñjfsaldkñfjsakl</p>
+                <p>@Model.Project.Biography</p>
             </div>
+
+            <!-- Géneros musicales -->
             <div class="Profile__left-section__labels">
-                <app-label
-                    text="label 1"
-                    color="red"
-                >
-                </app-label>
-                <app-label
-                    text="label 1"
-                    color="blue"
-                >
-                </app-label>
-                <app-label
-                    text="label 1"
-                    color="purple"
-                >
-                </app-label>
+                @foreach (var genere in Model.Project.GeneresMusic)
+                {
+                    // Obtener el color alternado
+                    var color = colors[colorIndex % colors.Length];
+
+                    <app-label text="@genere.GenereMusicName"
+                               color="@color">
+                    </app-label>
+
+                    // Incrementar el índice
+                    colorIndex++;
+                }
             </div>
+
+            <!-- Redes sociales -->
             <div>
                 @Html.Partial("_SocialMediaCard", new SocialMediaCardModel
-                {
-                    SocialMedia = new SocialMedia
-                    { 
-                        IdSocialMedia = 1,
-                        NameSocialMedia = "Instagram",
-                        UrlSocialMedia = "https://www.instagram.com"
-                    }
-                })
+           {
+               SocialMedia = new SocialMedia
+               {
+                   IdSocialMedia = 1,
+                   NameSocialMedia = "Instagram",
+                   UrlSocialMedia = "https://www.instagram.com"
+               }
+           })
                 @Html.Partial("_SocialMediaCard", new SocialMediaCardModel
+           {
+               SocialMedia = new SocialMedia
+               {
+                   IdSocialMedia = 1,
+                   NameSocialMedia = "YouTube",
+                   UrlSocialMedia = "https://www.youtube.com"
+               }
+           })
+            </div>
+
+            <!-- Reseñas -->
+            <div>
+                <h2>REVIEWS</h2>
+                @if (Model.Project.Reviews != null && Model.Project.Reviews.Any())
                 {
-                    SocialMedia = new SocialMedia
+                    foreach (var review in Model.Project.Reviews)
                     {
-                        IdSocialMedia = 1,
-                        NameSocialMedia = "YouTube",
-                        UrlSocialMedia = "https://www.instagram.com"
+                        @Html.Partial("_ReviewCard", new ReviewCardModel { Review = review })
                     }
-                })
-            </div>
-            <div>
-                @Html.Partial("_ReviewCard", new ReviewCardModel())
+                }
+                else
+                {
+                    <p>No hay reseñas disponibles.</p>
+                }
             </div>
         </div>
+
+        <!-- Miembros -->
         <div class="Profile__right-section">
-                @Html.Partial("_MemberCard", new MemberCardModel())
+            <h2>MIEMBROS</h2>
+            @if (Model.Project.MembersOfProjects != null && Model.Project.MembersOfProjects.Any())
+            {
+                @foreach (var member in Model.Project.MembersOfProjects)
+                {
+                    @Html.Partial("_MemberCardRow", new MemberCardRowModel { Member = member })
+                    <br />
+                }
+            }
+            else
+            {
+                <p>No hay miembros disponibles.</p>
+            }
         </div>
+
+        <!-- Eventos -->
         <div class="Profile__card-section">
-            @Html.Partial("_VerticalCard", new CardModel())
-            @Html.Partial("_VerticalCard", new CardModel())
-            @Html.Partial("_VerticalCard", new CardModel())
+            <h2>EVENTOS</h2>
+            @if (Model.Project.EventsProject != null && Model.Project.EventsProject.Any())
+            {
+                foreach (var evento in Model.Project.EventsProject)
+                {
+                    @Html.Partial("_VerticalCard", new CardModel
+       {
+           Title = $"Evento #{evento.IdEvent}",
+           Subtitle = $"Fecha: {evento.EventDate.ToShortDateString()}"
+       })
+                }
+            }
+            else
+            {
+                <p>No hay eventos disponibles.</p>
+            }
         </div>
+
     </div>
 </body>
 </html>

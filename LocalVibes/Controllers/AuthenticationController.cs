@@ -58,6 +58,9 @@ namespace LocalVibes.Controllers
                             // Registrar la sesión para la banda
                             HttpContext.Session.SetString("ProjectId", proyecto.IdProject.ToString());
                             HttpContext.Session.SetString("ProjectName", proyecto.ProjectName);
+                            HttpContext.Session.SetString("Username", adminUsuario.UserName);
+                            HttpContext.Session.SetString("UserId", adminUsuario.IdUsers.ToString());
+
                             HttpContext.Session.SetString("Role", "Band");
 
                             TempData["SuccessMessage"] = "¡Bienvenido, " + proyecto.ProjectName + "!";
