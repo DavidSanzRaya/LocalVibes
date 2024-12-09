@@ -2,6 +2,7 @@ using LocalVibes.Models;
 using LocalVibes.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using LocalVibes.DALs;
 
 namespace LocalVibes.Controllers
 {
@@ -21,8 +22,24 @@ namespace LocalVibes.Controllers
         // Accion principal
         public IActionResult Project()
         {
+            // Verifica si la sesión contiene un indicador de usuario autenticado.
+            if (HttpContext.Session.GetString("UserId") == null)
+            {
+                // Redirige a la página de aterrizaje si no hay un usuario autenticado.
+                return RedirectToAction("Landing", "Home");
+            }
+
             ProfileProjectViewModel vm = new ProfileProjectViewModel();
 
+            ProjectDAL projectDal = new ProjectDAL();
+
+            // Obtención de ProjectId 
+            int.TryParse(HttpContext.Session.GetString("ProjectId"), out int projectId);
+
+            var project = projectDal.GetById(projectId);
+
+            vm.Project = project;
+            
             return View(vm);
         }
         public IActionResult Event()
@@ -35,6 +52,19 @@ namespace LocalVibes.Controllers
         public IActionResult User()
         {
             //ProfilUserViewModel vm = new ProfileUserViewModel();
+
+            // Verifica si la sesión contiene un indicador de usuario autenticado.
+            if (HttpContext.Session.GetString("UserId") == null)
+            {
+                // Redirige a la página de aterrizaje si no hay un usuario autenticado.
+                return RedirectToAction("Landing", "Home");
+            }
+
+            UserDAL userDal = new UserDAL();
+
+            int.TryParse(HttpContext.Session.GetString("UserId"), out int userId);
+
+            var user = userDal.GetById(userId);
 
             return View();
         }

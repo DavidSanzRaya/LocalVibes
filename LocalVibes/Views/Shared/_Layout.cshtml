@@ -28,7 +28,7 @@
 							</li>
 						</ul>
 
-						@if (Context.Session.GetString("ProjectName") != null)
+						@if (Context.Session.GetString("Role") == "Band")
 						{
 							<ul class="navbar-nav">
 
@@ -46,7 +46,7 @@
 								</li>
 							</ul>
 						}
-						else if (Context.Session.GetString("Username") != null){
+						else if (Context.Session.GetString("Role") == "User"){
 							<ul class="navbar-nav">
 
 								<li class="nav-item">
