@@ -3,11 +3,14 @@
 
 @{
     ViewData["Title"] = "Sign Up";
+    var genres = Model.Band.SelectedGeneresMusic;
+    var selectedGenre = Model.Band.IdGenereMusical;
 }
 
 <head>
     <link rel="stylesheet" href="~/css/Views/SignUp/style.css" />
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="~/css/multiSelect.css"/>
 </head>
 
 <div class="body">
@@ -64,7 +67,7 @@
                        style="cursor: pointer"></i>
                 </div>
                 <div class="input-box animation" style="--i:8; --j:31">
-                    <select asp-for="User.IdGenere" class="form-control" asp-items="Model.User.Generes">
+                    <select asp-for="User.IdGenere" class="form-control" asp-items="Model.User.Generes" >
                         <option value="">Selecciona género</option>
                     </select>
                     <label asp-for="User.IdGenere"></label>
@@ -109,8 +112,7 @@
                     <i class="bx bxs-user"></i>
                 </div>
                 <div class="input-box animation" style="--i:29; --j:5">
-                    <select asp-for="Band.IdGenereMusical" class="form-control" placeholder="Selecciona género" asp-items="Model.Band.SelectedGeneresMusic" multiple>
-
+                    <select class="form-control" asp-for="@selectedGenre" asp-items="@genres" data-placeholder="Select genres" multiple data-multi-select>
                     </select>
                     <label asp-for="Band.IdGenereMusical"></label>
                 </div>
@@ -129,6 +131,5 @@
             <p class="animation" style="--i:25; --j:1">Enjoy the music around you and discover new bands</p>
         </div>
     </div>
-
     <script src="~/js/SignUp/script.js"></script>
 </div>

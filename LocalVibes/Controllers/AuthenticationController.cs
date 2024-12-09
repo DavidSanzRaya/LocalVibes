@@ -315,7 +315,8 @@ namespace LocalVibes.Controllers
                 Band = new SignUpViewModel.BandRegistrationData
                 {
                     SelectedGeneresMusic = GetGeneres()
-                }
+                },
+                SelectedGeneresMusic = GetGeneres()
             };
 
             return View(model);

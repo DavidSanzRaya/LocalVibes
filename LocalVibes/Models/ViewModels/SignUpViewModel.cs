@@ -8,6 +8,12 @@ namespace LocalVibes.Models.ViewModels
         public UserRegistrationData User { get; set; } = new UserRegistrationData();
         public BandRegistrationData Band { get; set; } = new BandRegistrationData();
 
+        [Display(Name = "Genres")]
+        [Required(ErrorMessage = "El género musical es obligatorio.")]
+        // Propiedad que representa el género Musical
+        public int IdGenereMusical { get; set; }
+        public IEnumerable<SelectListItem> SelectedGeneresMusic { get; set; } = new List<SelectListItem>();
+
         public class UserRegistrationData
         {
             // Nombre de Usuario
