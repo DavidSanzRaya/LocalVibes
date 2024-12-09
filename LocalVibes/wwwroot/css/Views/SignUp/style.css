@@ -15,76 +15,75 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
 }
 
 .wrapper {
     position: relative;
-    width: 1100px;
-    height: 1000px;
+    width: 800px;
+    height: 800px;
     background: transparent;
     border: 2px solid #9b59b6;
     box-shadow: 0 0 50px #9b59b6;
     overflow: hidden;
 }
 
-    .wrapper .form-box {
-        position: absolute;
-        top: 0;
-        width: 50%;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
+.wrapper .form-box {
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 
-        .wrapper .form-box.login {
-            left: 0;
-            padding: 0 60px 0 40px;
-        }
+.wrapper .form-box.login {
+    left: 0;
+    padding: 0 40px 0 30px;
+}
 
-            .wrapper .form-box.login .animation {
-                transform: translateX(0);
-                opacity: 1;
-                filter: blur(0);
-                transition: .7s ease;
-                transition-delay: calc(.1s * var(--j));
-            }
+.wrapper .form-box.login .animation {
+    transform: translateX(0);
+    opacity: 1;
+    filter: blur(0);
+    transition: .7s ease;
+    transition-delay: calc(.1s * var(--j));
+}
 
-    .wrapper.active .form-box.login .animation {
-        transform: translateX(-120%);
-        opacity: 0;
-        filter: blur(10px);
-        transition-delay: calc(.1s * var(--i));
-    }
+.wrapper.active .form-box.login .animation {
+    transform: translateX(-120%);
+    opacity: 0;
+    filter: blur(10px);
+    transition-delay: calc(.1s * var(--i));
+}
 
-    .wrapper .form-box.register {
-        right: 0;
-        padding: 0 40px 0 60px;
-        pointer-events: none;
-    }
+.wrapper .form-box.register {
+    right: 0;
+    padding: 0 30px 0 40px;
+    pointer-events: none;
+}
 
-    .wrapper.active .form-box.register {
-        pointer-events: auto;
-    }
+.wrapper.active .form-box.register {
+    pointer-events: auto;
+}
 
-    .wrapper .form-box.register .animation {
-        transform: translateX(120%);
-        opacity: 0;
-        filter: blur(10px);
-        transition: .7s ease;
-        transition-delay: calc(.1s * var(--j));
-    }
+.wrapper .form-box.register .animation {
+    transform: translateX(120%);
+    opacity: 0;
+    filter: blur(10px);
+    transition: .7s ease;
+    transition-delay: calc(.1s * var(--j));
+}
 
-    .wrapper.active .form-box.register .animation {
-        transform: translateX(0);
-        opacity: 1;
-        filter: blur(0);
-        transition-delay: calc(.1s * var(--i));
-    }
+.wrapper.active .form-box.register .animation {
+    transform: translateX(0);
+    opacity: 1;
+    filter: blur(0);
+    transition-delay: calc(.1s * var(--i));
+}
 
 .form-box h2 {
-    font-size: 32px;
+    font-size: 24px;
     color: #fff;
     text-align: center;
 }
@@ -92,16 +91,16 @@ body {
 .form-box .input-box {
     position: relative;
     width: 100%;
-    height: 50px;
-    margin: 25px 0;
+    height: 40px;
+    margin: 15px 0;
 }
 
-    .form-box .input-box:has(textarea) {
-        position: relative;
-        width: 100%;
-        height: 100px;
-        margin: 25px 0;
-    }
+.form-box .input-box:has(textarea) {
+    position: relative;
+    width: 100%;
+    height: 100px;
+    margin: 25px 0;
+}
 
 .form-box .input-box-image {
     display: flex;
@@ -122,9 +121,9 @@ input[type="date"] {
     -moz-appearance: textfield;
 }
 
-    input[type="date"]::-ms-clear {
-        display: none;
-    }
+input[type="date"]::-ms-clear {
+    display: none;
+}
 
 .input-box-image input {
     width: 100%;
@@ -165,7 +164,7 @@ input[type="date"] {
     outline: none;
     border-bottom: 2px solid #fff;
     padding-right: 23px;
-    font-size: 16px;
+    font-size: 14px;
     color: #fff;
     font-weight: 500;
     transition: .5s;
@@ -186,7 +185,7 @@ input[type="date"] {
     top: 50%;
     left: 0;
     transform: translateY(-50%);
-    font-size: 16px;
+    font-size: 14px;
     color: #fff;
     pointer-events: none;
     transition: .5s;
@@ -238,34 +237,34 @@ input[type="date"] {
 .btn {
     position: relative;
     width: 100%;
-    height: 45px;
+    height: 40px;
     background: transparent;
     border: 2px solid #9b59b6;
     outline: none;
     border-radius: 40px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 14px;
     color: #fff;
     font-weight: 600;
     z-index: 1;
     overflow: hidden;
 }
 
-    .btn::before {
-        content: '';
-        position: absolute;
-        top: -100%;
-        left: 0;
-        width: 100%;
-        height: 300%;
-        background: linear-gradient(#081b29, #9b59b6, #081b29, #9b59b6);
-        z-index: -1;
-        transition: .5s;
-    }
+.btn::before {
+    content: '';
+    position: absolute;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: 300%;
+    background: linear-gradient(#081b29, #9b59b6, #081b29, #9b59b6);
+    z-index: -1;
+    transition: .5s;
+}
 
-    .btn:hover::before {
-        top: 0;
-    }
+.btn:hover::before {
+    top: 0;
+}
 
 .form-box .logreg-link {
     font-size: 14.5px;
@@ -280,9 +279,9 @@ input[type="date"] {
     font-weight: 600;
 }
 
-    .logreg-link p a:hover {
-        text-decoration: underline;
-    }
+.logreg-link p a:hover {
+    text-decoration: underline;
+}
 
 .wrapper .info-text {
     position: absolute;
@@ -294,20 +293,20 @@ input[type="date"] {
     justify-content: center;
 }
 
-    .wrapper .info-text.login {
-        right: 0;
-        text-align: right;
-        padding: 0 40px 60px 150px;
-        pointer-events: none;
-    }
+.wrapper .info-text.login {
+    right: 0;
+    text-align: right;
+    padding: 0 40px 60px 150px;
+    pointer-events: none;
+}
 
-        .wrapper .info-text.login .animation {
-            transform: translateX(0);
-            opacity: 1;
-            filter: blur(0);
-            transition: .7s ease;
-            transition-delay: calc(.1s * var(--j));
-        }
+.wrapper .info-text.login .animation {
+    transform: translateX(0);
+    opacity: 1;
+    filter: blur(0);
+    transition: .7s ease;
+    transition-delay: calc(.1s * var(--j));
+}
 
 .wrapper.active .info-text.login .animation {
     transform: translateX(120%);
@@ -358,8 +357,8 @@ input[type="date"] {
     position: absolute;
     top: -4px;
     right: 0;
-    width: 1700px;
-    height: 1500px;
+    width: 1100px;
+    height: 1000px;
     background: linear-gradient(45deg, #081b29, #9b59b6);
     border-bottom: 3px solid #9b59b6;
     transform: rotate(27deg) skewY(40deg);
@@ -376,9 +375,9 @@ input[type="date"] {
 .wrapper .bg-animate2 {
     position: absolute;
     top: 100%;
-    left: 920px;
-    width: 1700px;
-    height: 1700px;
+    left: 520px;
+    width: 1100px;
+    height: 1000px;
     background: #081b29;
     border-top: 3px solid #9b59b6;
     transform: rotate(0) skewY(0);
@@ -389,5 +388,5 @@ input[type="date"] {
 
 .wrapper.active .bg-animate2 {
     transform: rotate(-28deg) skewY(-39deg);
-    transition-delay: 1.8s;
+    transition-delay: 2s;
 }

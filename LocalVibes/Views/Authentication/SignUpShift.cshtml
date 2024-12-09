@@ -109,8 +109,8 @@
                     <i class="bx bxs-user"></i>
                 </div>
                 <div class="input-box animation" style="--i:29; --j:5">
-                    <select asp-for="Band.IdGenereMusical" class="form-control" asp-items="Model.Band.SelectedGeneresMusic">
-                        <option value="">Selecciona género</option>
+                    <select asp-for="Band.IdGenereMusical" class="form-control" placeholder="Selecciona género" asp-items="Model.Band.SelectedGeneresMusic" multiple>
+
                     </select>
                     <label asp-for="Band.IdGenereMusical"></label>
                 </div>
