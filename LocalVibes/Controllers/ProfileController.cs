@@ -31,5 +31,11 @@ namespace LocalVibes.Controllers
 
             return View(vm);
         }
+        public IActionResult User()
+        {
+            ProfileUserViewModel vm = new ProfileUserViewModel();
+
+            return View(vm);
+        }
     }
 }
