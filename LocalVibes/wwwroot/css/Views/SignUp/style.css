@@ -1,4 +1,4 @@
-﻿/*@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+﻿@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 * {
     margin: 0;
@@ -44,17 +44,17 @@ body {
 }
 
 .wrapper .form-box.login .animation {
-    transform: translateX(0);
+    /*transform: translateX(0);*/
     opacity: 1;
-    filter: blur(0);
+    /*filter: blur(0);*/
     transition: .7s ease;
     transition-delay: calc(.1s * var(--j));
 }
 
 .wrapper.active .form-box.login .animation {
-    transform: translateX(-120%);
+    /*transform: translateX(-120%);*/
     opacity: 0;
-    filter: blur(10px);
+    /*filter: blur(10px);*/
     transition-delay: calc(.1s * var(--i));
 }
 
@@ -69,17 +69,13 @@ body {
 }
 
 .wrapper .form-box.register .animation {
-    transform: translateX(120%);
     opacity: 0;
-    filter: blur(10px);
     transition: .7s ease;
     transition-delay: calc(.1s * var(--j));
 }
 
 .wrapper.active .form-box.register .animation {
-    transform: translateX(0);
     opacity: 1;
-    filter: blur(0);
     transition-delay: calc(.1s * var(--i));
 }
 
@@ -93,7 +89,7 @@ body {
     position: relative;
     width: 100%;
     height: 40px;
-    margin: 15px 0;
+    margin: 20px 0;
 }
 
 .form-box .input-box:has(textarea) {
@@ -179,7 +175,7 @@ input[type="date"]::-ms-clear {
 .input-box input:focus,
 .input-box input[data-filled="true"] {
     border-bottom-color: #9b59b6;
-}*/
+}
 
 .input-box label {
     position: absolute;
@@ -199,21 +195,24 @@ input[type="date"]::-ms-clear {
 
 .input-box.date label,
 .input-box:has(textarea) label,
-.input-box select ~ label {
+.input-box select ~ label,
+.input-box .multiSelect-label {
     opacity: 0;
 }
 
 .input-box input:focus ~ label,
 .input-box input[data-filled="true"] ~ label,
 .input-box input[type="date"]:focus ~ label,
-.input-box input[type="date"][data-filled="true"] ~ label {
-    top: -5px;
+.input-box input[type="date"][data-filled="true"] ~ label,
+.input-box select:focus ~ label,
+.input-box select[data-filled="true"] ~ label,
+.input-box:has(.multi-select .multiSelect-input) .multiSelect-label,
+.input-box:has(.multi-select-header.multi-select-header-active) .multiSelect-label {
+    top: -10px;
     color: #9b59b6;
     opacity: 1;
 }
 
-.input-box select:focus ~ label,
-.input-box select[data-filled="true"] ~ label,
 .input-box textarea:focus ~ label,
 .input-box textarea[data-filled="true"] ~ label {
     top: -20px;

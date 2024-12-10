@@ -8,9 +8,10 @@
 }
 
 <head>
+    <link rel="stylesheet" href="~/css/multiSelect.css" />
     <link rel="stylesheet" href="~/css/Views/SignUp/style.css" />
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="~/css/multiSelect.css"/>
+    
 </head>
 
 <div class="body">
@@ -112,9 +113,9 @@
                     <i class="bx bxs-user"></i>
                 </div>
                 <div class="input-box animation" style="--i:29; --j:5">
-                    <select class="form-control" asp-for="@selectedGenre" asp-items="@genres" data-placeholder="Select genres" multiple data-multi-select>
+                    <select asp-for="@selectedGenre" asp-items="@genres" data-placeholder="Select genres" multiple data-multi-select>
                     </select>
-                    <label asp-for="Band.IdGenereMusical"></label>
+                    <label asp-for="Band.IdGenereMusical" class="multiSelect-label"></label>
                 </div>
                 <div class="input-box-image animation" style="--i:30; --j:6">
                     <input asp-for="Band.ProjectImage" type="file" />
