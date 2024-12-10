@@ -303,33 +303,132 @@ namespace LocalVibes.Controllers
         #endregion
 
         #region SignUp Shift
+
+        [HttpGet]
         public IActionResult SignUpShift()
         {
+            var userModel = LoadUserRegistrationData();
+            var bandModel = LoadBandRegistrationData();
+
             var model = new SignUpViewModel
             {
-                User = new SignUpViewModel.UserRegistrationData
-                {
-                    Generes = GetGeneres()
-                },
-
-                Band = new SignUpViewModel.BandRegistrationData
-                {
-                    SelectedGeneresMusic = GetGeneres()
-                },
-                SelectedGeneresMusic = GetGeneres()
+                User = userModel,
+                Band = bandModel
             };
 
             return View(model);
         }
 
-        //Método de prueba
-        private IEnumerable<SelectListItem> GetGeneres()
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SignUpShift(SignUpViewModel.UserRegistrationData model)
         {
-            return new List<SelectListItem>
+            if (ModelState.IsValid)
             {
-                new SelectListItem { Value = "1", Text = "Rock" },
-                new SelectListItem { Value = "2", Text = "Pop" },
-                new SelectListItem { Value = "3", Text = "Jazz" }
+                try
+                {
+                    UserDAL dal = new UserDAL();
+                    var usuarioExistente = dal.GetByName(model.Username);
+
+                    if (usuarioExistente != null)
+                    {
+                        ModelState.AddModelError("", "El nombre de usuario ya está en uso.");
+                        return View(LoadUserRegistrationData());
+                    }
+
+                    var nuevoUsuario = new Users
+                    {
+                        UserName = model.Username,
+                        FirstName = model.FirstName,
+                        LastName = model.LastName,
+                        UserEmail = model.UserEmail,
+                        Phone = model.Phone,
+                        Birthdate = model.Birthdate,
+                        DateRegister = DateTime.Now,
+                        IdGenere = model.IdGenere,
+                        DocumentNumber = model.DocumentNumber,
+                        IdDocumentType = model.IdDocumentType,
+                        IdTier = 1,
+                        UserPoints = 0
+                    };
+
+                    PasswordHelper.CreatePasswordHash(model.Password, out byte[] passwordHash, out byte[] passwordSalt);
+                    nuevoUsuario.PasswordHash = passwordHash;
+                    nuevoUsuario.PasswordSalt = passwordSalt;
+
+                    if (model.ProfileImage != null && model.ProfileImage.Length > 0)
+                    {
+                        using (var memoryStream = new MemoryStream())
+                        {
+                            await model.ProfileImage.CopyToAsync(memoryStream);
+                            nuevoUsuario.ProfileImage = memoryStream.ToArray();
+                        }
+                    }
+
+                    dal.Add(nuevoUsuario);
+                    var usuarioCreado = dal.GetByName(model.Username);
+
+                    if (usuarioCreado != null)
+                    {
+                        // Registrar la sesión automáticamente después del registro
+                        HttpContext.Session.SetString("UserId", usuarioCreado.IdUsers.ToString());
+                        HttpContext.Session.SetString("Username", usuarioCreado.UserName);
+                        HttpContext.Session.SetString("Role", "User");
+
+                        TempData["SuccessMessage"] = "Usuario registrado con éxito. ¡Bienvenido, " + usuarioCreado.FirstName + "!";
+                        return RedirectToAction("Home", "Home");
+                    }
+
+                    ModelState.AddModelError("", "No se ha podido crear el usuario. Inténtelo nuevamente.");
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", "Ocurrió un error inesperado. Por favor, inténtelo nuevamente.");
+                }
+            }
+            else
+            {
+                foreach (var error in ModelState)
+                {
+                    var key = error.Key; // Nombre de la propiedad
+                    var errors = error.Value.Errors; // Errores asociados
+                    foreach (var err in errors)
+                    {
+                        Console.WriteLine($"Property: {key}, Error: {err.ErrorMessage}");
+                    }
+                }
+            }
+
+            return View(model);
+        }
+
+        private SignUpViewModel.UserRegistrationData LoadUserRegistrationData()
+        {
+            GenereDAL dalGenere = new GenereDAL();
+            var generes = dalGenere.GetAll();
+
+            return new SignUpViewModel.UserRegistrationData
+            {
+                Generes = generes.Select(g => new SelectListItem
+                {
+                    Value = g.IdGenere.ToString(),
+                    Text = g.GenereName
+                })
+            };
+        }
+
+        private SignUpViewModel.BandRegistrationData LoadBandRegistrationData()
+        {
+            GenereMusicDAL genereMusicDAL = new GenereMusicDAL();
+            var musicGenres = genereMusicDAL.GetAll();
+
+            return new SignUpViewModel.BandRegistrationData
+            {
+                SelectedGeneresMusic = musicGenres.Select(g => new SelectListItem
+                {
+                    Value = g.IdGenereMusic.ToString(),
+                    Text = g.GenereMusicName
+                })
             };
         }
         #endregion

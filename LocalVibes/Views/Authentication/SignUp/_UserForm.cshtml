@@ -1,0 +1,65 @@
+﻿@using static LocalVibes.Models.ViewModels.SignUpViewModel
+@model UserRegistrationData
+
+<form asp-action="SignUpShift" method="post" asp-antiforgery="true" enctype="multipart/form-data">
+    <div class="input-box animation" style="--i:1; --j:23">
+        <input asp-for="Username" type="text" />
+        <label asp-for="Username"></label>
+        <i class="bx bxs-user"></i>
+    </div>
+    <div class="input-box animation" style="--i:2; --j:24">
+        <input asp-for="FirstName" type="text" />
+        <label asp-for="FirstName"></label>
+    </div>
+    <div class="input-box animation" style="--i:3; --j:25">
+        <input asp-for="LastName" type="text" />
+        <label asp-for="LastName"></label>
+    </div>
+    <div class="input-box animation" style="--i:4; --j:26">
+        <input asp-for="UserEmail" type="email" />
+        <label asp-for="UserEmail"></label>
+        <i class="bx bxs-envelope"></i>
+    </div>
+    <div class="input-box animation" style="--i:4; --j:27">
+        <input asp-for="Phone"
+               type="tel"
+               maxlength="9"
+               pattern="\d{9}"
+               title="Debe ingresar exactamente 9 números"
+               oninput="this.value=this.value.replace(/[^0-9]/g,'')" />
+        <label asp-for="Phone"></label>
+        <i class="bx bxs-phone"></i>
+    </div>
+    <div class="input-box animation" style="--i:5; --j:28">
+        <input asp-for="Password" type="password" />
+        <label asp-for="Password"></label>
+        <i class="bx bxs-lock-alt"></i>
+    </div>
+    <div class="input-box animation" style="--i:6; --j:29">
+        <input asp-for="ConfirmPassword" type="password" />
+        <label asp-for="ConfirmPassword"></label>
+        <i class="bx bxs-lock-alt"></i>
+    </div>
+    <div class="input-box date animation" style="--i:7; --j:30">
+        <input asp-for="Birthdate" id="birthdateInput" value="" />
+        <label asp-for="Birthdate"></label>
+        <i class="bx bxs-calendar"
+           onclick="document.getElementById('birthdateInput').showPicker();"
+           style="cursor: pointer"></i>
+    </div>
+    <div class="input-box animation" style="--i:8; --j:31">
+        <select asp-for="IdGenere" class="form-control" asp-items="Model.Generes">
+            <option value="">Selecciona género</option>
+        </select>
+        <label asp-for="IdGenere"></label>
+        <span asp-validation-for="IdGenere" class="text-danger"></span>
+    </div>
+    <div class="input-box-image animation" style="--i:9; --j:32">
+        <input asp-for="ProfileImage" type="file" />
+        <label asp-for="ProfileImage"></label>
+    </div>
+    <button type="submit" class="btn animation" style="--i:10; --j:33">Sign Up</button>
+    <div class="logreg-link animation" style="--i:11; --j:34">
+        <p>Are you a band? <a href="#" class="register-link">Sign Up as a band</a></p>
+    </div>
+</form>

@@ -1,0 +1,43 @@
+﻿@using static LocalVibes.Models.ViewModels.SignUpViewModel
+@model BandRegistrationData
+
+@{
+    var genres = Model.SelectedGeneresMusic;
+    var selectedGenre = Model.IdGenereMusical;
+}
+
+<form action="#">
+    <div class="input-box animation" style="--i:25; --j:1">
+        <input asp-for="ProjectName" type="text" />
+        <label asp-for="ProjectName"></label>
+    </div>
+    <div class="input-box animation" style="--i:26; --j:2">
+        <textarea asp-for="Biography" class="form-control"></textarea>
+        <label asp-for="Biography"></label>
+    </div>
+    <div class="input-box date animation" style="--i:27; --j:3">
+        <input asp-for="FormationDate" id="formationdateInput" value="" />
+        <label asp-for="FormationDate"></label>
+        <i class="bx bxs-calendar"
+           onclick="document.getElementById('formationdateInput').showPicker();"
+           style="cursor: pointer"></i>
+    </div>
+    <div class="input-box animation" style="--i:28; --j:4">
+        <input asp-for="UsernameAdmin" type="text" />
+        <label asp-for="UsernameAdmin"></label>
+        <i class="bx bxs-user"></i>
+    </div>
+    <div class="input-box animation" style="--i:29; --j:5">
+        <select asp-for="@selectedGenre" asp-items="@genres" data-placeholder="Select genres" multiple data-multi-select>
+        </select>
+        <label asp-for="IdGenereMusical" class="multiSelect-label"></label>
+    </div>
+    <div class="input-box-image animation" style="--i:30; --j:6">
+        <input asp-for="ProjectImage" type="file" />
+        <label asp-for="ProjectImage"></label>
+    </div>
+    <button type="submit" class="btn animation" style="--i:31; --j:7">Sign Up</button>
+    <div class="logreg-link animation" style="--i:32; --j:8">
+        <p>Do you want to register as a user? <a href="#" class="login-link">Sign Up as a user</a></p>
+    </div>
+</form>

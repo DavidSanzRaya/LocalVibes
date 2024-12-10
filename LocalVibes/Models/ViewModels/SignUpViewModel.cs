@@ -8,12 +8,6 @@ namespace LocalVibes.Models.ViewModels
         public UserRegistrationData User { get; set; } = new UserRegistrationData();
         public BandRegistrationData Band { get; set; } = new BandRegistrationData();
 
-        [Display(Name = "Genres")]
-        [Required(ErrorMessage = "El género musical es obligatorio.")]
-        // Propiedad que representa el género Musical
-        public int IdGenereMusical { get; set; }
-        public IEnumerable<SelectListItem> SelectedGeneresMusic { get; set; } = new List<SelectListItem>();
-
         public class UserRegistrationData
         {
             // Nombre de Usuario
@@ -66,22 +60,19 @@ namespace LocalVibes.Models.ViewModels
             public DateTime Birthdate { get; set; }
 
             // Género
-            public int IdGenere { get; set; }
+            [Display(Name = "Gender")]
             [Required(ErrorMessage = "El género es obligatorio.")]
-            [Display(Name = "Genre")]
+            public int IdGenere { get; set; }
             public IEnumerable<SelectListItem> Generes { get; set; } = new List<SelectListItem>();
 
             // Tipo de Documento
-            public int IdDocumentType { get; set; }
-            [Required(ErrorMessage = "El tipo de documento es obligatorio.")]
-            [Display(Name = "Document type")]
+            public int? IdDocumentType { get; set; }
             public IEnumerable<SelectListItem> Documents { get; set; } = new List<SelectListItem>();
 
             // Número de Documento
-            [Required(ErrorMessage = "El número de documento es obligatorio.")]
             [StringLength(20, ErrorMessage = "El número de documento no puede tener más de 20 caracteres.")]
             [Display(Name = "Document number")]
-            public string DocumentNumber { get; set; }
+            public string? DocumentNumber { get; set; }
 
             // Imagen de Perfil
             [DataType(DataType.Upload)]

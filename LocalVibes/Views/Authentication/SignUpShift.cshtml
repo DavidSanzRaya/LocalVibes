@@ -3,8 +3,6 @@
 
 @{
     ViewData["Title"] = "Sign Up";
-    var genres = Model.Band.SelectedGeneresMusic;
-    var selectedGenre = Model.Band.IdGenereMusical;
 }
 
 <head>
@@ -21,68 +19,7 @@
 
         <div class="form-box login">
             <h2 class="animation" style="--i:0; --j:22">User</h2>
-            <form action="#">
-                <div class="input-box animation" style="--i:1; --j:23">
-                    <input asp-for="User.Username" type="text" />
-                    <label asp-for="User.Username"></label>
-                    <i class="bx bxs-user"></i>
-                </div>
-                <div class="input-box animation" style="--i:2; --j:24">
-                    <input asp-for="User.FirstName" type="text" />
-                    <label asp-for="User.FirstName"></label>
-                </div>
-                <div class="input-box animation" style="--i:3; --j:25">
-                    <input asp-for="User.LastName" type="text" />
-                    <label asp-for="User.LastName"></label>
-                </div>
-                <div class="input-box animation" style="--i:4; --j:26">
-                    <input asp-for="User.UserEmail" type="email" />
-                    <label asp-for="User.UserEmail"></label>
-                    <i class="bx bxs-envelope"></i>
-                </div>
-                <div class="input-box animation" style="--i:4; --j:27">
-                    <input asp-for="User.Phone"
-                           type="tel"
-                           maxlength="9"
-                           pattern="\d{9}"
-                           title="Debe ingresar exactamente 9 números"
-                           oninput="this.value=this.value.replace(/[^0-9]/g,'')" />
-                    <label asp-for="User.Phone"></label>
-                    <i class="bx bxs-phone"></i>
-                </div>
-                <div class="input-box animation" style="--i:5; --j:28">
-                    <input asp-for="User.Password" type="password" />
-                    <label asp-for="User.Password"></label>
-                    <i class="bx bxs-lock-alt"></i>
-                </div>
-                <div class="input-box animation" style="--i:6; --j:29">
-                    <input asp-for="User.ConfirmPassword" type="password" />
-                    <label asp-for="User.ConfirmPassword"></label>
-                    <i class="bx bxs-lock-alt"></i>
-                </div>
-                <div class="input-box date animation" style="--i:7; --j:30">
-                    <input asp-for="User.Birthdate" id="birthdateInput" value="" />
-                    <label asp-for="User.Birthdate"></label>
-                    <i class="bx bxs-calendar"
-                       onclick="document.getElementById('birthdateInput').showPicker();"
-                       style="cursor: pointer"></i>
-                </div>
-                <div class="input-box animation" style="--i:8; --j:31">
-                    <select asp-for="User.IdGenere" class="form-control" asp-items="Model.User.Generes" >
-                        <option value="">Selecciona género</option>
-                    </select>
-                    <label asp-for="User.IdGenere"></label>
-                    <span asp-validation-for="User.IdGenere" class="text-danger"></span>
-                </div>
-                <div class="input-box-image animation" style="--i:9; --j:32">
-                    <input asp-for="User.ProfileImage" type="file" />
-                    <label asp-for="User.ProfileImage"></label>
-                </div>
-                <button type="submit" class="btn animation" style="--i:10; --j:33">Sign Up</button>
-                <div class="logreg-link animation" style="--i:11; --j:34">
-                    <p>Are you a band? <a href="#" class="register-link">Sign Up as a band</a></p>
-                </div>
-            </form>
+            <partial name="SignUp/_UserForm" model="Model.User" />
         </div>
         <div class="info-text login">
             <h2 class="animation" style="--i:0; --j:20">Welcome!</h2>
@@ -91,41 +28,7 @@
         <!--Band-->
         <div class="form-box register">
             <h2 class="animation" style="--i:24; --j:0">Band</h2>
-            <form action="#">
-                <div class="input-box animation" style="--i:25; --j:1">
-                    <input asp-for="Band.ProjectName" type="text" />
-                    <label asp-for="Band.ProjectName"></label>
-                </div>
-                <div class="input-box animation" style="--i:26; --j:2">
-                    <textarea asp-for="Band.Biography" class="form-control"></textarea>
-                    <label asp-for="Band.Biography"></label>
-                </div>
-                <div class="input-box date animation" style="--i:27; --j:3">
-                    <input asp-for="Band.FormationDate" id="formationdateInput" value="" />
-                    <label asp-for="Band.FormationDate"></label>
-                    <i class="bx bxs-calendar"
-                       onclick="document.getElementById('formationdateInput').showPicker();"
-                       style="cursor: pointer"></i>
-                </div>
-                <div class="input-box animation" style="--i:28; --j:4">
-                    <input asp-for="Band.UsernameAdmin" type="text" />
-                    <label asp-for="Band.UsernameAdmin"></label>
-                    <i class="bx bxs-user"></i>
-                </div>
-                <div class="input-box animation" style="--i:29; --j:5">
-                    <select asp-for="@selectedGenre" asp-items="@genres" data-placeholder="Select genres" multiple data-multi-select>
-                    </select>
-                    <label asp-for="Band.IdGenereMusical" class="multiSelect-label"></label>
-                </div>
-                <div class="input-box-image animation" style="--i:30; --j:6">
-                    <input asp-for="Band.ProjectImage" type="file" />
-                    <label asp-for="Band.ProjectImage"></label>
-                </div>
-                <button type="submit" class="btn animation" style="--i:31; --j:7">Sign Up</button>
-                <div class="logreg-link animation" style="--i:32; --j:8">
-                    <p>Do you want to register as a user? <a href="#" class="login-link">Sign Up as a user</a></p>
-                </div>
-            </form>
+            <partial name="SignUp/_BandForm" model="Model.Band" />
         </div>
         <div class="info-text register">
             <h2 class="animation" style="--i:24; --j:0">Welcome!</h2>
