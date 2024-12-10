@@ -70,5 +70,47 @@ namespace LocalVibes.DALs
 
             return members;
         }
+
+        public List<EventProject> GetEventsByProjectId(int projectId)
+        {
+            var events = new List<EventProject>();
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = @"
+                SELECT ep.IdEvent, ep.EventTitle, ep.EventDescription, ep.EventImage, ep.Capacity, ep.IsSoldOut, ep.Sales, ep.EventDate, ep.IdLocation
+                FROM EventProject ep
+                WHERE ep.IdProject = @projectId";
+
+                    command.Parameters.Add(new SqlParameter("@projectId", SqlDbType.Int) { Value = projectId });
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            events.Add(new EventProject
+                            {
+                                IdEvent = (int)reader["IdEvent"],
+                                EventTitle = (string)reader["EventTitle"],
+                                EventDescription = (string)reader["EventDescription"],
+                                EventImage = reader["EventImage"] != DBNull.Value ? (byte[])reader["EventImage"] : null,
+                                Capacity = reader["Capacity"] != DBNull.Value ? (int?)reader["Capacity"] : null,
+                                IsSoldOut = (bool)reader["IsSoldOut"],
+                                Sales = reader["Sales"] != DBNull.Value ? (int?)reader["Sales"] : null,
+                                EventDate = (DateTime)reader["EventDate"],
+                                IdLocation = (int)reader["IdLocation"]
+                            });
+                        }
+                    }
+                }
+            }
+
+            return events;
+        }
+
+
     }
 }

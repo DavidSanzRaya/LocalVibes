@@ -4,14 +4,29 @@
     <div class="ReviewCard__header">
         @Html.Partial("_Avatar", new AvatarModel{Size="40px"})
         <div>
-            <div>UserName</div>
-            <div class="ReviewCard__header__date">Date</div>
+            <div>
+                <span>@Model.Review.User.UserName</span>
+                <span class="ReviewCard__header__date">@Model.Review.ReviewDate.ToString("dd/MM/yyyy")</span>
+            </div>
+            <div>
+                @for (int i = 1; i <= 5; i++)
+                {
+                    if (i <= Model.Review.Rating)
+                    {
+                        <span class="star filled">★</span>
+                    }
+                    else
+                    {
+                        <span class="star empty">☆</span>
+                    }
+                }
+            </div>
         </div>
-        <div>Rate</div>
+        
     </div >
     <p class="ReviewCard__comment">
-        hdjalsdjfkalsdñjflsadjfaslñdjfasñldjfsaldasldñfjañsl
-        hdjalsdjfkalsdñjflsadjfaslñdjfasñldjfsaldasldñfjañsl
+        <span>@Model.Review.ReviewText</span>
     </p>
 </div>
+<br />
 
