@@ -8,18 +8,24 @@
     --text-dark: #000000; /* Texto negro */
     --border-radius: 8px; /* Bordes redondeados */
     --border-thin: 1px solid #ffffff; /* Bordes finos */
-    --font-family: 'Poppins', sans-serif; /* Fuente redondeada y moderna */
+    --font-family: "Nunito", sans-serif; /* Fuente redondeada y moderna */
+    --font-optical-sizing: auto;
+    --font-style: normal;
+    --scroll-behavior: smooth;
+    --font-size: 16px;
 }
+
 
 /* Fondo y cuerpo */
 body {
     margin: 0;
     padding: 0;
     background-color: var(--background-dark);
-    color: var(--text-light);
     font-family: var(--font-family);
-    font-size: 16px;
-    scroll-behavior: smooth;
+    font-optical-sizing: var(--font-optical-sizing);
+    font-style: var(--font-style);
+    font-size: var(--font-size);
+    scroll-behavior:var(--scroll-behavior);
 }
 
 /* Botones generales */

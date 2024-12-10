@@ -1,6 +1,6 @@
 @model LocalVibes.Models.CardModel
 
-<div class="VerticalCard" style="width: 200px;">
+<div class="VerticalCard@(Model.Shadow ? "-shadow" : "")" style="width: 200px;">
     <div class="card-image" style="background-image: url('@Model.ImageUrl'); background-size: cover; background-position: center; height: 200px; display: flex; justify-content: center; align-items: center;">
     </div>
     <div class="VerticalCard__body" >

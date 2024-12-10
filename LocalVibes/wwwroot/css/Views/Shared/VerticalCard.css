@@ -4,13 +4,31 @@
     background-color: #FFF;
     color: #333333;
 }
+.VerticalCard-shadow {
+    display: flex;
+    flex-direction: column;
+    background-color: #FFF;
+    color: #333333;
+    -webkit-box-shadow: 10px 10px 10px 0px rgba(0,0,0,0.12);
+    -moz-box-shadow: 10px 10px 10px 0px rgba(0,0,0,0.12);
+    box-shadow: 10px 10px 10px 0px rgba(0,0,0,0.12);
+}
 .VerticalCard__body {
     display: flex;
     flex-direction: column;
     justify-content: start;
     font-size: 20px;
-    padding-left: 2em;
+    padding: 1em;
 }
 .VerticalCard *{
     margin: 0;
 }
+.VerticalCard-shadow *{
+    margin: 0;
+}
+.VerticalCard:hover,.VerticalCard-shadow:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 300ms ease, box-shadow 300ms ease;
+}
+

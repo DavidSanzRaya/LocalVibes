@@ -11,6 +11,7 @@
 	<title>@ViewData["Title"]</title>
 	<link rel="stylesheet" href="~/css/Views/Landing/index.css" />
 	<link rel="stylesheet" href="~/css/Views/Shared/VerticalCard.css" />
+	@Html.Partial("_Font")
 </head>
 <body>
 	<div class="Landing">
@@ -29,20 +30,27 @@
 				</div>
 			</div>
 			<div class="Landing__content__body">
-				<h1>VIU LA MUSICA <br> ESCOLTA LA BANDA</h1>
+				<h1>VIVE LA MUSICA <br> ESCUCHA LA BANDA</h1>
+				<p class="Landing__content__body__description"> Local Vibes es una plataforma diseñada para ayudarte a <span>descubrir</span> conciertos y <strong>bandas</strong> en vivo en Barcelona. Si eres fanático de la música, aquí puedes encontrar <strong>eventos</strong> cercanos, desde conciertos de artistas <strong>emergentes</strong> hasta grandes festivales  para que la gente tenga siempre un plan diferente y emocionante por descubrir..
+				Lo que nos diferencia es nuestra misión de apoyar a las bandas emergentes, brindando un espacio donde los artistas puedan ser descubiertos apartando las reproducciones y followers de la ecuacion.</p>
+
+				<h2>Descubre</h2>
 				<div class="Landing__content__body__cards">
-					@Html.Partial("_VerticalCard", new CardModel())
-					@Html.Partial("_VerticalCard", new CardModel())
-					@Html.Partial("_VerticalCard", new CardModel())
-					@Html.Partial("_VerticalCard", new CardModel())
-					@Html.Partial("_VerticalCard", new CardModel())
-					@Html.Partial("_VerticalCard", new CardModel())
+					@Html.Partial("_VerticalCard", new CardModel{Shadow=true})
+					@Html.Partial("_VerticalCard", new CardModel{Shadow=true})
+					@Html.Partial("_VerticalCard", new CardModel{Shadow=true})
+					@Html.Partial("_VerticalCard", new CardModel{Shadow=true})
+					@Html.Partial("_VerticalCard", new CardModel{Shadow=true})
 				</div>
 			</div>
 		</div>
 		<div class="Landing__background">
 			<div class="left"></div>
-			<div class="right"></div>
+			<div class="right">
+				 <video autoplay muted loop id="Landing__background__video">
+					 <source src="~/Assets/IMG_0059.mov" type="video/mp4">
+				</video>
+			</div>
 		</div>
 	</div>
 </body>
