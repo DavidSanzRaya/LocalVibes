@@ -8,7 +8,7 @@ body,html {
   height: 60;
 }
 
-.landing__background {
+.Landing__background {
   position: absolute;
   width: 100vw;
   height: 100vh;
@@ -18,25 +18,25 @@ body,html {
   z-index: 0;
 }
 
-.landing__background div {
+.Landing__background div {
   width: 100%;
   height: 100%;
 }
-.landing__background .left {
+.Landing__background .left {
   background-color: #FFF;
 }
-.landing__background .right {
+.Landing__background .right {
   background-color: #333333;
 }
 
-.landing {
+.Landing {
   width: 100vw;
   height: 100vh;
   position: relative;
   display: flex;
   z-index: 0;
 }
-.landing__content {
+.Landing__content {
   z-index: 1;
   width: 100%;
   display: flex;
@@ -45,20 +45,26 @@ body,html {
   padding-left: 5em;
   padding-right: 5em;
 }
-.landing__content__header{
+.Landing__content__header{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
-.landing__content__header__buttons{
+.Landing__content__header__buttons{
   display: flex;
   flex-direction: row;
   align-items: center;
   gap:3em;
 }
-.landing__content__body{
+.Landing__content__body{
   padding: 3em;
   display: flex;
+  flex-direction: column;
+}
+
+.Landing__content__body__cards {
+  display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 2em;
 }

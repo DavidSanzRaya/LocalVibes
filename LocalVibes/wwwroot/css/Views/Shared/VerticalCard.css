@@ -1,0 +1,16 @@
+.VerticalCard {
+    display: flex;
+    flex-direction: column;
+    background-color: #FFF;
+    color: #333333;
+}
+.VerticalCard__body {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    font-size: 20px;
+    padding-left: 2em;
+}
+.VerticalCard *{
+    margin: 0;
+}
