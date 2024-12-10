@@ -1,7 +1,7 @@
 body,html {
   margin: 0px;
   padding: 0px;
-  box-sizing: border-box;
+  box-sizing: content-box;
 }
 #id {
   width: 60;
@@ -10,8 +10,8 @@ body,html {
 
 .Landing__background {
   position: absolute;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -26,12 +26,13 @@ body,html {
   background-color: #FFF;
 }
 .Landing__background .right {
+  overflow: hidden;
   background-color: #333333;
 }
 
 .Landing {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   position: relative;
   display: flex;
   z-index: 0;
@@ -63,8 +64,26 @@ body,html {
 }
 
 .Landing__content__body__cards {
+  margin-top: 2em;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   gap: 2em;
 }
+.Landing__content__body__description {
+  width: 40%;
+}
+.Landing__content__body__description strong {
+  color: #B336B3;
+  font-weight: 700 !important;
+}
+.Landing__content__body__description span {
+  color: #B336B3;
+  font-weight: 700 ;
+}
+
+.Landing__background__video{
+    position: fixed;
+    object-fit: cover;
+    z-index: -1;
+ }
