@@ -1,34 +1,44 @@
 @model LocalVibes.Models.MemberCardModel
 
-<div class="MemberCard">
-    <div class="MemberCard__header">
-        <span>Foto</span>
-        <span>Nombre</span>
-        <span>Instrumento</span>
-    </div>
-    <div class="MemberCard__rows">
-        @if (@Model.Members != null)
+<table class="MemberCard">
+        <tr>
+            <th>Foto</th>
+            <th>Nombre</th>
+            <th>Instrumento</th>
+        </tr>
+        @if (Model.Members != null && Model.Members.Any())
         {
             @foreach (var member in Model.Members)
             {
-                <div class="MemberCard">
-                    <h4>@member.MemberName</h4>
-                    <p>@member.ArtisticName</p>
-                    <span>INSTRUMENTOS:</span>
-                    <ul>
-                        @foreach (var instrument in member.Instruments)
-                        {
-                            <li>@instrument.NameInstrument</li>
-                        }
-                    </ul>
-                    <img src="data:image/png;base64,@(member.MemberImage != null ? Convert.ToBase64String(member.MemberImage) : string.Empty)" alt="@member.MemberName" />
-                </div>
+                <tr class="MemberCard__rows__member">
+                    <!-- Image -->
+                    <td>
+                        <img src="data:image/png;base64,@(member.MemberImage != null ? Convert.ToBase64String(member.MemberImage) : string.Empty)" alt="@member.MemberName" />
+                    </td>
+
+                    <!-- Member Name -->
+                    <td>
+                        <p>@member.MemberName</p>
+                    </td>
+                    <!-- Instruments -->
+                    <td>
+                        <p >
+                            @if (member.Instruments != null && member.Instruments.Any())
+                            {
+                                @string.Join(", ", member.Instruments.Select(i => i.NameInstrument))
+                            }
+                            else
+                            {
+                                <span>Datos no encontrado</span>
+                            }
+                        </p>
+                    </td>
+
+                </tr>
             }
         }
-        else 
+        else
         {
             <span>Datos no encontrado</span>
         }
-    </div>
-</div>
-
+</table>

@@ -96,11 +96,7 @@
             <h2>MIEMBROS</h2>
             @if (Model.Project.MembersOfProjects != null && Model.Project.MembersOfProjects.Any())
             {
-                @foreach (var member in Model.Project.MembersOfProjects)
-                {
-                    @Html.Partial("_MemberCardRow", new MemberCardRowModel { Member = member })
-                    <br />
-                }
+                @Html.Partial("_MemberCard", new MemberCardModel { Members = Model.Project.MembersOfProjects })
             }
             else
             {

@@ -10,47 +10,37 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>@ViewData["Title"]</title>
 	<link rel="stylesheet" href="~/css/Views/Landing/index.css" />
+	<link rel="stylesheet" href="~/css/Views/Shared/VerticalCard.css" />
 </head>
 <body>
-	<div class="landing">
-
-		<div class="landing__content">
-			<div class="landing__content__header">
-				<img src="~/Assets/logo.png" asp-append-version="true" alt="Logo" class="landing__header__logo" width="90px">
-				
-				<div class="landing__content__header__buttons">
-					<app-button button-text="Login"
-								button-type="primary"
-								onclick="window.location.href='/Authentication/Login'"></app-button>
-					<div class="landing__content__header__buttons">
-						<button asp-action="Login" asp-controller="Authentication" class="btn btn-primary rounded-pill">Login</button>
-						<a asp-action="SignUpUser" asp-controller="Authentication" class="btn btn-secondary rounded-pill">Register</a>
-					</div>
-
-					<div class="btn-group" role="group" aria-label="Basic example">
-						<button type="button" class="btn btn-secondary">Left</button>
-						<button type="button" class="btn btn-secondary">Middle</button>
-						<button type="button" class="btn btn-secondary">Right</button>
-					</div>
-
+	<div class="Landing">
+		<div class="Landing__content">
+			<div class="Landing__content__header">
+				<img src="~/Assets/logo.png" asp-append-version="true" alt="Logo" class="Landing__header__logo" width="90px">
+				<div class="Landing__content__header__buttons">
 					<app-button button-type="primary"
 								button-text="Register User"
 								onclick="window.location.href='/Authentication/SignUpUser'">
 					</app-button>
-
 					<app-button button-type="primary"
 								button-text="Register Project"
 								onclick="window.location.href='/Authentication/SignUpProject'">
 					</app-button>
 				</div>
 			</div>
-			<div class="landing__content__body">
+			<div class="Landing__content__body">
 				<h1>VIU LA MUSICA <br> ESCOLTA LA BANDA</h1>
+				<div class="Landing__content__body__cards">
+					@Html.Partial("_VerticalCard", new CardModel())
+					@Html.Partial("_VerticalCard", new CardModel())
+					@Html.Partial("_VerticalCard", new CardModel())
+					@Html.Partial("_VerticalCard", new CardModel())
+					@Html.Partial("_VerticalCard", new CardModel())
+					@Html.Partial("_VerticalCard", new CardModel())
+				</div>
 			</div>
 		</div>
-
-
-		<div class="landing__background">
+		<div class="Landing__background">
 			<div class="left"></div>
 			<div class="right"></div>
 		</div>
