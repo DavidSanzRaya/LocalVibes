@@ -41,6 +41,6 @@ namespace LocalVibes.Models
                 return _location;
             }
         }
-        public List<Project> Projects { get; set; } // Hacer lazy load y cambiara en base de dato para que event pueda teneer varios projects
+        public List<Project>? Projects { get; set; } // Hacer lazy load y cambiara en base de dato para que event pueda teneer varios projects
     }
 }

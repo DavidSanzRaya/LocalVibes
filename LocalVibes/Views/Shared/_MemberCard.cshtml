@@ -22,7 +22,7 @@
                     </td>
                     <!-- Instruments -->
                     <td>
-                        <p >
+                        <p>
                             @if (member.Instruments != null && member.Instruments.Any())
                             {
                                 @string.Join(", ", member.Instruments.Select(i => i.NameInstrument))
@@ -39,6 +39,10 @@
         }
         else
         {
-            <span>Datos no encontrado</span>
+        <tr>
+            <td>
+                <span>Datos no encontrado</span>
+            </td>
+        </tr>
         }
 </table>

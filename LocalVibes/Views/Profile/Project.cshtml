@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="~/css/Views/Shared/Avatar.css" />
     <link rel="stylesheet" href="~/css/Views/Profile/Project.css" />
     <link rel="stylesheet" href="~/css/Views/Shared/SocialMediaCard.css" />
+    <link rel="stylesheet" href="~/css/Views/"
 </head>
 <body>
     <div class="Profile__page-grid">
@@ -55,23 +56,23 @@
             <!-- Redes sociales -->
             <div>
                 @Html.Partial("_SocialMediaCard", new SocialMediaCardModel
-           {
-               SocialMedia = new SocialMedia
                {
-                   IdSocialMedia = 1,
-                   NameSocialMedia = "Instagram",
-                   UrlSocialMedia = "https://www.instagram.com"
-               }
-           })
+                   SocialMedia = new SocialMedia
+                   {
+                       IdSocialMedia = 1,
+                       NameSocialMedia = "Instagram",
+                       UrlSocialMedia = "https://www.instagram.com"
+                   }
+               })
                 @Html.Partial("_SocialMediaCard", new SocialMediaCardModel
-           {
-               SocialMedia = new SocialMedia
                {
-                   IdSocialMedia = 1,
-                   NameSocialMedia = "YouTube",
-                   UrlSocialMedia = "https://www.youtube.com"
-               }
-           })
+                   SocialMedia = new SocialMedia
+                   {
+                       IdSocialMedia = 1,
+                       NameSocialMedia = "YouTube",
+                       UrlSocialMedia = "https://www.youtube.com"
+                   }
+               })
             </div>
 
             <!-- Reseñas -->
