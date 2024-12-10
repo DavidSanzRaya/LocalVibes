@@ -116,10 +116,12 @@
                 foreach (var evento in Model.Project.EventsProject)
                 {
                     @Html.Partial("_VerticalCard", new CardModel
-       {
-           Title = $"Evento #{evento.IdEvent}",
-           Subtitle = $"Fecha: {evento.EventDate.ToShortDateString()}"
-       })
+                    {
+                        Title = evento.EventTitle,
+                        Subtitle = $"Fecha: {evento.EventDate.ToShortDateString()}",
+                        Description = evento.EventDescription,
+                        ImageUrl = evento.EventImage != null ? $"data:image/jpeg;base64,{Convert.ToBase64String(evento.EventImage)}" : null // Muestra la imagen si está disponible
+                    })
                 }
             }
             else

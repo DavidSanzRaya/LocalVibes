@@ -8,6 +8,9 @@ namespace LocalVibes.Models
     {
         [Key]
         public int IdEvent { get; set; } // PK
+        public string EventTitle { get; set; } // Nombre de Evento
+        public string EventDescription { get; set; } // descripcion del evento
+        public byte[]? EventImage { get; set; } // Imagen del evento
         public int? Capacity { get; set; } // AllowNull
         public bool IsSoldOut { get; set; } // AllowNull
         public int? Sales { get; set; } // AllowNull
