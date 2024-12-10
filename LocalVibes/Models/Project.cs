@@ -72,8 +72,23 @@ namespace LocalVibes.Models
                 _members = value;
             }
         }
-        
-        public List<EventProject>? EventsProject { get; set; } = new List<EventProject>();
 
+        private List<EventProject>? _eventsProject;
+        public List<EventProject> EventsProject
+        {
+            get
+            {
+                if (_eventsProject == null)
+                {
+                    _eventsProject = new ProjectDAL().GetEventsByProjectId(IdProject);
+                }
+                return _eventsProject;
+            }
+
+            set
+            {
+                _eventsProject = value;
+            }
+        }
     }
 }
