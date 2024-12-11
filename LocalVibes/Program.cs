@@ -25,12 +25,12 @@ if (!app.Environment.IsDevelopment())
 }
 
 // Autoriza el uso de Session
-app.UseSession(); 
-
+app.UseHttpsRedirection();
 app.UseStaticFiles();
 
-app.UseRouting();
+app.UseSession();  // Place UseSession early in the pipeline
 
+app.UseRouting();
 app.UseAuthorization();
 
 // Ruta por defecto de la app
