@@ -5,5 +5,6 @@ namespace LocalVibes.Models.ViewModels
     public class ProfileProjectViewModel
     {
         public Project? Project { get; set; }
+        public bool IsOwner { get; set; }
     }
 }

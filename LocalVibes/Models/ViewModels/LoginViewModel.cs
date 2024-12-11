@@ -5,8 +5,8 @@ namespace LocalVibes.Models.ViewModels
     // Modelo de vista utilizado para manejar el proceso de inicio de sesión.
     public class LoginViewModel
     {
-        // Propiedad que representa el nombre de usuario.
-        [Required(ErrorMessage = "El nombre de usuaro es obligatorio.")]
+        // Propiedad que representa el nombre de usuario.  [Required(ErrorMessage = "El nombre de usuaro es obligatorio.")]
+        [Required(ErrorMessage = "El nombre de usuario es obligatoria.")]
         [Display(Name = "User name")]
         public string Username { get; set; }
 
@@ -16,8 +16,5 @@ namespace LocalVibes.Models.ViewModels
         [Display(Name = "Password")] 
         public string Password { get; set; }
 
-        // Propiedad para indicar si la cuenta pertenece a una banda musical.
-        [Display(Name = "Band account")]
-        public bool IsABand { get; set; }
     }
 }

@@ -21,22 +21,16 @@ namespace LocalVibes.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken] // Helps prevent CSRF attacks
         public IActionResult Login(LoginViewModel model)
         {
             if (ModelState.IsValid)
             {
                 UserDAL userDal = new UserDAL();
-                ProjectDAL projectDal = new ProjectDAL();
+                var usuario = userDal.GetByName(model.Username);
 
-                if (!model.IsABand)
-                {
-                    // Autenticación de usuario regular
-                    var usuario = userDal.GetByName(model.Username);
-
-                    if (usuario != null && PasswordHelper.VerifityPasswordHash(model.Password, usuario.PasswordHash, usuario.PasswordSalt))
+                if (usuario != null && PasswordHelper.VerifityPasswordHash(model.Password, usuario.PasswordHash, usuario.PasswordSalt))
                     {
-                        // Registrar la sesión
                         HttpContext.Session.SetString("UserId", usuario.IdUsers.ToString());
                         HttpContext.Session.SetString("Username", usuario.UserName);
                         HttpContext.Session.SetString("Role", "User");
@@ -44,35 +38,9 @@ namespace LocalVibes.Controllers
                         TempData["SuccessMessage"] = "¡Bienvenido, " + usuario.FirstName + "!";
                         return RedirectToAction("Home", "Home");
                     }
-                }
-                else
-                {
-                    // Autenticación de una banda/proyecto
-                    var proyecto = projectDal.GetByName(model.Username);
 
-                    if (proyecto != null)
-                    {
-                        var adminUsuario = userDal.GetById(proyecto.IdUsersAdmin);
-                        if (adminUsuario != null && PasswordHelper.VerifityPasswordHash(model.Password, adminUsuario.PasswordHash, adminUsuario.PasswordSalt))
-                        {
-                            // Registrar la sesión para la banda
-                            HttpContext.Session.SetString("ProjectId", proyecto.IdProject.ToString());
-                            HttpContext.Session.SetString("ProjectName", proyecto.ProjectName);
-                            HttpContext.Session.SetString("Username", adminUsuario.UserName);
-                            HttpContext.Session.SetString("UserId", adminUsuario.IdUsers.ToString());
-
-                            HttpContext.Session.SetString("Role", "Band");
-
-                            TempData["SuccessMessage"] = "¡Bienvenido, " + proyecto.ProjectName + "!";
-                            return RedirectToAction("Home", "Home");
-                        }
-                    }
-                }
-
-                // Error de autenticación
-                ModelState.AddModelError("", "Usuario o contraseña incorrectos.");
             }
-
+            ModelState.AddModelError("", "Usuario o contraseña incorrectos.");
             return View(model);
         }
 
