@@ -1,5 +1,8 @@
 @model LocalVibes.Models.MemberCardModel
 
+<head>
+    <link rel="stylesheet" href="~/css/Views/Shared/MemberCard.css" />
+</head>
 <table class="MemberCard">
         <tr>
             <th>Foto</th>
@@ -10,10 +13,18 @@
         {
             @foreach (var member in Model.Members)
             {
-                <tr class="MemberCard__rows__member">
+                <tr >
                     <!-- Image -->
                     <td>
-                        <img src="data:image/png;base64,@(member.MemberImage != null ? Convert.ToBase64String(member.MemberImage) : string.Empty)" alt="@member.MemberName" />
+                        @if (member.MemberImage == null)
+                        {
+                            <img src="~/Assets/defaul.jpeg" />
+                        }
+                        else
+                        {
+                            <img src="data:image/png;base64 Convert.ToBase64String(member.MemberImage)" alt="@member.MemberName" />
+                        }
+                        
                     </td>
 
                     <!-- Member Name -->

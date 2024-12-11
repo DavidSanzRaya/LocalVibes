@@ -1,32 +1,17 @@
 .MemberCard {
-  background-color: #FFF;
-  display: flex;
-  align-items: center;
-  border-radius: 2em;
-  color: #333333;
-  padding: 2em;
-  gap: 1em;
-  max-width: 100%;
-  text-align: center;
-}
-.MemberCard thead {
-  text-align: center;
-  width: 100%;
+    background-color: #FFF;
+    border-radius: 2em;
+    color: #333333;
+    width: 100%;
+    border: 10px solid transparent;
 }
 
-.MemberCard tbody {
-  text-align: center;
-  width: 100%;
+.MemberCard td, th{
+    padding: 4px;
 }
 
-
-.MemberCard__rows {
-  display: flex;
-  flex-direction: row;
-  text-align: center;
-  gap: 1em;
-}
-
-.MemberCard__rows__member {
-  text-align: center;
+.MemberCard img {
+    height: 5em;
+    width: 5em;
+    border-radius: 8px;
 }

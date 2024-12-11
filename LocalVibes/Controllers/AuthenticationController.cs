@@ -308,7 +308,7 @@ namespace LocalVibes.Controllers
         public IActionResult Logout()
         {
             HttpContext.Session.Clear(); // Limpiar sesión
-            return RedirectToAction("Landing", "Home");
+            return RedirectToAction("Landing", "index");
         }
     }
 }
