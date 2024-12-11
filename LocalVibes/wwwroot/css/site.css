@@ -104,10 +104,10 @@ input, textarea, select {
 }
 
 .input-placeholder::placeholder {
-  margin-left: 1em;
-  color: #D9D9D9 !important;
+  margin-left: 2em;
+  color: #B336B3 !important;
   font-weight: 600;
-  opacity: 0.2;
+  opacity: 0.5;
 }
 
 

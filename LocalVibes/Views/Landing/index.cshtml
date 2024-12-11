@@ -1,6 +1,6 @@
 @{
 	ViewData["Title"] = "Local Vibes";
-	Layout = "_Layout";
+	Layout = null;
 }
 
 <!DOCTYPE html>
@@ -20,11 +20,11 @@
 				<img src="~/Assets/logo.png" asp-append-version="true" alt="Logo" class="Landing__header__logo" width="90px">
 				<div class="Landing__content__header__buttons">
 					<app-button button-type="primary"
-								button-text="Register User"
-								onclick="window.location.href='/Authentication/SignUpUser'">
+								button-text="Login"
+								onclick="window.location.href='/Authentication/Login'">
 					</app-button>
 					<app-button button-type="primary"
-								button-text="Register Project"
+								button-text="Register User/Project"
 								onclick="window.location.href='/Authentication/SignUpProject'">
 					</app-button>
 				</div>

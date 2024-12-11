@@ -25,6 +25,10 @@ namespace LocalVibes.TagHelpers
             {
                 output.Attributes.SetAttribute("onclick", OnClick);
             }
+            else
+            {
+                output.Attributes.SetAttribute("type", "submit"); // Default to submit
+            }
 
             if (!string.IsNullOrEmpty(BorderStyle))
             {
