@@ -12,7 +12,7 @@ body {
     padding: 0;
     font-family: 'Poppins', sans-serif;
     background-color: var(--background-dark); /* Fondo oscuro similar al del sitio */
-    color: var(--text-light); /* Texto blanco */
+    color: var(--text-dark); /* Texto blanco */
 }
 
 /* Contenedor principal (Mitad izquierda + derecha) */
