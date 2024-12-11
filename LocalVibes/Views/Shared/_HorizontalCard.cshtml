@@ -1,8 +1,14 @@
 @model LocalVibes.Models.CardModel
 
 <div class="HorizontalCard">
-    <div  style="background-image: url('@Model.ImageUrl'); background-size: cover; background-position: center; width: 200px; height: 200px; display: flex; justify-content: center; align-items: center;">
-    </div>
+    @if (Model.Image == null)
+    {
+        <img src="~/Assets/Pantera.jpeg" />
+    }
+    else
+    {
+        <img src="data:image /png;base64 Convert.ToBase64String(Model.Image)" alt="@Model.Image" />
+    }
     <div class="HorizontalCard__body" >
         <div>
             <h5 class="HorizontalCard__body__title" >@Model.Title</h5>

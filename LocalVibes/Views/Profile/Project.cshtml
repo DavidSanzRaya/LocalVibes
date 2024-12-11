@@ -116,7 +116,7 @@
                         Title = evento.EventTitle,
                         Subtitle = $"Fecha: {evento.EventDate.ToShortDateString()}",
                         Description = evento.EventDescription,
-                        ImageUrl = evento.EventImage != null ? $"data:image/jpeg;base64,{Convert.ToBase64String(evento.EventImage)}" : null // Muestra la imagen si está disponible
+                        Image = evento.EventImage != null ? evento.EventImage : null // Muestra la imagen si está disponible
                     })
                 }
             }
