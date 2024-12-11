@@ -107,11 +107,9 @@ namespace LocalVibes.Models.ViewModels
             public string UsernameAdmin { get; set; }
 
             [Display(Name = "Genres")]
-            [Required(ErrorMessage = "El género musical es obligatorio.")]
-            // Propiedad que representa el género Musical
-            public int IdGenereMusical { get; set; }
+            [Required(ErrorMessage = "Debes seleccionar al menos un género.")]
+            public List<int> SelectedGenres { get; set; } = new List<int>();
 
-            // Lista de géneros musicales disponibles para seleccionar.
             public IEnumerable<SelectListItem> SelectedGeneresMusic { get; set; } = new List<SelectListItem>();
 
             // Propiedad que representa la imagen

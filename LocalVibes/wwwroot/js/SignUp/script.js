@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function updateInputState(input) {
         var value = input.value.trim();
 
-        if (value !== "" && value !== 'User.Birthdate' && value !== 'Band.FormationDate') {
+        if (value !== "" && value !== 'Birthdate' && value !== 'FormationDate') {
             input.setAttribute("data-filled", "true");
         } else {
             input.removeAttribute("data-filled");

@@ -1,12 +1,7 @@
 ﻿@using static LocalVibes.Models.ViewModels.SignUpViewModel
 @model BandRegistrationData
 
-@{
-    var genres = Model.SelectedGeneresMusic;
-    var selectedGenre = Model.IdGenereMusical;
-}
-
-<form action="#">
+<form asp-action="SignUpBandShift" method="post" asp-antiforgery="true" enctype="multipart/form-data">
     <div class="input-box animation" style="--i:25; --j:1">
         <input asp-for="ProjectName" type="text" />
         <label asp-for="ProjectName"></label>
@@ -28,9 +23,9 @@
         <i class="bx bxs-user"></i>
     </div>
     <div class="input-box animation" style="--i:29; --j:5">
-        <select asp-for="@selectedGenre" asp-items="@genres" data-placeholder="Select genres" multiple data-multi-select>
+        <select asp-for="SelectedGenres" asp-items="Model.SelectedGeneresMusic" data-name="SelectedGenres" data-placeholder="Select genres" multiple data-multi-select>
         </select>
-        <label asp-for="IdGenereMusical" class="multiSelect-label"></label>
+        <label asp-for="SelectedGenres" class="multiSelect-label"></label>
     </div>
     <div class="input-box-image animation" style="--i:30; --j:6">
         <input asp-for="ProjectImage" type="file" />

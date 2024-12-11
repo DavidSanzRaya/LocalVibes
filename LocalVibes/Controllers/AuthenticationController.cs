@@ -321,7 +321,7 @@ namespace LocalVibes.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SignUpShift(SignUpViewModel.UserRegistrationData model)
+        public async Task<IActionResult> SignUpUserShift(SignUpViewModel.UserRegistrationData model)
         {
             if (ModelState.IsValid)
             {
@@ -417,6 +417,87 @@ namespace LocalVibes.Controllers
             };
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SignUpBandShift(SignUpViewModel.BandRegistrationData model)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    ProjectDAL projectDal = new ProjectDAL();
+                    UserDAL userDal = new UserDAL();
+
+                    // Verificar si el usuario administrador existe
+                    var usuarioExistente = userDal.GetByName(model.UsernameAdmin);
+                    if (usuarioExistente == null)
+                    {
+                        ModelState.AddModelError("", "El usuario administrador no existe.");
+                        return View(LoadBandRegistrationData());
+                    }
+
+                    // Validar si ya existe un proyecto con el mismo nombre
+                    var existingProject = projectDal.GetByName(model.ProjectName);
+                    if (existingProject != null)
+                    {
+                        ModelState.AddModelError("", "Ya existe un proyecto con este nombre.");
+                        return View(LoadBandRegistrationData());
+                    }
+
+                    // Crear el nuevo proyecto
+                    var newProject = new Project
+                    {
+                        ProjectName = model.ProjectName,
+                        Biography = model.Biography,
+                        FormationDate = model.FormationDate,
+                        IdUsersAdmin = usuarioExistente.IdUsers,
+                    };
+
+                    // Procesar imagen del proyecto si está presente
+                    if (model.ProjectImage != null)
+                    {
+                        using (var memoryStream = new MemoryStream())
+                        {
+                            await model.ProjectImage.CopyToAsync(memoryStream);
+                            newProject.ProjectImage = memoryStream.ToArray();
+                        }
+                    }
+
+                    // Guardar el nuevo proyecto en la base de datos
+                    projectDal.Add(newProject);
+
+                    // Confirmar que el proyecto se creó correctamente
+                    var createdProject = projectDal.GetByName(newProject.ProjectName);
+                    if (createdProject != null)
+                    {
+                        AddProjectMusicGenres(createdProject.IdProject, model.SelectedGenres);
+
+                        // Registrar la sesión del proyecto
+                        HttpContext.Session.SetString("ProjectId", createdProject.IdProject.ToString());
+                        HttpContext.Session.SetString("ProjectName", createdProject.ProjectName);
+                        HttpContext.Session.SetString("Username", usuarioExistente.UserName);
+                        HttpContext.Session.SetString("UserId", usuarioExistente.IdUsers.ToString());
+
+                        HttpContext.Session.SetString("Role", "Band");
+
+                        TempData["SuccessMessage"] = "Proyecto registrado con éxito. ¡Bienvenido, " + createdProject.ProjectName + "!";
+                        return RedirectToAction("Home", "Home");
+                    }
+
+                    // Error en la creación del proyecto
+                    ModelState.AddModelError("", "No se ha podido crear el proyecto. Inténtelo nuevamente.");
+                }
+                catch (Exception ex)
+                {
+                    // Manejo de errores
+                    ModelState.AddModelError("", "Ocurrió un error inesperado. Por favor, inténtelo nuevamente.");
+                    Console.WriteLine(ex); // Opcional: Log del error
+                }
+            }
+
+            return View(LoadBandRegistrationData());
+        }
+
         private SignUpViewModel.BandRegistrationData LoadBandRegistrationData()
         {
             GenereMusicDAL genereMusicDAL = new GenereMusicDAL();
@@ -430,6 +511,23 @@ namespace LocalVibes.Controllers
                     Text = g.GenereMusicName
                 })
             };
+        }
+
+        private void AddProjectMusicGenres(int projectId, List<int> musicGenres)
+        {
+            ProjectGenereMusicDAL projectGenereMusicDAL = new ProjectGenereMusicDAL();
+
+            // Usa Add para insertar cada género seleccionado
+            foreach (var genreId in musicGenres)
+            {
+                var projectGenereMusic = new ProjectGenereMusic
+                {
+                    IdProject = projectId,
+                    IdGenereMusic = genreId
+                };
+
+                projectGenereMusicDAL.Add(projectGenereMusic);
+            }
         }
         #endregion
 
