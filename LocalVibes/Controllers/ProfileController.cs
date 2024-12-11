@@ -76,22 +76,21 @@ namespace LocalVibes.Controllers
         
         public IActionResult User()
         {
-            //ProfilUserViewModel vm = new ProfileUserViewModel();
 
             // Verifica si la sesión contiene un indicador de usuario autenticado.
             if (HttpContext.Session.GetString("UserId") == null)
             {
                 // Redirige a la página de aterrizaje si no hay un usuario autenticado.
-                return RedirectToAction("Landing", "Home");
+                return RedirectToAction("Login", "Authentication");
             }
 
             UserDAL userDal = new UserDAL();
-
             int.TryParse(HttpContext.Session.GetString("UserId"), out int userId);
-
             var user = userDal.GetById(userId);
 
-            return View();
+            var vm = new ProfileUserViewModel { User = user };
+
+            return View(vm);
         }
     }
 }

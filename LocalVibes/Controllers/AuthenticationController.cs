@@ -30,14 +30,14 @@ namespace LocalVibes.Controllers
                 var usuario = userDal.GetByName(model.Username);
 
                 if (usuario != null && PasswordHelper.VerifityPasswordHash(model.Password, usuario.PasswordHash, usuario.PasswordSalt))
-                    {
-                        HttpContext.Session.SetString("UserId", usuario.IdUsers.ToString());
-                        HttpContext.Session.SetString("Username", usuario.UserName);
-                        HttpContext.Session.SetString("Role", "User");
+                {
+                    HttpContext.Session.SetString("UserId", usuario.IdUsers.ToString());
+                    HttpContext.Session.SetString("Username", usuario.UserName);
+                    HttpContext.Session.SetString("Role", "User");
 
-                        TempData["SuccessMessage"] = "¡Bienvenido, " + usuario.FirstName + "!";
-                        return RedirectToAction("Home", "Home");
-                    }
+                    TempData["SuccessMessage"] = "¡Bienvenido, " + usuario.FirstName + "!";
+                    return RedirectToAction("User", "Profile");
+                }
 
             }
             ModelState.AddModelError("", "Usuario o contraseña incorrectos.");
