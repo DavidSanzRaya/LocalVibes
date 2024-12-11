@@ -52,6 +52,18 @@ namespace LocalVibes.Controllers
         {
             ProfileEventViewModel vm = new ProfileEventViewModel();
 
+            //Evento de prueba para tener las coords para el mapa
+            vm.Event = new EventProject
+            {
+                IdEvent = 1,
+                EventTitle = "Title",
+                EventDescription = "Description",
+                IsSoldOut = false,
+                EventDate = DateTime.Now,
+                IdProject = 1,
+                IdLocation = 1,
+            };
+
             return View(vm);
         }
         

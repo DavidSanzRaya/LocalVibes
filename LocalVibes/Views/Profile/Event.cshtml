@@ -1,6 +1,8 @@
+@using LocalVibes.Models.ViewModels
+@model ProfileEventViewModel
 @{
-	ViewData["Title"] = "Local Vibes";
-	Layout = null;
+    ViewData["Title"] = "Local Vibes";
+    Layout = null;
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -12,6 +14,10 @@
 	<link rel="stylesheet" href="~/css/Views/Profile/Event.css" />
 	<link rel="stylesheet" href="~/css/Views/Shared/SocialMediaCard.css"/>
 	<link rel="stylesheet" href="~/css/Views/Shared/Avatar.css"/>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src='https://unpkg.com/wicg-inert@latest/dist/inert.min.js'></script>
 </head>
 <body>
     <div class="Event__page-grid">
@@ -19,7 +25,7 @@
             <h1>
                 @if (@Model.Event != null)
                 {
-                    @Model.Event.TitleEvent
+                    @Model.Event.EventTitle
                 }
                 else
                 {
@@ -54,13 +60,30 @@
                 @Html.Partial("_Avatar", new AvatarModel())
                 @Html.Partial("_Avatar", new AvatarModel())
             </div>
-            <div>
-                map
-            </div>
+            <div id="map" style="height: 200px"></div>
         </div>
         <div class="Event__right-section">
             <img src="https://pbs.twimg.com/media/GI5yJ4XX0AA_fTs?format=jpg&name=large" alt="">
         </div>
     </div>
+    <script>
+        var latitude = @Model.Event.Location.Latitude.ToString(System.Globalization.CultureInfo.InvariantCulture);
+        var longitude = @Model.Event.Location.Longitude.ToString(System.Globalization.CultureInfo.InvariantCulture);
+
+        var map = L.map('map').setView([latitude, longitude], 13);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: 'Map data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        var locationIcon = L.icon({
+            iconUrl: '/Assets/guitar.png',
+            iconSize: [40, 40],
+            iconAnchor: [20, 40],
+            popupAnchor: [0, -40]
+        });
+
+        var marker = L.marker([latitude, longitude], { icon: locationIcon }).addTo(map);
+    </script>
 </body>
 </html>
