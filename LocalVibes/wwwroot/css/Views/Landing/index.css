@@ -1,7 +1,8 @@
-body,html {
-  margin: 0px;
-  padding: 0px;
-  box-sizing: content-box;
+body, html {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: content-box;
+    color: black; /* Texto blanco */
 }
 #id {
   width: 60;
