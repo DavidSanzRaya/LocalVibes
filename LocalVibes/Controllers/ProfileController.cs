@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using LocalVibes.DALs;
 using Microsoft.Extensions.Logging;
+using System.Security.Claims;
 
 namespace LocalVibes.Controllers
 {
@@ -138,5 +139,39 @@ namespace LocalVibes.Controllers
 
             return View(vm);
         }
+
+        [HttpPost]
+        public IActionResult AddReview(int id, string reviewText, int rating)
+        {
+            if (string.IsNullOrEmpty(reviewText) || rating < 1 || rating > 5)
+            {
+                // Aquí puedes devolver un mensaje de error si es necesario.
+                return RedirectToAction("Project", new { id = id });
+            }
+
+            // Obtener el ID del usuario actualmente autenticado
+            UserDAL userDal = new UserDAL();
+            int.TryParse(HttpContext.Session.GetString("UserId"), out int userId);
+            var user = userDal.GetById(userId);
+
+            // Crear la nueva reseña
+            var review = new Review
+            {
+                ReviewText = reviewText,
+                Rating = rating,
+                ReviewDate = DateTime.Now,
+                IdUser = userId,
+                User = user,
+                IdProject = id
+            };
+
+            // Guardar la reseña en la base de datos
+            var reviewDal = new ReviewDAL();
+            reviewDal.Insert(review);
+
+            // Redirigir a la página del proyecto para mostrar la nueva reseña
+            return RedirectToAction("Project", new { id = id });
+        }
+
     }
 }

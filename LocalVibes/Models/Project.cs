@@ -8,7 +8,6 @@ namespace LocalVibes.Models
     public class Project
     {
         [Key]
-
         public int IdProject { get; set; } // PK 
         [Name]
         public required string ProjectName { get; set; }

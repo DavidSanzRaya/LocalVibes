@@ -1,5 +1,6 @@
 ﻿using LocalVibes.Models;
 using Microsoft.Data.SqlClient;
+using System.Data;
 
 namespace LocalVibes.DALs
 {
@@ -89,6 +90,42 @@ namespace LocalVibes.DALs
             }
 
             return user;
+        }
+
+        public void Insert(Review review)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                using (SqlCommand checkCommand = connection.CreateCommand())
+                {
+                    checkCommand.CommandText = "SELECT COUNT(1) FROM Project WHERE IdProject = @IdProject";
+                    checkCommand.Parameters.Add(new SqlParameter("@IdProject", SqlDbType.Int) { Value = review.IdProject });
+
+                    int projectExists = (int)checkCommand.ExecuteScalar();
+                    if (projectExists == 0)
+                    {
+                        throw new Exception($"El IdProject {review.IdProject} no existe en la tabla Project.");
+                    }
+                }
+
+
+                
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = @"
+                INSERT INTO Review (ReviewText, ReviewDate, Rating, IdUsers, IdProject)
+                VALUES (@ReviewText, @ReviewDate, @Rating, @IdUsers, @IdProject)";
+
+                    command.Parameters.Add(new SqlParameter("@ReviewText", SqlDbType.NVarChar) { Value = review.ReviewText });
+                    command.Parameters.Add(new SqlParameter("@ReviewDate", SqlDbType.DateTime) { Value = review.ReviewDate });
+                    command.Parameters.Add(new SqlParameter("@Rating", SqlDbType.Int) { Value = review.Rating });
+                    command.Parameters.Add(new SqlParameter("@IdUsers", SqlDbType.Int) { Value = review.IdUser });
+                    command.Parameters.Add(new SqlParameter("@IdProject", SqlDbType.Int) { Value = review.IdProject });
+
+                    command.ExecuteNonQuery();
+                }
+            }
         }
 
     }
