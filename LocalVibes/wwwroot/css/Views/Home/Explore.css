@@ -1,0 +1,71 @@
+
+body,html{
+  height: 100vh;
+  width: 100vw;
+  background-color: #333333;
+}
+
+.Explore {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
+}
+
+.Explore__map {
+  height: 100%;
+  width: 100%;
+  z-index: 0;
+}
+.Explore__button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding-top: 3em;
+  padding-left: 5em;
+  z-index: 1;
+}
+.Explore__map--close {
+  z-index: 0;
+}
+
+
+.Explore__content {
+  display: flex;
+  position: relative;
+  height: 100%;
+  width: 100%;
+  flex-direction: row;
+  background-color: #333333;
+}
+.Explore__content__left {
+  height: 100%;
+  width: 100%;
+  transition: width 0.5s ease;
+  padding-top: 7em;
+  padding-left: 1em;
+  padding-right: 1em;
+}
+.Explore__content__left > div:nth-child(1),
+.Explore__content__left > div:nth-child(2) {
+  background-color: #FFF;
+}
+.Explore__content__right {
+  height: 100%;
+  width: 100%;
+}
+
+.Explore__content__left__projects{
+  display: flex;
+  flex-direction:row ;
+  flex-wrap:wrap; 
+  gap:2em;
+  padding: 2em;
+}
+.Explore__content__left__events{
+  display: flex;
+  flex-direction:row ;
+  flex-wrap:wrap; 
+  gap:2em;
+  padding: 2em;
+}
