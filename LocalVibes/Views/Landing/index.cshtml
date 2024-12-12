@@ -51,7 +51,8 @@
 							Title = evento.EventTitle,
 							Subtitle = $"Fecha: {evento.EventDate.ToShortDateString()}",
 							Description = evento.EventDescription,
-							Image = evento.EventImage != null ? evento.EventImage : null // Muestra la imagen si está disponible
+							Image = evento.EventImage != null ? evento.EventImage : null, // Muestra la imagen si está disponible
+							Ruta = "/Profile/Event"
 						})
 					}
 				</div>

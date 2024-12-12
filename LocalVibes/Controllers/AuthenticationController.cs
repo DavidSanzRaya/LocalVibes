@@ -33,8 +33,14 @@ namespace LocalVibes.Controllers
                 {
                     HttpContext.Session.SetString("UserId", usuario.IdUsers.ToString());
                     HttpContext.Session.SetString("Username", usuario.UserName);
-                    HttpContext.Session.SetString("ProjectName", usuario.Project?.ProjectName ?? string.Empty);
                     HttpContext.Session.SetString("Role", "User");
+
+                    if (usuario.Project != null)
+                    {
+                        var project = usuario.Project;
+                        HttpContext.Session.SetString("ProjectId", project.IdProject.ToString());
+                        HttpContext.Session.SetString("ProjectName", project.ProjectName);
+                    }
 
                     TempData["SuccessMessage"] = "¡Bienvenido, " + usuario.FirstName + "!";
                     return RedirectToAction("User", "Profile");

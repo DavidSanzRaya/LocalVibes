@@ -17,3 +17,8 @@
 .HorizontalCard *{
     margin: 0;
 }
+.HorizontalCard:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 300ms ease, box-shadow 300ms ease;
+}

@@ -21,49 +21,97 @@ namespace LocalVibes.Controllers
         }
 
         // Accion principal
-        public IActionResult Project(int id)
+        [HttpGet]
+        [Route("Profile/Project/BySession")]
+        public IActionResult Project()
         {
-            
-            ProjectDAL projectDal = new ProjectDAL();
-
-            var project = projectDal.GetById(id);
-
-            if(project == null){
-                return RedirectToAction("Index", "Landing");
-
-            }
-            // Verifica si la sesión contiene un indicador de usuario autenticado.
-            if (HttpContext.Session.GetString("UserId") == null)
+            // Verificar si el usuario está autenticado.
+            var userId = HttpContext.Session.GetString("UserId");
+            if (string.IsNullOrEmpty(userId))
             {
-                // Redirige a la página de aterrizaje si no hay un usuario autenticado.
-                return RedirectToAction("Index", "Landing");
+                // Redirigir al índice si no está autenticado.
+                return RedirectToAction("Login", "Authentication");
             }
 
+            // Intentar obtener el ID del proyecto asociado desde la sesión.
+            if (!int.TryParse(HttpContext.Session.GetString("ProjectId"), out int projectId))
+            {
+                // Si no hay un proyecto asociado, redirigir a una página de error o inicio.
+                TempData["ErrorMessage"] = "No tienes ningún proyecto asociado.";
+                return RedirectToAction("User", "Profile");
+            }
+
+            // Obtener los datos del proyecto desde la base de datos.
+            ProjectDAL projectDal = new ProjectDAL();
+            var project = projectDal.GetById(projectId);
+
+            if (project == null)
+            {
+                // Si el proyecto no existe en la base de datos, manejar el error.
+                TempData["ErrorMessage"] = "El proyecto asociado no fue encontrado.";
+                return RedirectToAction("User", "Profile");
+            }
+
+            // Preparar el modelo para la vista.
             ProfileProjectViewModel vm = new ProfileProjectViewModel
             {
                 Project = project
             };
-            
+
             return View(vm);
         }
-        public IActionResult Event()
-        {
-            ProfileEventViewModel vm = new ProfileEventViewModel();
 
-            //Evento de prueba para tener las coords para el mapa
-            vm.Event = new EventProject
+        [HttpGet]
+        [Route("Profile/Project/{id:int}")]
+        public IActionResult Project(int id)
+        {
+            // Obtén el proyecto por su ID
+            ProjectDAL projectDal = new ProjectDAL();
+            var project = projectDal.GetById(id);
+
+            if (project == null)
             {
-                IdEvent = 1,
-                EventTitle = "Title",
-                EventDescription = "Description",
-                IsSoldOut = false,
-                EventDate = DateTime.Now,
-                IdProject = 1,
-                IdLocation = 1,
+                TempData["ErrorMessage"] = "El proyecto no existe o no está disponible.";
+                return RedirectToAction("User");
+            }
+
+            // Verifica si el usuario está autenticado
+            if (HttpContext.Session.GetString("UserId") == null)
+            {
+                return RedirectToAction("Login", "Authentication");
+            }
+
+            // Crea el ViewModel para la vista
+            ProfileProjectViewModel vm = new ProfileProjectViewModel
+            {
+                Project = project
             };
 
             return View(vm);
         }
+
+
+        public IActionResult Event(int id)
+        {
+            // Obtén el evento por su ID
+            EventProjectDAL eventDal = new EventProjectDAL();
+            var _event = eventDal.GetById(id);
+
+            if (_event == null)
+            {
+                TempData["ErrorMessage"] = "El evento no existe o no está disponible.";
+                return RedirectToAction("User");
+            }
+
+            // Crea el ViewModel para la vista
+            ProfileEventViewModel vm = new ProfileEventViewModel
+            {
+                Event = _event
+            };
+
+            return View(vm);
+        }
+
 
         public IActionResult User()
         {
@@ -90,6 +138,5 @@ namespace LocalVibes.Controllers
 
             return View(vm);
         }
-
     }
 }
