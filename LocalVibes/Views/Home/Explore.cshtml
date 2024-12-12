@@ -24,13 +24,14 @@
 	<div class="Explore">
 		<div class="Explore__content">
 			<span	class="Explore__button">
+
 				<app-button
 					id="button"
 					button-text ="->"
 				></app-button>
-				@if (Model.User.Projects){
+
+				@if (Model.User.Project != null){
 					<app-button
-						id="button"
 						button-text ="Abel Haz que pasen cosas"
 					></app-button>
 				}
