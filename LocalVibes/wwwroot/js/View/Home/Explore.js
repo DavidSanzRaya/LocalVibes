@@ -35,7 +35,7 @@ events.forEach(function (e) {
   `);
 
 
-  e.GeneresMusic.forEach(function (genre) {
+  e.GeneresMusic?.forEach(function (genre) {
     var genreGroup = genreGroups[genre.GenereMusicName];
     if (genreGroup) {
       genreGroup.addLayer(marker);
@@ -62,6 +62,7 @@ const leftSize = {
 }
 
 document.querySelector('#button').addEventListener('click',()=>{
+    console.log("close")
     isClosed = !isClosed;
     left.style.width = leftSize[isClosed];
     setTimeout(() => {

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using LocalVibes.Models.ViewModels;
 using LocalVibes.DALs;
+using LocalVibes.DTOs;
 
 namespace LocalVibes.Controllers
 {
@@ -84,11 +85,28 @@ namespace LocalVibes.Controllers
             
             HomeExploreViewModel vm = new HomeExploreViewModel
             {
-                Events = new EventProjectDAL().GetAll(),
+                Events = new EventProjectDAL().GetAll()
+                    .Select(e => new EventDTO
+                    {
+                        IdEvent = e.IdEvent,
+                        EventTitle = e.EventTitle,
+                        EventDate = e.EventDate,
+                        EventImage = e.EventImage,
+                        Location = e.Location,
+                    })
+                    .ToList(),
                 Generes = new GenereMusicDAL().GetAll(),
-                Projects = new ProjectDAL().GetAll(),
+                Projects = new ProjectDAL().GetAll()
+                    .Select(e => new ProjectDTO
+                    {
+                        IdProject = e.IdProject,
+                        ProjectName = e.ProjectName,
+                        FormationDate = e.FormationDate,
+                        ProjectImage = e.ProjectImage,
+                        GeneresMusic = e.GeneresMusic,
+                    })
+                    .ToList(),
                 User = user
-            
             };
 
             return View(vm);
