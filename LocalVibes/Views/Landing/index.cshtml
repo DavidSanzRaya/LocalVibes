@@ -1,3 +1,6 @@
+@using LocalVibes.Models.ViewModels
+@model LandingViewModel
+
 @{
 	ViewData["Title"] = "Local Vibes";
 	Layout = "_Layout";
@@ -21,13 +24,18 @@
 				<div class="Landing__content__header__buttons">
 					<app-button button-type="primary"
 								button-text="Register User"
-								onclick="window.location.href='/Authentication/SignUpUser'">
+								onclick="window.location.href='/Authentication/SignUpUser'" style="width: 150px">
 					</app-button>
 					<app-button button-type="primary"
 								button-text="Register Project"
-								onclick="window.location.href='/Authentication/SignUpProject'">
+								onclick="window.location.href='/Authentication/SignUpProject'" style="width: 150px">
+					</app-button>
+					<app-button button-type="primary"
+								button-text="Login"
+								onclick="window.location.href='/Authentication/Login'" style="width: 150px">
 					</app-button>
 				</div>
+
 			</div>
 			<div class="Landing__content__body">
 				<h1>VIVE LA MUSICA <br> ESCUCHA LA BANDA</h1>
@@ -36,11 +44,16 @@
 
 				<h2>Descubre</h2>
 				<div class="Landing__content__body__cards">
-					@Html.Partial("_VerticalCard", new CardModel{Shadow=true})
-					@Html.Partial("_VerticalCard", new CardModel{Shadow=true})
-					@Html.Partial("_VerticalCard", new CardModel{Shadow=true})
-					@Html.Partial("_VerticalCard", new CardModel{Shadow=true})
-					@Html.Partial("_VerticalCard", new CardModel{Shadow=true})
+					@foreach (var evento in Model.Eventos)
+					{
+						@Html.Partial("_VerticalCard", new CardModel
+	{
+							Title = evento.EventTitle,
+							Subtitle = $"Fecha: {evento.EventDate.ToShortDateString()}",
+							Description = evento.EventDescription,
+							Image = evento.EventImage != null ? evento.EventImage : null // Muestra la imagen si está disponible
+						})
+					}
 				</div>
 			</div>
 		</div>

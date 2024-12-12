@@ -55,7 +55,10 @@ body,html {
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap:3em;
+  gap:1em;
+}
+.Landing__content__header__buttons app-button {
+    width:
 }
 .Landing__content__body{
   padding: 3em;

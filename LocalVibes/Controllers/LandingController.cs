@@ -1,4 +1,6 @@
+using LocalVibes.DALs;
 using LocalVibes.Models;
+using LocalVibes.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -26,7 +28,13 @@ namespace LocalVibes.Controllers
             // Pasar la cadena de conexión a la vista o usarla en lógica
             ViewBag.ConnectionString = connectionString;
 
-            return View();
+            EventProjectDAL eventDal = new EventProjectDAL();
+            LandingViewModel vm = new LandingViewModel
+            {
+                Eventos = eventDal.GetAll()
+            };
+
+            return View(vm);
         }
     }
 }
