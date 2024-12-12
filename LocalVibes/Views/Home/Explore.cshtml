@@ -1,0 +1,98 @@
+﻿@model LocalVibes.Models.ViewModels.HomeExploreViewModel
+@using System.Text.Json
+
+@{
+	Layout = null;
+	var generesJson = JsonSerializer.Serialize(Model.Generes);
+	var eventsJson = JsonSerializer.Serialize(Model.Events);
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"] - LocalVibes</title>
+	@Html.Partial("_Font")
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+	<script src='https://unpkg.com/wicg-inert@latest/dist/inert.min.js'></script>
+	<link rel="stylesheet" href="~/css/Views/Home/Explore.css" />
+</head>
+<body>
+	
+	<div class="Explore">
+		<div class="Explore__content">
+			<span	class="Explore__button">
+				<app-button
+					id="button"
+					button-text ="->"
+				></app-button>
+				@if (Model.User.Projects){
+					<app-button
+						id="button"
+						button-text ="Abel Haz que pasen cosas"
+					></app-button>
+				}
+			</span>
+			<div class="Explore__content__left">
+					<div>
+							<h2>Bandas</h2>
+							<div class="Explore__content__left__projects">
+									@if (Model.Projects != null)
+									{
+											foreach (var project in Model.Projects)
+											{
+													@Html.Partial("_VerticalCard", new CardModel
+													{
+															Title = project.ProjectName,
+															Subtitle = string.Join(", ", project.GeneresMusic.Select(g => g.GenereMusicName)),
+															Image = project.ProjectImage != null ? project.ProjectImage : null,
+															Shadow = true
+													})
+											}
+									}
+									else
+									{
+											<p>No hay bandas disponibles.</p>
+									}
+							</div>
+					</div>
+					<div>
+							<h2>Eventos</h2>
+							<div class="Explore__content__left__events">
+									@if (Model.Events != null)
+									{
+											foreach (var evento in Model.Events)
+											{
+													@Html.Partial("_VerticalCard", new CardModel
+													{
+															Title = evento.EventTitle,
+															Subtitle = $"Fecha: {evento.EventDate.ToShortDateString()}",
+															Description = evento.EventDescription,
+															Image = evento.EventImage != null ? evento.EventImage : null,
+															Shadow = true
+													})
+											}
+									}
+									else
+									{
+											<p>No hay eventos disponibles.</p>
+									}
+							</div>
+					</div>
+			</div>
+			<div class="Explore__content__right">
+				<div id="map" class="Explore__map"></div>
+				<div id='decorative-map' inert></div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+    var generes = @Html.Raw(generesJson);
+    var events = @Html.Raw(eventsJson);
+	</script>
+	<script src="~/js/View/Home/Explore.js"></script>
+</body>
+</html>
