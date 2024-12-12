@@ -4,6 +4,9 @@
     background-color: #FFF;
     color: #333333;
 }
+.HorizontalCard img {
+    max-width: 200px;
+}
 .HorizontalCard__body {
     display: flex;
     flex-direction: column;
