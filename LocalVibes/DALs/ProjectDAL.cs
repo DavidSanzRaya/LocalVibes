@@ -110,7 +110,5 @@ namespace LocalVibes.DALs
 
             return events;
         }
-
-
     }
 }

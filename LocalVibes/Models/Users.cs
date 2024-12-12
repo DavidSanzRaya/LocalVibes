@@ -26,7 +26,23 @@ namespace LocalVibes.Models
         public int IdGenere { get; set; } // FK de Genere. 
         public int IdTier { get; set; } // FK de Tier
 
-        public List<UserFavoriteProject>? UserFavoriteProjects { get; set; } // Lista de UserFavoriteProject. AllowNull
+
+        private List<Project>? _userFavoriteProjects;
+        public List<Project> UserFavoriteProjects
+        {
+            get
+            {
+                if (_userFavoriteProjects == null)
+                    _userFavoriteProjects = new UserDAL().GetFavoriteProjectsByUserId(IdUsers);
+
+                return _userFavoriteProjects;
+            }
+            set
+            {
+                _userFavoriteProjects = value;
+            }
+        } // Lista de UserGenereMusic. AllowNull
+
 
         private List<GenereMusic>? _userGeneresMusic;
         public List<GenereMusic> UserGeneresMusic

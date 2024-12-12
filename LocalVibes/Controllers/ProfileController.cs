@@ -3,6 +3,7 @@ using LocalVibes.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using LocalVibes.DALs;
+using Microsoft.Extensions.Logging;
 
 namespace LocalVibes.Controllers
 {
@@ -87,8 +88,16 @@ namespace LocalVibes.Controllers
             UserDAL userDal = new UserDAL();
             int.TryParse(HttpContext.Session.GetString("UserId"), out int userId);
             var user = userDal.GetById(userId);
+            var eventos = userDal.GetAssistEventsByUserId(userId);
+            var projectFavorites = userDal.GetFavoriteProjectsByUserId(userId);
 
-            var vm = new ProfileUserViewModel { User = user };
+
+            var vm = new ProfileUserViewModel
+            {
+                User = user,
+                Eventos = eventos,
+                ProjectsFavotire = projectFavorites
+            };
 
             return View(vm);
         }

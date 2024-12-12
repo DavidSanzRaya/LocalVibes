@@ -1,3 +1,6 @@
+@using LocalVibes.Models.ViewModels
+@model ProfileUserViewModel
+
 @{
 	ViewData["Title"] = "Local Vibes";
 	Layout = "_Layout";
@@ -18,17 +21,16 @@
     <div class="User__page-grid">
         <div class="User__user-section">
             @Html.Partial("_Avatar", new AvatarModel{Size="200px"})
-            <h1>User name</h1>
+            <h1>@Model.User.FirstName</h1>
             <div>
-                <h2>Bio</h2>
-                <p>lskdfjaslkdfjklsd</p>
-                <p>lskdfjaslkdfjklsd</p>
-                <p>lskdfjaslkdfjklsd</p>
+                <p>@Model.User.Birthdate.Value.ToString("dd/MM/yyyy")</p>
+                <p>Puntos: @Model.User.UserPoints</p>
             </div>
             <div class="User__user-section__labels">
-                <app-label text="label 1" color="red"></app-label>
-                <app-label text="label 2" color="blue"></app-label>
-                <app-label text="label 3" color="pink"></app-label>
+                @foreach (var genereMusic in Model.User.UserGeneresMusic)
+                {
+                    <app-label text="@genereMusic.GenereMusicName" color="purple"></app-label>
+                }
             </div>
             <div class="User__user-section__labels">
                 @Html.Partial("_SocialMediaCard", new SocialMediaCardModel
@@ -52,14 +54,28 @@
             </div>
         </div>
         <div class="User__project-seciton">
-            @Html.Partial("_HorizontalCard", new CardModel())
-            @Html.Partial("_HorizontalCard", new CardModel())
-            @Html.Partial("_HorizontalCard", new CardModel())
+            <h2>Projectos Favoritos</h2>
+            @foreach (var project in Model.ProjectsFavotire)
+            {
+                @Html.Partial("_HorizontalCard", new CardModel
+               {
+                   Title = project.ProjectName,
+                   Subtitle = $"Desde :{(project.FormationDate.HasValue ? project.FormationDate.Value.ToString("dd/MM/yyyy") : "Fecha no disponible")}",
+                   Image = project.ProjectImage != null ? project.ProjectImage : null // Muestra la imagen si está disponible
+               })
+            }
         </div>
         <div class="User__event-seciton">
-            @Html.Partial("_VerticalCard", new CardModel())
-            @Html.Partial("_VerticalCard", new CardModel())
-            @Html.Partial("_VerticalCard", new CardModel())
+            @foreach (var evento in Model.Eventos)
+            {
+                @Html.Partial("_VerticalCard", new CardModel
+               {
+                   Title = evento.EventTitle,
+                   Subtitle = $"Fecha: {evento.EventDate.ToShortDateString()}",
+                   Description = evento.EventDescription,
+                   Image = evento.EventImage != null ? evento.EventImage : null // Muestra la imagen si está disponible
+               })
+            }
         </div>
     </div>
 </body>
