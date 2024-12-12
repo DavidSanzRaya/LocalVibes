@@ -16,19 +16,21 @@ namespace LocalVibes.Models
         public int? Sales { get; set; } // AllowNull
         public DateTime EventDate { get; set; } 
         public int IdProject { get; set; } // FK de Project
-        public int IdLocation { get; set; } // FK de Location
-        // TODO: Me falta descripcion y precio y fotoCartel y projects
-        private List<GenereMusic>? _generesMusic;
-        public List<GenereMusic> GeneresMusic
-        {
-            get
-            {
-                if(_generesMusic == null)
-                    _generesMusic = new ProjectDAL().GetById(IdProject).GeneresMusic;
+        private Project _project { get; set; }
+        public Project Project 
+        { 
+            get {
+                if (_project == null)
+                    _project = new ProjectDAL().GetById(IdProject);
 
-                return _generesMusic;
+                return _project;
             }
+            set
+            {
+                _project = value;
+            } 
         }
+        public int IdLocation { get; set; } // FK de Location
 
         private Locations? _location;
         public Locations Location
@@ -39,6 +41,11 @@ namespace LocalVibes.Models
                     _location = new LocationsDAL().GetById(IdLocation);
 
                 return _location;
+            }
+
+            set
+            {
+                _location = value;
             }
         }
         public List<Project>? Projects { get; set; } // Hacer lazy load y cambiara en base de dato para que event pueda teneer varios projects

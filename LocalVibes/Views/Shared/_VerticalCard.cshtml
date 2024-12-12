@@ -4,13 +4,14 @@
     <link rel="stylesheet" href="~/css/Views/Shared/VerticalCard.css" />
 </head>
 <div class="VerticalCard@(Model.Shadow ? "-shadow" : "")" style="width: 300px;">
+    
     @if (Model.Image == null)
     {
         <img src="~/Assets/Pantera.jpeg" />
     }
     else
     {
-        <img src="data:image /png;base64 Convert.ToBase64String(Model.Image)" alt="@Model.Image" />
+        <img src="data:image/jpg;base64,@Convert.ToBase64String(Model.Image)" alt="@Model.Image" />
     }
     <div class="VerticalCard__body" >
         <h5 class="card-title" >@Model.Title</h5>

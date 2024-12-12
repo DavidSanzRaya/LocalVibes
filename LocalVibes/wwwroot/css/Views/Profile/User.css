@@ -39,3 +39,14 @@ html,body{
     gap:2em;
     padding: 3em;
 }
+.User__event-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+    .User__event-link:hover {
+        text-decoration: none;
+        opacity: 0.9;
+    }
+

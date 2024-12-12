@@ -16,15 +16,7 @@
                 <tr >
                     <!-- Image -->
                     <td>
-                        @if (member.MemberImage == null)
-                        {
-                            <img src="~/Assets/defaul.jpeg" />
-                        }
-                        else
-                        {
-                            <img src="data:image/png;base64 Convert.ToBase64String(member.MemberImage)" alt="@member.MemberName" />
-                        }
-                        
+                        @Html.Partial("_Avatar", new AvatarModel { Size = "50px", Image = member.MemberImage })
                     </td>
 
                     <!-- Member Name -->

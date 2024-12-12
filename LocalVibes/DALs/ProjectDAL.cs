@@ -60,7 +60,7 @@ namespace LocalVibes.DALs
                                 MemberName = (string)reader["MemberName"],
                                 ArtisticName = (string)reader["ArtisticName"],
                                 MemberImage = reader["MemberImage"] != DBNull.Value
-                                            ? (byte[])reader["ImageUrl"]
+                                            ? (byte[])reader["MemberImage"]
                                             : null
                             });
                         }

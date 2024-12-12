@@ -36,16 +36,22 @@ html,body{
 .Event__right-section img {
     width: 700px;
 }
-.Event__left-section__labels {
+.Event__left-section__project {
     display: flex;
     flex-direction:row;
     flex-wrap: wrap;
     gap : 1em;
 }
-.Event__left-section__avatars{
+.Event__left-section__labels {
     display: flex;
-    flex-direction:row;
+    flex-direction: row;
+    gap: 1em;
     flex-wrap: wrap;
-    gap : 1em;
+}
+.Event__left-section__avatars {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1em;
 }
 

@@ -14,6 +14,9 @@ namespace LocalVibes.DALs
             return new EventProject
             {
                 IdEvent = (int)reader["IdEvent"],
+                EventTitle = (string)reader["EventTitle"],
+                EventDescription = (string)reader["EventDescription"],
+                EventImage = (byte[])reader["EventImage"],
                 Capacity = reader["Capacity"] != DBNull.Value
                             ? (int)reader["Capacity"]
                             : null,

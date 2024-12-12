@@ -22,41 +22,32 @@
 <body>
     <div class="Event__page-grid">
         <div class="Event__left-section">
-            <h1>
-                @if (@Model.Event != null)
-                {
-                    @Model.Event.EventTitle
-                }
-                else
-                {
-                    @:Event Title
-                }
-            </h1>
+            <h1>@Model.Event.EventTitle</h1>
             <div>
                 <h2>DESCRIPCION</h2>
-                <p>@Model.</p>
+                <p>@Model.Event.EventDescription.ToString()</p>
+            </div>
+            <div class="Event__left-section__project">
+                <a asp-area="" asp-controller="Profile" asp-action="Project" asp-route-id="@Model.Event.Project.IdProject" class="User__project-link">
+                    @Html.Partial("_VerticalCard", new CardModel
+                   {
+                       Title = Model.Event.Project.ProjectName,
+                       Subtitle = $"Desde :{(Model.Event.Project.FormationDate.HasValue ? Model.Event.Project.FormationDate.Value.ToString("dd/MM/yyyy") : "Fecha no disponible")}",
+                       Image = Model.Event.Project.ProjectImage != null ? Model.Event.Project.ProjectImage : null // Muestra la imagen si está disponible
+                   })
+                </a>
             </div>
             <div class="Event__left-section__labels">
-                <app-label
-                    text="label 1"
-                    color="red"
-                >
-                </app-label>
-                <app-label
-                    text="label 1"
-                    color="blue"
-                >
-                </app-label>
-                <app-label
-                    text="label 1"
-                    color="purple"
-                >
-                </app-label>
+                @foreach (var genereMusic in Model.Event.Project.GeneresMusic)
+                {
+                    <app-label text="@genereMusic.GenereMusicName" color="purple" style="width:125px"></app-label>
+                }
             </div>
             <div class="Event__left-section__avatars">
-                @Html.Partial("_Avatar", new AvatarModel())
-                @Html.Partial("_Avatar", new AvatarModel())
-                @Html.Partial("_Avatar", new AvatarModel())
+                @foreach (var member in Model.Event.Project.MembersOfProjects)
+                {
+                    @Html.Partial("_Avatar", new AvatarModel { Size = "100px", Image = member.MemberImage})
+                }
             </div>
             <div id="map" style="height: 200px"></div>
         </div>

@@ -36,6 +36,16 @@ html,body{
     flex-direction: column;
     gap: 3em;
 }
+.Profile__card-section-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+    .Profile__card-section-link:hover {
+        text-decoration: none;
+        opacity: 0.9;
+    }
 
 .Profile__left-section {
     padding-top: 3em;

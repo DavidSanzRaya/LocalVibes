@@ -2,7 +2,7 @@
 
 <div class="ReviewCard">
     <div class="ReviewCard__header">
-        @Html.Partial("_Avatar", new AvatarModel{Size="40px"})
+        @Html.Partial("_Avatar", new AvatarModel { Size = "40px", Image = @Model.Review.User.ProfileImage})
         <div>
             <div>
                 <span>@Model.Review.User.UserName</span>

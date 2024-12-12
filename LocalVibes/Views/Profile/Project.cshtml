@@ -4,10 +4,6 @@
 @{
     ViewData["Title"] = "Local Vibes";
     Layout = "_Layout";
-
-    // Lista de colores a alternar
-    var colors = new[] { "red", "blue", "purple", "green", "yellow" };
-    int colorIndex = 0;
 }
 
 <!DOCTYPE html>
@@ -38,17 +34,9 @@
 
             <!-- Géneros musicales -->
             <div class="Profile__left-section__labels">
-                @foreach (var genere in Model.Project.GeneresMusic)
+                @foreach (var genereMusic in Model.Project.GeneresMusic)
                 {
-                    // Obtener el color alternado
-                    var color = colors[colorIndex % colors.Length];
-
-                    <app-label text="@genere.GenereMusicName"
-                               color="@color">
-                    </app-label>
-
-                    // Incrementar el índice
-                    colorIndex++;
+                    <app-label text="@genereMusic.GenereMusicName" color="purple" style="width:125px"></app-label>
                 }
             </div>
 
@@ -111,13 +99,15 @@
             {
                 foreach (var evento in Model.Project.EventsProject)
                 {
-                    @Html.Partial("_VerticalCard", new CardModel
-                    {
-                        Title = evento.EventTitle,
-                        Subtitle = $"Fecha: {evento.EventDate.ToShortDateString()}",
-                        Description = evento.EventDescription,
-                        Image = evento.EventImage != null ? evento.EventImage : null // Muestra la imagen si está disponible
-                    })
+                    <a asp-area="" asp-controller="Profile" asp-action="Event" asp-route-id="@evento.IdEvent" class="Profile__card-section-link">
+                        @Html.Partial("_VerticalCard", new CardModel
+                        {
+                            Title = evento.EventTitle,
+                            Subtitle = $"Fecha: {evento.EventDate.ToShortDateString()}",
+                            Description = evento.EventDescription,
+                            Image = evento.EventImage != null ? evento.EventImage : null // Muestra la imagen si está disponible
+                        })
+                    </a>
                 }
             }
             else

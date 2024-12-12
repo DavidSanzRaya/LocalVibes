@@ -26,7 +26,7 @@
     }
     <div class="User__page-grid">
         <div class="User__user-section">
-            @Html.Partial("_Avatar", new AvatarModel{Size="200px"})
+            @Html.Partial("_Avatar", new AvatarModel{Size="200px", Image=Model.User.ProfileImage})
             <h1>@Model.User.FirstName</h1>
             <div>
                 <p>@Model.User.Birthdate.Value.ToString("dd/MM/yyyy")</p>
@@ -35,7 +35,7 @@
             <div class="User__user-section__labels">
                 @foreach (var genereMusic in Model.User.UserGeneresMusic)
                 {
-                    <app-label text="@genereMusic.GenereMusicName" color="purple"></app-label>
+                    <app-label text="@genereMusic.GenereMusicName" color="purple" style="width:125px"></app-label>
                 }
             </div>
             <div class="User__user-section__labels">
@@ -88,7 +88,6 @@
                 </a>
             }
         </div>
-
     </div>
 </body>
 </html>
