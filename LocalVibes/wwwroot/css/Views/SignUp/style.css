@@ -1,0 +1,391 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    max-height: 100vh;
+}
+
+.body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.wrapper {
+    position: relative;
+    width: 800px;
+    height: 800px;
+    background: transparent;
+    border: 2px solid #9b59b6;
+    box-shadow: 0 0 50px #9b59b6;
+    overflow: hidden;
+}
+
+.wrapper .form-box {
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.wrapper .form-box.login {
+    left: 0;
+    padding: 0 40px 0 30px;
+}
+
+.wrapper .form-box.login .animation {
+    /*transform: translateX(0);*/
+    opacity: 1;
+    /*filter: blur(0);*/
+    transition: .7s ease;
+    transition-delay: calc(.1s * var(--j));
+}
+
+.wrapper.active .form-box.login .animation {
+    /*transform: translateX(-120%);*/
+    opacity: 0;
+    /*filter: blur(10px);*/
+    transition-delay: calc(.1s * var(--i));
+}
+
+.wrapper .form-box.register {
+    right: 0;
+    padding: 0 30px 0 40px;
+    pointer-events: none;
+}
+
+.wrapper.active .form-box.register {
+    pointer-events: auto;
+}
+
+.wrapper .form-box.register .animation {
+    opacity: 0;
+    transition: .7s ease;
+    transition-delay: calc(.1s * var(--j));
+}
+
+.wrapper.active .form-box.register .animation {
+    opacity: 1;
+    transition-delay: calc(.1s * var(--i));
+}
+
+.form-box h2 {
+    font-size: 24px;
+    color: #fff;
+    text-align: center;
+}
+
+.form-box .input-box {
+    position: relative;
+    width: 100%;
+    height: 40px;
+    margin: 20px 0;
+}
+
+.form-box .input-box:has(textarea) {
+    position: relative;
+    width: 100%;
+    height: 100px;
+    margin: 25px 0;
+}
+
+.form-box .input-box-image {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    width: 200%;
+    height: 50px;
+    margin: 30px 0;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    display: none;
+}
+
+input[type="date"] {
+    -moz-appearance: textfield;
+}
+
+input[type="date"]::-ms-clear {
+    display: none;
+}
+
+.input-box-image input {
+    width: 100%;
+    height: auto;
+    background: transparent;
+    border: none;
+    outline: none;
+    padding-right: 23px;
+    font-size: 14px;
+    color: #fff;
+    font-weight: 500;
+    transition: .5s;
+}
+
+.input-box-image label {
+    position: absolute;
+    top: -15px;
+    left: 0;
+    font-size: 16px;
+    color: #fff;
+    pointer-events: none;
+    transition: .5s;
+}
+
+.input-box-image input[data-filled="true"] ~ label {
+    color: #9b59b6;
+}
+
+.input-box select {
+    margin-top: 10%;
+}
+
+.input-box input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    border-bottom: 2px solid #fff;
+    padding-right: 23px;
+    font-size: 14px;
+    color: #fff;
+    font-weight: 500;
+    transition: .5s;
+}
+
+.input-box textarea {
+    margin-top: 10%;
+    height: 100%;
+}
+
+.input-box input:focus,
+.input-box input[data-filled="true"] {
+    border-bottom-color: #9b59b6;
+}
+
+.input-box label {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    font-size: 14px;
+    color: #fff;
+    pointer-events: none;
+    transition: .5s;
+}
+
+.input-box:has(textarea) label {
+    top: 20%;
+    transform: translateY(-50%);
+}
+
+.input-box.date label,
+.input-box:has(textarea) label,
+.input-box select ~ label,
+.input-box .multiSelect-label {
+    opacity: 0;
+}
+
+.input-box input:focus ~ label,
+.input-box input[data-filled="true"] ~ label,
+.input-box input[type="date"]:focus ~ label,
+.input-box input[type="date"][data-filled="true"] ~ label,
+.input-box select:focus ~ label,
+.input-box select[data-filled="true"] ~ label,
+.input-box:has(.multi-select .multiSelect-input) .multiSelect-label,
+.input-box:has(.multi-select-header.multi-select-header-active) .multiSelect-label {
+    top: -10px;
+    color: #9b59b6;
+    opacity: 1;
+}
+
+.input-box textarea:focus ~ label,
+.input-box textarea[data-filled="true"] ~ label {
+    top: -20px;
+    color: #9b59b6;
+    opacity: 1;
+}
+
+.input-box i {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: #fff;
+}
+
+.input-box input:focus ~ i,
+.input-box input[data-filled="true"] ~ i {
+    color: #9b59b6;
+}
+
+.btn {
+    position: relative;
+    width: 100%;
+    height: 40px;
+    background: transparent;
+    border: 2px solid #9b59b6;
+    outline: none;
+    border-radius: 40px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #fff;
+    font-weight: 600;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: 300%;
+    background: linear-gradient(#081b29, #9b59b6, #081b29, #9b59b6);
+    z-index: -1;
+    transition: .5s;
+}
+
+.btn:hover::before {
+    top: 0;
+}
+
+.form-box .logreg-link {
+    font-size: 14.5px;
+    color: #fff;
+    text-align: center;
+    margin: 20px 0 10px;
+}
+
+.logreg-link p a {
+    color: #9b59b6;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.logreg-link p a:hover {
+    text-decoration: underline;
+}
+
+.wrapper .info-text {
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.wrapper .info-text.login {
+    right: 0;
+    text-align: right;
+    padding: 0 40px 60px 150px;
+    pointer-events: none;
+}
+
+.wrapper .info-text.login .animation {
+    transform: translateX(0);
+    opacity: 1;
+    filter: blur(0);
+    transition: .7s ease;
+    transition-delay: calc(.1s * var(--j));
+}
+
+.wrapper.active .info-text.login .animation {
+    transform: translateX(120%);
+    opacity: 0;
+    filter: blur(10px);
+    transition-delay: calc(.1s * var(--i));
+}
+
+.wrapper .info-text.register {
+    left: 0;
+    text-align: left;
+    padding: 0 150px 60px 40px;
+    pointer-events: none;
+}
+
+.wrapper.active .info-text.register {
+    pointer-events: auto;
+}
+
+.wrapper .info-text.register .animation {
+    transform: translateX(-120%);
+    opacity: 0;
+    filter: blur(10px);
+    transition: .7s ease;
+    transition-delay: calc(.1s * var(--j));
+}
+
+.wrapper.active .info-text.register .animation {
+    transform: translateX(0);
+    opacity: 1;
+    filter: blur(0);
+    transition-delay: calc(.1s * var(--i));
+}
+
+.info-text h2 {
+    font-size: 36px;
+    color: #fff;
+    line-height: 1.3;
+    text-transform: uppercase;
+}
+
+.info-text p {
+    font-size: 16px;
+    color: #fff;
+}
+
+.wrapper .bg-animate {
+    position: absolute;
+    top: -4px;
+    right: 0;
+    width: 1100px;
+    height: 1000px;
+    background: linear-gradient(45deg, #081b29, #9b59b6);
+    border-bottom: 3px solid #9b59b6;
+    transform: rotate(27deg) skewY(40deg);
+    transform-origin: bottom right;
+    transition: 1.5s ease;
+    transition-delay: 1.6s;
+}
+
+.wrapper.active .bg-animate {
+    transform: rotate(0) skewY(0);
+    transition-delay: 1.2s;
+}
+
+.wrapper .bg-animate2 {
+    position: absolute;
+    top: 100%;
+    left: 520px;
+    width: 1100px;
+    height: 1000px;
+    background: #081b29;
+    border-top: 3px solid #9b59b6;
+    transform: rotate(0) skewY(0);
+    transform-origin: bottom left;
+    transition: 1.5s ease;
+    transition-delay: .5s;
+}
+
+.wrapper.active .bg-animate2 {
+    transform: rotate(-28deg) skewY(-39deg);
+    transition-delay: 2s;
+}
