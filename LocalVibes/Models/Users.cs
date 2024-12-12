@@ -61,5 +61,21 @@ namespace LocalVibes.Models
         } // Lista de UserGenereMusic. AllowNull
 
         public List<Ticket>? Tickets { get; set; } // Lista de tickets. AllowNull
+
+        private Project? _project;
+        public Project Project
+        {
+            get
+            {
+                if (_project == null)
+                    _project = new UserDAL().GetAdminProjectByUserId(IdUsers);
+
+                return _project;
+            }
+            set
+            {
+                _project = value;
+            }
+        } // Lista de UserGenereMusic. AllowNull
     }
 }

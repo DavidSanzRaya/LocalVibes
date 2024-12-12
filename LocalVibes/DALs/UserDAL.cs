@@ -127,6 +127,46 @@ namespace LocalVibes.DALs
             }
             return projectsFav;
         }
+
+        public Project GetAdminProjectByUserId(int userId)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = @"
+                    SELECT p.IdProject, p.ProjectName, p.Biography, p.FormationDate, p.ProjectImage, p.IdUsersAdmin
+                            FROM Project p
+                            WHERE p.IdUsersAdmin = @userId";
+
+                    command.Parameters.Add(new SqlParameter("@userId", SqlDbType.Int) { Value = userId });
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            return new Project
+                            {
+                                IdProject = (int)reader["IdProject"],
+                                ProjectName = (string)reader["ProjectName"],
+                                Biography = reader["Biography"] != DBNull.Value
+                                    ? (string)reader["Biography"]
+                                    : null,
+                                FormationDate = reader["FormationDate"] != DBNull.Value
+                                    ? (DateTime)reader["FormationDate"]
+                                    : null,
+                                ProjectImage = reader["ProjectImage"] != DBNull.Value
+                                    ? (byte[])reader["ProjectImage"]
+                                    : null,
+                                IdUsersAdmin = (int)reader["IdUsersAdmin"]
+                            };
+                        }
+                    }
+                }
+            }
+            return null;
+        }
     }
 }
 
