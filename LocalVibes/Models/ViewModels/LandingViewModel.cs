@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using LocalVibes.DTOs;
 
 namespace LocalVibes.Models.ViewModels
 {

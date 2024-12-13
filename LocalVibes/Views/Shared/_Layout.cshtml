@@ -12,6 +12,18 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/_Layout.css" asp-append-version="true" />
     @Html.Partial("_Font")
+    <style>
+        .navbar-scroll {
+            background-color: rgba(138, 43, 226, 0.9); /* Color de fondo con opacidad */
+            backdrop-filter: blur(10px); /* Desenfoque */
+            transition: background-color 0.3s ease, backdrop-filter 0.3s ease;
+        }
+
+            .navbar-scroll.scrolled {
+                background-color: rgba(138, 43, 226, 0.9); /* Menos translúcido al hacer scroll */
+                backdrop-filter: blur(2px); /* Reducir desenfoque al hacer scroll */
+            }
+    </style>
 </head>
 <body>
     @if (TempData["ErrorMessage"] != null)
