@@ -146,3 +146,70 @@ footer a:hover {
     color: #FFC400;
 }
 
+/* Custom styles */
+.card {
+    transition: transform 0.2s ease-in-out;
+}
+
+    .card:hover {
+        transform: translateY(-5px);
+    }
+
+.badge {
+    padding: 0.5em 1em;
+}
+
+/* Custom colors */
+.bg-primary-purple {
+    background-color: #8a2be2 !important;
+}
+
+.text-primary-purple {
+    color: #8a2be2 !important;
+}
+
+.bg-secondary-yellow {
+    background-color: #ffd700 !important;
+}
+
+.text-secondary-yellow {
+    color: #ffd700 !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .navbar-brand {
+        font-size: 1.2rem;
+    }
+
+    .card-body {
+        padding: 1rem;
+    }
+}
+
+/* Avatar improvements */
+.avatar-wrapper {
+    position: relative;
+    display: inline-block;
+    border: 3px solid #8a2be2;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+/* Social media icons */
+.social-media-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: #8a2be2;
+    color: white;
+    transition: all 0.2s ease-in-out;
+}
+
+    .social-media-icon:hover {
+        background-color: #ffd700;
+        transform: scale(1.1);
+    }
