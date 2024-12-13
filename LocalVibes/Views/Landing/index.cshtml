@@ -2,75 +2,141 @@
 @model LandingViewModel
 
 @{
-	ViewData["Title"] = "Local Vibes";
-	Layout = "_Layout";
+    ViewData["Title"] = "Local Vibes";
+    Layout = "_Layout";
 }
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>@ViewData["Title"]</title>
-	<link rel="stylesheet" href="~/css/Views/Landing/index.css" />
-	<link rel="stylesheet" href="~/css/Views/Shared/VerticalCard.css" />
-	@Html.Partial("_Font")
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - LocalVibes</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/_Layout.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Views/Landing/index.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src='https://unpkg.com/wicg-inert@latest/dist/inert.min.js'></script>
+    @Html.Partial("_Font")
 </head>
 <body>
-	<div class="Landing">
-		<div class="Landing__content">
-			<div class="Landing__content__header">
-				<img src="~/Assets/logo.png" asp-append-version="true" alt="Logo" class="Landing__header__logo" width="90px">
-				<div class="Landing__content__header__buttons">
-					<app-button button-type="primary"
-								button-text="Soy nuevo usuario"
-								onclick="window.location.href='/Authentication/SignUpUser'" style="width: 30%">
-					</app-button>
-					<app-button button-type="primary"
-								button-text="Soy nuevo artista o banda"
-								onclick="window.location.href='/Authentication/SignUpProject'" style="width: 40%">
-					</app-button>
-					<app-button button-type="primary"
-								button-text="Iniciar Sesion"
-								onclick="window.location.href='/Authentication/Login'" style="width: 30%">
-					</app-button>
-				</div>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <h1 class="hero-title">Descubre la Música en Vivo de Barcelona</h1>
+            <p class="hero-subtitle">Conectamos amantes de la música con artistas emergentes. Encuentra los mejores conciertos y eventos musicales cerca de ti.</p>
+            <div class="d-flex justify-content-center gap-3">
+                <a href="@Url.Action("Events", "Home")" class="btn btn-primary btn-lg">Ver Eventos</a>
+                <a href="@Url.Action("Explore", "Home")" class="btn btn-outline-primary btn-lg" style="color: var(--secondary-color);">Explorar Locales</a>
+            </div>
+        </div>
+    </section>
 
-			</div>
-			<div class="Landing__content__body">
-				<h1>VIVE LA MUSICA <br> ESCUCHA LA BANDA</h1>
-				<p class="Landing__content__body__description"> Local Vibes es una plataforma diseñada para ayudarte a <span>descubrir</span> conciertos y <strong>bandas</strong> en vivo en Barcelona. Si eres fanático de la música, aquí puedes encontrar <strong>eventos</strong> cercanos, desde conciertos de artistas <strong>emergentes</strong> hasta grandes festivales  para que la gente tenga siempre un plan diferente y emocionante por descubrir..
-				Lo que nos diferencia es nuestra misión de apoyar a las bandas emergentes, brindando un espacio donde los artistas puedan ser descubiertos apartando las reproducciones y followers de la ecuacion.</p>
+    <!-- Featured Events -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-4" style="color: white; font-weight: 700;">Eventos Destacados</h2>
+            <p class="text-center mb-5" style="color: var(--tertiary-color);">Los mejores eventos musicales que no te puedes perder</p>
 
-				<h2>Descubre</h2>
-				<div class="Landing__content__body__cards">
-					@foreach (var evento in Model.Eventos)
-					{
-						@Html.Partial("_VerticalCard", new CardModel
-	{
-							Title = evento.EventTitle,
-							Subtitle = $"Fecha: {evento.EventDate.ToShortDateString()}",
-							Description = evento.EventDescription,
-							Image = evento.EventImage != null ? evento.EventImage : null, // Muestra la imagen si está disponible
-							Ruta = "/Profile/Event"
-						})
-					}
-				</div>
-			</div>
-		</div>
-		<div class="Landing__background">
-			<div class="left"></div>
-			<div class="right">
-				 <video autoplay muted loop id="Landing__background__video">
-					 <source src="~/Assets/IMG_0059.mov" type="video/mp4">
-				</video>
-			</div>
-		</div>
-	</div>
+            <div class="row g-4">
+                @foreach (var evento in Model.Eventos.Take(3))
+                {
+                    <div class="col-md-4">
+                        <div class="card event-card">
+                            <img class="event-image" src="data:image/jpg;base64,@Convert.ToBase64String(evento.EventImage)" alt="@evento.EventImage" />
+                            <div class="card-body">
+                                <h5 class="card-title">@evento.EventTitle</h5>
+                                <p class="card-text text-muted">@evento.EventDate.ToShortDateString() • @evento.Location.NameLocation</p>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h2 class="mb-4" style="font-weight: 700;">¿Por qué LocalVibes?</h2>
+                    <p class="" style="color: #303437; margin-bottom: 2rem;">Somos la plataforma líder en descubrimiento de música en vivo en Barcelona</p>
+
+                    <div class="feature-item">
+                        <div class="d-flex align-items-center gap-2 mt-2">
+                            <i class="bi bi-music-note feature-icon"></i>
+                            <div>
+                                <h4 style="font-weight: 700; font-size: larger;">Música en Vivo</h4>
+                                <p style="font-size: 14px;">Descubre los mejores conciertos y eventos musicales en Barcelona.</p>
+                            </div>
+                            
+                        </div>
+                    </div>
+
+                    <div class="feature-item">
+                        <div class="d-flex align-items-center gap-2 mt-2">
+                            <i class="bi bi-calendar-event feature-icon"></i>
+                            <div>
+                                <h4 style="font-weight: 700; font-size: larger;">Eventos Exclusivos</h4>
+                                <p style="font-size: 14px;">Accede a eventos únicos y experiencias VIP con artistas emergentes.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="feature-item">
+                        <div class="d-flex align-items-center gap-2 mt-2">
+                            <i class="bi bi-geo feature-icon"></i>
+                            <div>
+                                <h4 style="font-weight: 700; font-size: larger;">Locales Cercanos</h4>
+                                <p style="font-size: 14px;">Encuentra los mejores lugares para disfrutar de música en vivo cerca de ti.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="d-flex align-items-center gap-2 mt-2">
+                            <i class="bi bi-graph-up-arrow feature-icon"></i>
+                            <div>
+                                <h4 style="font-weight: 700; font-size: larger;">Artistas Emergentes</h4>
+                                <p style="font-size: 14px;">Apoya a nuevos talentos y sé parte de su crecimiento en la escena musical.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="map-section">
+                        <div id="map" class="map"></div>
+                        <div id='decorative-map' inert></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-4 border-top">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                    <img src="~/Assets/Logo-white-sinLetra.png" alt="Logo" width="24" class="me-2">
+                    <span>LocalVibes</span>
+                </div>
+                <div>
+                    <span class="text-muted">© 2024 LocalVibes. Todos los derechos reservados.</span>
+                </div>
+                <div>
+                    <a href="#" class="text-decoration-none text-muted me-3">Sobre nosotros</a>
+                    <a href="#" class="text-decoration-none text-muted">Política de privacidad</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
 </body>
-<footer>
-	<a href="/Home/About">Sobre nosotros</a><br />
-	<a href="/Home/Privacy">Politica de privacidad</a>
-
-</footer>
 </html>
