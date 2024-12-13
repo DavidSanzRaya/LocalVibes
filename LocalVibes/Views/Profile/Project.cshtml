@@ -35,7 +35,8 @@
 </head>
 <body>
     <div class="Profile__page-grid">
-        <div class="Profile__photo-section">
+        <div class="Profile__photo-section"
+             style="@(Model.Project.ProjectImage != null ? $"background-image: url('data:image/png;base64,{@Convert.ToBase64String(Model.Project.ProjectImage)}');" : string.Empty)">
             <h1>@Model.Project.ProjectName</h1>
         </div>
         <div class="Profile__left-section">
@@ -51,7 +52,7 @@
                 @foreach (var genereMusic in Model.Project.GeneresMusic)
                 {
                     <app-label text="@genereMusic.GenereMusicName" color="purple" style="width:125px"></app-label>
-                }
+                }   
             </div>
 
             <!-- Redes sociales -->
