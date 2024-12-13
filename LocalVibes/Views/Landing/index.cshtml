@@ -23,16 +23,16 @@
 				<img src="~/Assets/logo.png" asp-append-version="true" alt="Logo" class="Landing__header__logo" width="90px">
 				<div class="Landing__content__header__buttons">
 					<app-button button-type="primary"
-								button-text="Register User"
-								onclick="window.location.href='/Authentication/SignUpUser'" style="width: 150px">
+								button-text="Soy nuevo usuario"
+								onclick="window.location.href='/Authentication/SignUpUser'" style="width: 30%">
 					</app-button>
 					<app-button button-type="primary"
-								button-text="Register Project"
-								onclick="window.location.href='/Authentication/SignUpProject'" style="width: 150px">
+								button-text="Soy nuevo artista o banda"
+								onclick="window.location.href='/Authentication/SignUpProject'" style="width: 40%">
 					</app-button>
 					<app-button button-type="primary"
-								button-text="Login"
-								onclick="window.location.href='/Authentication/Login'" style="width: 150px">
+								button-text="Iniciar Sesion"
+								onclick="window.location.href='/Authentication/Login'" style="width: 30%">
 					</app-button>
 				</div>
 
@@ -68,4 +68,9 @@
 		</div>
 	</div>
 </body>
+<footer>
+	<a href="/Home/About">Sobre nosotros</a><br />
+	<a href="/Home/Privacy">Politica de privacidad</a>
+
+</footer>
 </html>

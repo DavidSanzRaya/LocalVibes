@@ -43,7 +43,7 @@ namespace LocalVibes.Controllers
                     }
 
                     TempData["SuccessMessage"] = "¡Bienvenido, " + usuario.FirstName + "!";
-                    return RedirectToAction("User", "Profile");
+                    return RedirectToAction("Explore", "Home");
                 }
 
             }
@@ -123,7 +123,7 @@ namespace LocalVibes.Controllers
                         HttpContext.Session.SetString("Role", "User");
 
                         TempData["SuccessMessage"] = "Usuario registrado con éxito. ¡Bienvenido, " + usuarioCreado.FirstName + "!";
-                        return RedirectToAction("Home", "Home");
+                        return RedirectToAction("Explore", "Home");
                     }
 
                     ModelState.AddModelError("", "No se ha podido crear el usuario. Inténtelo nuevamente.");
@@ -237,7 +237,7 @@ namespace LocalVibes.Controllers
                         HttpContext.Session.SetString("Role", "Band");
 
                         TempData["SuccessMessage"] = "Proyecto registrado con éxito. ¡Bienvenido, " + createdProject.ProjectName + "!";
-                        return RedirectToAction("Home", "Home");
+                        return RedirectToAction("Explore", "Home");
                     }
 
                     // Error en la creación del proyecto
@@ -512,7 +512,7 @@ namespace LocalVibes.Controllers
         public IActionResult Logout()
         {
             HttpContext.Session.Clear(); // Limpiar sesión
-            return RedirectToAction("Landing", "index");
+            return RedirectToAction("index", "Landing");
         }
     }
 }

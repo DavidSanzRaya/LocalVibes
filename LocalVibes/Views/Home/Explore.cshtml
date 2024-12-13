@@ -2,7 +2,7 @@
 @using System.Text.Json
 
 @{
-	Layout = null;
+	Layout = "_Layout";
 	var generesJson = JsonSerializer.Serialize(Model.Generes);
 	var eventsJson = JsonSerializer.Serialize(Model.Events);
 }

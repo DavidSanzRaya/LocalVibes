@@ -23,7 +23,7 @@ body {
     font-optical-sizing: var(--font-optical-sizing);
     font-style: var(--font-style);
     font-size: var(--font-size);
-    scroll-behavior:var(--scroll-behavior);
+    scroll-behavior: var(--scroll-behavior);
 }
 
 /* Botones generales */

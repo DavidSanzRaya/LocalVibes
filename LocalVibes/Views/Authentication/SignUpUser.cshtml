@@ -3,6 +3,8 @@
 
 @{
 	ViewData["Title"] = "Sign Up";
+	Layout = null;
+
 }
 
 <!DOCTYPE html>
@@ -123,6 +125,13 @@
 
 
 		</form>
+
+		<p>Ya tienes cuenta?</p>
+		<app-button button-text="Usuario"
+					button-type="primary"
+					onclick="window.location.href='/Authentication/Login'" style="width: 150px">
+		</app-button>
+
 	</div>
 </body>
 </html>

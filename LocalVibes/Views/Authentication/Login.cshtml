@@ -8,47 +8,52 @@
 
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		@Html.Partial("_Font")
-		<link rel="stylesheet" href="~/css/Views/Authentication/Login.css" />
-	</head>
-	<body>
-		<div class="Login">
-			<div class="Login__left-section">
-				 <video autoplay muted loop id="Login__background__video">
-					 <source src="~/Assets/IMG_0059.mov" type="video/mp4">
-				</video>
-				<div class="Login__background__shadow">
-				</div>
-				<div class="Login__left-section__logo">
-					<img src="~/Assets/Logo-white.png" asp-append-version="true" alt="Logo" class="Landing__header__logo" width="90px">
-				</div>
+<head>
+	@Html.Partial("_Font")
+	<link rel="stylesheet" href="~/css/Views/Authentication/Login.css" />
+</head>
+<body>
+	<div class="Login">
+		<div class="Login__left-section">
+			<video autoplay muted loop id="Login__background__video">
+			<video autoplay muted loop id="Login__background__video">
+				<source src="~/Assets/IMG_0059.mov" type="video/mp4">
+			</video>
+			<div class="Login__background__shadow">
 			</div>
-			<div class="Login__right-section">
-				<h1>Login</h1>
-				<form class="Login__form" asp-action="Login" method="post" asp-antiforgery="true">
-
-					<div class="form-group">
-						<app-input 
-							asp-for="Username"
-						></app-input>
-					</div>
-					<div class="form-group">
-						<app-input 
-							asp-for="Password"
-							type="password"
-						></app-input>
-					</div>
-
-					<div asp-validation-summary="All" class="text-danger"></div>
-
-					<app-button 
-						button-text="Entrar"
-						button-type="secondary"
-					></app-button>
-				</form>
-
+			<div class="Login__left-section__logo">
+				<img src="~/Assets/Logo-white.png" asp-append-version="true" alt="Logo" class="Landing__header__logo" width="90px">
 			</div>
 		</div>
-	</body>
+		<div class="Login__right-section">
+			<h1>Login</h1>
+			<form class="Login__form" asp-action="Login" method="post" asp-antiforgery="true">
+
+				<div class="form-group">
+					<app-input asp-for="Username"></app-input>
+				</div>
+				<div class="form-group">
+					<app-input asp-for="Password"
+							   type="password"></app-input>
+				</div>
+
+				<div asp-validation-summary="All" class="text-danger"></div>
+
+				<app-button button-text="Entrar"
+							button-type="secondary"></app-button>	
+			</form>
+
+			@* <p>No tienes cuenta? Registrate como:</p>
+			<app-button button-text="Usuario"
+						button-type="primary"
+						onclick="window.location.href='/Authentication/SignUpUser'" style="width: 150px">
+			</app-button>
+			<app-button button-text="Artista/Banda"
+						button-type="primary"
+						onclick="window.location.href='/Authentication/SignUpProject'" style="width: 150px">
+			</app-button> *@
+
+		</div>
+	</div>
+</body>
 </html>
