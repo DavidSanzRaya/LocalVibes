@@ -36,25 +36,21 @@
 							   type="password"></app-input>
 				</div>
 
-				<div asp-validation-summary="All" class="text-danger"></div>
-
-				<app-button button-text="Entrar"
-							button-type="secondary"></app-button>
-
+				<app-button button-text="Entrar" button-type="secondary"></app-button>
 
 			</form>
 
 			<div class="d-flex flex-column justify-content-center align-items-center vh-100">
 				<p class="text-center">
 					¿No tienes cuenta? Regístrate como
-					<br />
-					<a asp-controller="Authentication" asp-action="SignUpUser" class="btn btn-secondary ml-2 rounded-pill">Usuario</a>
-					<br />
-					<a asp-controller="Authentication" asp-action="SignUpProject" class="btn btn-secondary ml-2 rounded-pill">Proyecto</a>
+					<br>
+					<div class="d-flex justify-content-center gap-2 mt-2" style="display: flex; justify-content: space-evenly;">
+						<a class="btn btn-secondary rounded-pill" href="/Authentication/SignUpUser">Usuario</a>
+						<a class="btn btn-secondary rounded-pill" href="/Authentication/SignUpProject">Proyecto</a>
+					</div>
 				</p>
 			</div>
-
-
+			<div asp-validation-summary="All" class="text-danger"></div>
 		</div>
 	</div>
 </body>
