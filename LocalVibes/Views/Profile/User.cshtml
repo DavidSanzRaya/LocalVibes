@@ -22,6 +22,7 @@
 </head>
 
 <body>
+
 	<!--Se controla que no suceda ningun erro ral entrar a la pagina-->
 	@if (TempData["ErrorMessage"] != null)
 	{
@@ -29,22 +30,28 @@
 			@TempData["ErrorMessage"]
 		</div>
 	}
+
+	<!--Container con todo contenido-->
 	<div class="container">
-		<!-- Perfil Sidebar -->
+
+		<!--Perfil Sidebar -->
 		<div class="profile-sidebar">
+
+			<!--Parametros del usuario-->
 			@Html.Partial("_Avatar", new AvatarModel { Size = "200px", Image = Model.User.ProfileImage })
 			<h1 class="profile-name">@Model.User.FirstName @Model.User.LastName</h1>
 			<p class="profile-date"><b>Nombre de usuario:</b> "@Model.User.UserName"</p>
-
 			<p class="profile-date"><b>Fecha de nacimiento:</b> @Model.User.Birthdate.Value.ToString("dd/MM/yyyy")</p>
 			<p class="profile-points"><b>Tus puntos: </b>@Model.User.UserPoints</p>
+			<div><b>Generos musicales asociados</b></div>
+
+			<!--Lista de generos-->
 			<div class="genre-tags">
 				@if (Model.User.UserGeneresMusic.Any())
 				{
 					@foreach (var genereMusic in Model.User.UserGeneresMusic)
 					{
-						<app-label text="@genereMusic.GenereMusicName" color="purple" style="width:20vh; font-size:auto"></app-label>
-
+						<app-label text="@genereMusic.GenereMusicName" color="purple" style="width:20vh"></app-label>
 					}
 				}
 				else
@@ -96,7 +103,7 @@
 	Title = evento.EventTitle,
 	Subtitle = $"Fecha: {evento.EventDate.ToShortDateString()}",
 	Description = evento.EventDescription,
-	Image = evento.EventImage != null ? evento.EventImage : null // Muestra la imagen si está disponible
+	Image = evento.EventImage != null ? evento.EventImage : null
 })
 					</a>
 

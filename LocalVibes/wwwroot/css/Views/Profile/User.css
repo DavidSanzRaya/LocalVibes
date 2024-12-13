@@ -10,20 +10,6 @@ body {
     color: white;
 }
 
-.navbar {
-    background-color: white;
-    padding: 1rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-    .navbar a {
-        color: #333;
-        text-decoration: none;
-        margin-right: 1rem;
-    }
-
 .container {
     display: grid;
     grid-template-columns: 300px 1fr 300px;
