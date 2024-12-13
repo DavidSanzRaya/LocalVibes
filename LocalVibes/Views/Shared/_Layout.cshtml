@@ -49,7 +49,7 @@
 							@if (!string.IsNullOrEmpty(Context.Session.GetString("ProjectName")))
 							{
 								<li>
-									<a class="nav-link text-dark" asp-area="" asp-controller="Profile" asp-action="Project">
+									<a class="nav-link text-dark" asp-area="" asp-controller="Profile" asp-action="Project" asp-route-id="@Context.Session.GetString("ProjectId")">
 										Proyecto: @Context.Session.GetString("ProjectName")
 									</a>
 								</li>
