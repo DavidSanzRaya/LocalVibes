@@ -27,12 +27,7 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     position: relative;
     overflow: hidden;
-    transition: transform 1s ease, opacity 1s ease;
-}
-
-.divider.expanding {
-    transform: scale(1.01);
-    opacity: 1;
+    transition: opacity 2s ease;
 }
 
 .divider.fading {
@@ -49,7 +44,7 @@
     background: radial-gradient(circle, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.8) 100%);
     pointer-events: none;
     z-index: 1;
-    transition: opacity 1s ease;
+    transition: opacity 2s ease;
 }
 
 .divider.removing-effect::before {

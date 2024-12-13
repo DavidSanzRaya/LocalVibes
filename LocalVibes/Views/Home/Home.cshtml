@@ -36,13 +36,11 @@
 
 <script>
     document.querySelectorAll('.action-button').forEach(button => {
-        button.addEventListener('click', function(e) {
+        button.addEventListener('click', function (e) {
             e.preventDefault();
 
             const clickedDivider = this.closest('.divider');
-            const otherDivider = document.querySelectorAll('.divider').length > 1
-                ? Array.from(document.querySelectorAll('.divider')).find(div => div !== clickedDivider)
-                : null;
+            const otherDivider = Array.from(document.querySelectorAll('.divider')).find(div => div !== clickedDivider);
 
             // Remove fish-eye effect on clicked divider
             clickedDivider.classList.add('removing-effect');
@@ -53,9 +51,11 @@
                 otherDivider.classList.add('fading');
             }
 
-            setTimeout(() => {
-                window.location.href = this.getAttribute('href');
-            }, 1000); // Match the animation duration
+            // Wait for the animation/transition to complete
+            clickedDivider.addEventListener('transitionend', function handleTransitionEnd() {
+                window.location.href = e.target.getAttribute('href');
+                clickedDivider.removeEventListener('transitionend', handleTransitionEnd); // Clean up event listener
+            });
         });
     });
 
