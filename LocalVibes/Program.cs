@@ -8,6 +8,8 @@ builder.Services.AddControllersWithViews();
 // Agregar DatabaseService como servicio
 builder.Services.AddSingleton<DatabaseService>();
 
+builder.Services.AddDistributedMemoryCache();
+
 // Agregar la disponibilidad de Session y ajustar las opciones
 builder.Services.AddSession(options =>
 {

@@ -92,29 +92,31 @@
                 }
             </div>
 
-            <!-- Formulario de reseña -->
-            <div class="ReviewCard">
-                <h2>Deja tu reseña</h2>
-                <form method="post" asp-action="AddReview" asp-route-id="@Model.Project.IdProject">
-                    <textarea name="reviewText" placeholder="Escribe tu reseña aquí..." required></textarea>
+            @if (int.TryParse(Context.Session.GetString("ProjectId"), out var sessionProjectId) && @Model.Project.IdProject != sessionProjectId)
+            {
+                <!-- Formulario de reseña -->
+                <div class="ReviewCard">
+                    <h2>Deja tu reseña</h2>
+                    <form method="post" asp-action="AddReview" asp-route-id="@Model.Project.IdProject">
+                        <textarea name="reviewText" placeholder="Escribe tu reseña aquí..." required></textarea>
 
-                    <!-- Calificación de 1 a 5 estrellas -->
-                    <div>
-                        <label for="rating">Calificación:</label>
-                        <div id="star-container" class="star-container">
-                            <span class="star" data-value="1">☆</span>
-                            <span class="star" data-value="2">☆</span>
-                            <span class="star" data-value="3">☆</span>
-                            <span class="star" data-value="4">☆</span>
-                            <span class="star" data-value="5">☆</span>
+                        <!-- Calificación de 1 a 5 estrellas -->
+                        <div>
+                            <label for="rating">Calificación:</label>
+                            <div id="star-container" class="star-container">
+                                <span class="star" data-value="1">☆</span>
+                                <span class="star" data-value="2">☆</span>
+                                <span class="star" data-value="3">☆</span>
+                                <span class="star" data-value="4">☆</span>
+                                <span class="star" data-value="5">☆</span>
+                            </div>
+                            <input type="hidden" id="rating" name="rating" value="0">
                         </div>
-                        <input type="hidden" id="rating" name="rating" value="0">
-                    </div>
 
-                    <button type="submit">Enviar reseña</button>
-                </form>
-            </div>
-
+                        <button type="submit">Enviar reseña</button>
+                    </form>
+                </div>
+            }
             <script>
                 const stars = document.querySelectorAll('.star');
                 const ratingInput = document.getElementById('rating');
