@@ -20,18 +20,6 @@ namespace LocalVibes.Controllers
 
         }
 
-        // Accion principal que muestra el Landing de la pagina web
-        public IActionResult Landing()
-        {
-            // Obtener la cadena de conexión
-            var connectionString = _databaseService.GetConnectionString();
-
-            // Pasar la cadena de conexión a la vista o usarla en lógica
-            ViewBag.ConnectionString = connectionString;
-
-            return View();
-        }
-
         // Accion que redirije a About
         public IActionResult About()
         {
