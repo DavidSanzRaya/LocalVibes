@@ -23,70 +23,85 @@
 	
 	<div class="Explore">
 		<div class="Explore__content">
-			<span	class="Explore__button">
+            <div class="Explore__content__left">
+                <!-- Botón para alternar entre Bandas y Eventos -->
+                <div>
+                    <button id="toggleBtn" onclick="toggleContent()">Ver Eventos</button>
+                    <h2 id="sectionTitle">Bandas</h2>
 
-				<app-button
-					id="button"
-					button-text ="->"
-				></app-button>
+                    <!-- Contenedor para las Bandas -->
+                    <div id="bandsList" class="Explore__content__left__projects" style="height: calc(100vh - 150px); overflow-y: auto;">
+                        @if (Model.Projects != null)
+                        {
+                            foreach (var project in Model.Projects)
+                            {
+                                @Html.Partial("_VerticalCard", new CardModel
+                   {
+                       Title = project.ProjectName,
+                       Subtitle = string.Join(", ", project.GeneresMusic.Select(g => g.GenereMusicName)),
+                       Image = project.ProjectImage != null ? project.ProjectImage : null,
+                       Shadow = true
+                   })
+                            }
+                        }
+                        else
+                        {
+                            <p>No hay bandas disponibles.</p>
+                        }
+                    </div>
 
-				@if (Model.User.Project != null){
-					<app-button
-						button-text ="Abel Haz que pasen cosas"
-					></app-button>
-				}
-			</span>
-			<div class="Explore__content__left">
-					<div>
-							<h2>Bandas</h2>
-							<div class="Explore__content__left__projects">
-									@if (Model.Projects != null)
-									{
-											foreach (var project in Model.Projects)
-											{
-													@Html.Partial("_VerticalCard", new CardModel
-													{
-															Title = project.ProjectName,
-															Subtitle = string.Join(", ", project.GeneresMusic.Select(g => g.GenereMusicName)),
-															Image = project.ProjectImage != null ? project.ProjectImage : null,
-															Shadow = true
-													})
-											}
-									}
-									else
-									{
-											<p>No hay bandas disponibles.</p>
-									}
-							</div>
-					</div>
-					<div>
-							<h2>Eventos</h2>
-							<div class="Explore__content__left__events">
-									@if (Model.Events != null)
-									{
-											foreach (var evento in Model.Events)
-											{
-													@Html.Partial("_VerticalCard", new CardModel
-													{
-															Title = evento.EventTitle,
-															Subtitle = $"Fecha: {evento.EventDate.ToShortDateString()}",
-															Description = evento.EventDescription,
-															Image = evento.EventImage != null ? evento.EventImage : null,
-															Shadow = true
-													})
-											}
-									}
-									else
-									{
-											<p>No hay eventos disponibles.</p>
-									}
-							</div>
-					</div>
-			</div>
-			<div class="Explore__content__right">
-				<div id="map" class="Explore__map"></div>
-				<div id='decorative-map' inert></div>
-			</div>
+                    <!-- Contenedor para los Eventos -->
+                    <div id="eventsList" class="Explore__content__left__events" style="height: calc(100vh - 150px); overflow-y: auto; display: none;">
+                        @if (Model.Events != null)
+                        {
+                            foreach (var evento in Model.Events)
+                            {
+                                @Html.Partial("_VerticalCard", new CardModel
+                   {
+                       Title = evento.EventTitle,
+                       Subtitle = $"Fecha: {evento.EventDate.ToShortDateString()}",
+                       Description = evento.EventDescription,
+                       Image = evento.EventImage != null ? evento.EventImage : null,
+                       Shadow = true
+                   })
+                            }
+                        }
+                        else
+                        {
+                            <p>No hay eventos disponibles.</p>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="Explore__content__right">
+                <app-button id="button" button-text="->"></app-button>
+                <div id="map" class="Explore__map"></div>
+                <div id='decorative-map' inert></div>
+            </div>
+
+            <!-- JavaScript para alternar entre Bandas y Eventos -->
+            <script>
+                function toggleContent() {
+                    const bandsList = document.getElementById('bandsList');
+                    const eventsList = document.getElementById('eventsList');
+                    const sectionTitle = document.getElementById('sectionTitle');
+                    const toggleBtn = document.getElementById('toggleBtn');
+
+                    if (bandsList.style.display === 'none') {
+                        bandsList.style.display = 'block';
+                        eventsList.style.display = 'none';
+                        sectionTitle.innerText = 'Bandas';
+                        toggleBtn.innerText = 'Ver Eventos';
+                    } else {
+                        bandsList.style.display = 'none';
+                        eventsList.style.display = 'block';
+                        sectionTitle.innerText = 'Eventos';
+                        toggleBtn.innerText = 'Ver Bandas';
+                    }
+                }
+            </script>
+
 		</div>
 	</div>
 
