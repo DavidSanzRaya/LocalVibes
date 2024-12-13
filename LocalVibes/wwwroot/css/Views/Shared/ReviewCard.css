@@ -52,7 +52,7 @@ form {
     }
 
     form option{
-        text
+        color: black;
     }
 
     form button {

@@ -16,6 +16,8 @@ namespace LocalVibes.Models
         public int? Sales { get; set; } // AllowNull
         public DateTime EventDate { get; set; } 
         public int IdProject { get; set; } // FK de Project
+        public int IdLocation { get; set; } // FK de Location
+
         private Project _project { get; set; }
         public Project Project 
         { 
@@ -30,8 +32,7 @@ namespace LocalVibes.Models
                 _project = value;
             } 
         }
-        public int IdLocation { get; set; } // FK de Location
-
+        
         private Locations? _location;
         public Locations Location
         {

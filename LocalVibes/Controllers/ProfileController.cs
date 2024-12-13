@@ -173,5 +173,38 @@ namespace LocalVibes.Controllers
             return RedirectToAction("Project", new { id = id });
         }
 
+        [HttpPost]
+        public IActionResult CreateEvent(string eventTitle, string eventDescription, DateTime eventDate, int? eventCapacity, int locationId, bool isSoldOut = false)
+        {
+            var userId = HttpContext.Session.GetString("UserId");
+            if (string.IsNullOrEmpty(userId))
+            {
+                return RedirectToAction("Login", "Authentication");
+            }
+
+            // Obtener el proyecto asociado al usuario
+            int projectId = int.Parse(HttpContext.Session.GetString("ProjectId"));
+            var project = new ProjectDAL().GetById(projectId);
+
+            // Crear el nuevo evento
+            var newEvent = new EventProject
+            {
+                EventTitle = eventTitle,
+                EventDescription = eventDescription,
+                EventDate = eventDate,
+                Capacity = eventCapacity,
+                IsSoldOut = isSoldOut,
+                IdProject = projectId,
+                IdLocation = locationId 
+            };
+
+            // Guardar el evento en la base de datos
+            var eventDal = new EventProjectDAL();
+            eventDal.InsertEvent(newEvent);
+
+            // Redirigir al perfil del proyecto con el evento creado
+            return RedirectToAction("Project", new { id = projectId });
+        }
+
     }
 }

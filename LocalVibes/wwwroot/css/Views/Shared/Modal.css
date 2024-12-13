@@ -1,0 +1,46 @@
+/* Estilos básicos para el modal */
+.modal {
+    display: none; /* Se oculta por defecto */
+    position: fixed; /* Fija la posición en la pantalla */
+    z-index: 1; /* Asegura que esté sobre otros elementos */
+    left: 0;
+    top: 0;
+    width: 100%; /* Ancho completo de la pantalla */
+    height: 100%; /* Alto completo de la pantalla */
+    background-color: rgba(0, 0, 0, 0.4); /* Fondo semi-transparente */
+    color: black;
+}
+
+.modal-content {
+    background-color: white;
+    margin: 15% auto; /* Centra el modal */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Ancho del modal */
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    color: black;
+}
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+.checkbox-label {
+    color: black; /* Cambia el color del texto a negro */
+    margin-right: 10px; /* Opcional: agrega espacio entre el checkbox y el texto */
+}
+
+.checkbox-input {
+    vertical-align: middle; /* Alinea el checkbox con el texto */
+    width: min-content;
+}
+
