@@ -1,82 +1,109 @@
 ﻿@{
-	ViewData["Title"] = "Local Vibes";
-	Layout = null;
+    ViewData["Title"] = "Local Vibes";
+    Layout = null;
 }
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>@ViewData["Title"] - LocalVibes</title>
-	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-	<link rel="stylesheet" href="~/css/_Layout.css" asp-append-version="true" />
-	@Html.Partial("_Font")
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - LocalVibes</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/_Layout.css" asp-append-version="true" />
+    @Html.Partial("_Font")
+    <style>
+        .navbar-scroll {
+            background-color: rgba(138, 43, 226, 0.9); /* Color de fondo con opacidad */
+            backdrop-filter: blur(10px); /* Desenfoque */
+            transition: background-color 0.3s ease, backdrop-filter 0.3s ease;
+        }
+
+            .navbar-scroll.scrolled {
+                background-color: rgba(138, 43, 226, 0.95); /* Menos translúcido al hacer scroll */
+                backdrop-filter: blur(5px); /* Reducir desenfoque al hacer scroll */
+            }
+    </style>
 </head>
 <body>
-	@if (TempData["ErrorMessage"] != null)
-	{
-		<div class="alert alert-danger">
-			@TempData["ErrorMessage"]
-		</div>
-	}
-	<div class="content-wrapper">
-		<header>
-			<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-				<div class="container-fluid">
-					<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Explore">LocalVibes</a>
-					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-							aria-expanded="false" aria-label="Toggle navigation">
-						<span class="navbar-toggler-icon"></span>
-					</button>
-					<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-						<ul class="navbar-nav flex-grow-1">
-							<li class="nav-item">
-								<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">Quienes somos?</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Política de privacidad</a>
-							</li>
-						</ul>						
-						<ul class="navbar-nav">
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @TempData["ErrorMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
 
-							<li class="nav-item">
-								<a class="nav-link text-dark" asp-area="" asp-controller="Profile" asp-action="User">
-									Bienvenido, @Context.Session.GetString("Username")
-								</a>
-							</li>
+    <!-- Navbar -->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-scroll">
+        <div class="container d-flex align-items-center justify-content-between">
+            <!-- Logo y Nombre -->
+            <a href="/" class="d-flex align-items-center text-decoration-none me-auto">
+                <img src="~/Assets/Logo-white-sinLetra.png" alt="Logo" class="me-2" width="30" />
+                <span class="text-white fw-bold fs-4">LocalVibes</span>
+            </a>
 
-							@if (!string.IsNullOrEmpty(Context.Session.GetString("ProjectName")))
-							{
-								<li>
-									<a class="nav-link text-dark" asp-area="" asp-controller="Profile" asp-action="Project" asp-route-id="@Context.Session.GetString("ProjectId")">
-										Proyecto: @Context.Session.GetString("ProjectName")
-									</a>
-								</li>
-							}
+            <!-- Navegación -->
+            <div class="d-flex align-items-center gap-3 ms-auto">
+                @if (!string.IsNullOrEmpty(@Context.Session.GetString("Username")))
+                {
+                    <a href="@Url.Action("User", "Profile")" class="text-white text-decoration-none">
+                        <i class="bi bi-person-circle me-1"></i>@Context.Session.GetString("Username")
+                    </a>
+                    @if (!string.IsNullOrEmpty(Context.Session.GetString("ProjectName")))
+                    {
+                        <a href="@Url.Action("Project", "Profile", new { id = Context.Session.GetString("ProjectId") })" class="text-white text-decoration-none">
+                            <i class="bi bi-music-note-beamed me-1"></i>@Context.Session.GetString("ProjectName")
+                        </a>
+                    }
+                    <button onclick="window.location.href='/Authentication/Logout'" class="btn btn-outline-light btn-sm">
+                        Cerrar sesión
+                    </button>
+                }
+                else
+                {
+                    <a href="@Url.Action("Explore", "Home")" class="text-white text-decoration-none text-sm">
+                        Explorar
+                    </a>
+                    <a href="@Url.Action("Events", "Home")" class="text-white text-decoration-none text-sm">
+                        Eventos
+                    </a>
+                    <a href="@Url.Action("Artists", "Home")" class="text-white text-decoration-none text-sm">
+                        Artistas
+                    </a>
+                    <button onclick="window.location.href='/Authentication/SignUpShift'" class="btn btn-outline-light btn-sm" style="color:black">
+                        Registrarse
+                    </button>
+                    <button onclick="window.location.href='/Authentication/Login'" class="btn btn-light btn-sm">
+                        Iniciar Sesión
+                    </button>
+                }
+            </div>
+        </div>
+    </nav>
 
-							<li class="nav-item">
-								<a class="nav-link text-dark" asp-area="" asp-controller="Authentication" asp-action="Logout">
-									Cerrar sesión
-								</a>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</nav>
-		</header>
+    <div class="container py-5 mt-5">
+        <main role="main">
+            @RenderBody()
+        </main>
+    </div>
 
-		<div>
-			<main role="main">
-				@RenderBody()
-			</main>
-		</div>
-	</div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const navbar = document.querySelector(".navbar-scroll");
 
-	<script src="~/lib/jquery/dist/jquery.min.js"></script>
-	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-	<script src="~/js/site.js" asp-append-version="true"></script>
-	<script src="~/js/MultiSelect.js"></script>
-	@await RenderSectionAsync("Scripts", required: false)
+            document.addEventListener("scroll", function () {
+                if (window.scrollY > 50) {
+                    navbar.classList.add("scrolled");
+                } else {
+                    navbar.classList.remove("scrolled");
+                }
+            });
+        });
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
