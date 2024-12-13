@@ -16,7 +16,6 @@
 	<div class="Login">
 		<div class="Login__left-section">
 			<video autoplay muted loop id="Login__background__video">
-			<video autoplay muted loop id="Login__background__video">
 				<source src="~/Assets/IMG_0059.mov" type="video/mp4">
 			</video>
 			<div class="Login__background__shadow">
@@ -40,18 +39,21 @@
 				<div asp-validation-summary="All" class="text-danger"></div>
 
 				<app-button button-text="Entrar"
-							button-type="secondary"></app-button>	
+							button-type="secondary"></app-button>
+
+
 			</form>
 
-			@* <p>No tienes cuenta? Registrate como:</p>
-			<app-button button-text="Usuario"
-						button-type="primary"
-						onclick="window.location.href='/Authentication/SignUpUser'" style="width: 150px">
-			</app-button>
-			<app-button button-text="Artista/Banda"
-						button-type="primary"
-						onclick="window.location.href='/Authentication/SignUpProject'" style="width: 150px">
-			</app-button> *@
+			<div class="d-flex flex-column justify-content-center align-items-center vh-100">
+				<p class="text-center">
+					¿No tienes cuenta? Regístrate como
+					<br />
+					<a asp-controller="Authentication" asp-action="SignUpUser" class="btn btn-secondary ml-2 rounded-pill">Usuario</a>
+					<br />
+					<a asp-controller="Authentication" asp-action="SignUpProject" class="btn btn-secondary ml-2 rounded-pill">Proyecto</a>
+				</p>
+			</div>
+
 
 		</div>
 	</div>
