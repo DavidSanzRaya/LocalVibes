@@ -1,6 +1,7 @@
 ﻿using LocalVibes.DALs;
 using System.ComponentModel.DataAnnotations;
 using LocalVibes.Tools;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LocalVibes.Models
 {
@@ -63,6 +64,7 @@ namespace LocalVibes.Models
         public List<Ticket>? Tickets { get; set; } // Lista de tickets. AllowNull
 
         private Project? _project;
+        [NotMapped]
         public Project Project
         {
             get

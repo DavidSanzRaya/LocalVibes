@@ -297,6 +297,49 @@ namespace LocalVibes.Controllers
             return View(model);
         }
 
+        private SignUpViewModel RebuildSignUpViewModel(SignUpViewModel.UserRegistrationData userModel)
+        {
+            return new SignUpViewModel
+            {
+                User = new SignUpViewModel.UserRegistrationData
+                {
+                    Username = userModel.Username,
+                    FirstName = userModel.FirstName,
+                    LastName = userModel.LastName,
+                    UserEmail = userModel.UserEmail,
+                    Phone = userModel.Phone,
+                    Password = userModel.Password,
+                    ConfirmPassword = userModel.ConfirmPassword,
+                    Birthdate = userModel.Birthdate,
+                    IdGenere = userModel.IdGenere,
+                    DocumentNumber = userModel.DocumentNumber,
+                    IdDocumentType = userModel.IdDocumentType,
+                    ProfileImage = userModel.ProfileImage,
+                    Generes = LoadUserRegistrationData().Generes, // Recargar géneros
+                    Documents = LoadUserRegistrationData().Documents // Recargar tipos de documento si es necesario
+                },
+                Band = LoadBandRegistrationData() // Recargar datos de la banda
+            };
+        }
+
+        private SignUpViewModel RebuildSignUpViewModel(SignUpViewModel.BandRegistrationData bandModel)
+        {
+            return new SignUpViewModel
+            {
+                User = LoadUserRegistrationData(), // Recargar datos del usuario
+                Band = new SignUpViewModel.BandRegistrationData
+                {
+                    ProjectName = bandModel.ProjectName,
+                    Biography = bandModel.Biography,
+                    FormationDate = bandModel.FormationDate,
+                    UsernameAdmin = bandModel.UsernameAdmin,
+                    SelectedGenres = bandModel.SelectedGenres,
+                    ProjectImage = bandModel.ProjectImage,
+                    SelectedGeneresMusic = LoadBandRegistrationData().SelectedGeneresMusic // Recargar géneros musicales
+                }
+            };
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> SignUpUserShift(SignUpViewModel.UserRegistrationData model)
@@ -364,20 +407,8 @@ namespace LocalVibes.Controllers
                     ModelState.AddModelError("", "Ocurrió un error inesperado. Por favor, inténtelo nuevamente.");
                 }
             }
-            else
-            {
-                foreach (var error in ModelState)
-                {
-                    var key = error.Key; // Nombre de la propiedad
-                    var errors = error.Value.Errors; // Errores asociados
-                    foreach (var err in errors)
-                    {
-                        Console.WriteLine($"Property: {key}, Error: {err.ErrorMessage}");
-                    }
-                }
-            }
 
-            return View(model);
+            return View("SignUpShift", RebuildSignUpViewModel(model));
         }
 
         private SignUpViewModel.UserRegistrationData LoadUserRegistrationData()
@@ -473,7 +504,7 @@ namespace LocalVibes.Controllers
                 }
             }
 
-            return View(LoadBandRegistrationData());
+            return View("SignUpShift", RebuildSignUpViewModel(model));
         }
 
         private SignUpViewModel.BandRegistrationData LoadBandRegistrationData()
