@@ -13,6 +13,13 @@
     overflow: hidden;
     gap: 7px;
     min-height: 45px;
+    max-height: 45px; /* Limita la altura máxima del header */
+    overflow-y: auto; /* Agrega un scroll vertical si hay demasiados elementos */
+    -ms-overflow-style: none;
+}
+
+.multi-select-header::-webkit-scrollbar {
+    display: none; /* Oculta la scrollbar en navegadores basados en Webkit */
 }
 
 .multi-select .multi-select-header::after {
@@ -172,3 +179,5 @@
     font-size: 16px;
     color: #212529;
 }
+
+

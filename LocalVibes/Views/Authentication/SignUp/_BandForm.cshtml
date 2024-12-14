@@ -1,7 +1,7 @@
 ﻿@using static LocalVibes.Models.ViewModels.SignUpViewModel
 @model BandRegistrationData
 
-<form asp-action="SignUpBandShift" method="post" asp-antiforgery="true" enctype="multipart/form-data">
+<form asp-action="SignUpBandShift" asp-controller="Authentication" method="post" asp-antiforgery="true" enctype="multipart/form-data">
     <div class="input-box animation" style="--i:25; --j:1">
         <input asp-for="ProjectName" type="text" />
         <label asp-for="ProjectName"></label>
@@ -31,8 +31,8 @@
         <input asp-for="ProjectImage" type="file" />
         <label asp-for="ProjectImage"></label>
     </div>
-    <button type="submit" class="btn-form animation" style="--i:31; --j:7">Sign Up</button>
+    <button type="submit" class="btn-form animation" style="--i:31; --j:7">Registrarse</button>
     <div class="logreg-link animation" style="--i:32; --j:8">
-        <p>Do you want to register as a user? <a href="#" class="login-link">Sign Up as a user</a></p>
+        <p>Quieres registrarte como usuario? <a href="#" class="login-link">Registrarse como usuario</a></p>
     </div>
 </form>
