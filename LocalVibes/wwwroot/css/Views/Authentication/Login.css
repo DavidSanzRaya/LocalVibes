@@ -1,17 +1,18 @@
 
-body,html {
-  width: 100%;
-  height: 100%;
-}
 .Login {
     display: grid;
     width: 100%;
-    height: 100%;
+    height: 100vh;
     grid-template-areas:
         "left-section right-section";
     grid-template-columns: 1fr 1fr;
     background-color: #333333; /* Dark background */
     color: #fff;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
     width: 100%;
 }
 
@@ -21,7 +22,9 @@ body,html {
     flex-direction: column;
     overflow: hidden;
     position: relative;
+    height: 100%;
 }
+
 .Login__left-section__logo {
     position: absolute; 
     z-index: 2; 
@@ -29,7 +32,7 @@ body,html {
     padding-left: 5em;
     background-color: transparent;
 }
-.Login__background__video{
+#Login__background__video{
     position: absolute;
     top: 0;
     left: 0;
@@ -48,6 +51,7 @@ body,html {
     background-color: #333333;
     opacity: 0.5;
  }
+
 .Login__right-section {
     grid-area: right-section;
     display: flex;
@@ -56,14 +60,33 @@ body,html {
     align-items: center;
     align-content: center;
 }
+
+.wrapper {
+    position: relative;
+    background: transparent;
+    border: 2px solid var(--primary-color);
+    box-shadow: 0 0 120px var(--primary-color);
+    overflow: hidden;
+    padding: 20px 40px 20px 30px;
+}
+
+.Login__right-section h1 {
+    font-size: 2.5em;
+    margin-bottom: 1em;
+    font-weight: bold;
+}
+
 .Login__form {
     display: flex;
     flex-direction: column;
-    gap:2em;
+    gap: 2em;
+    height: 100%;
 }
+
 .Login__form .form-group {
     display: block;
 }
+
 .Login__checkbox {
     display: flex;
     flex-direction: row;

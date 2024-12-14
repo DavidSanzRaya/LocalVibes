@@ -364,7 +364,7 @@ input[type="date"]::-ms-clear {
     right: 0;
     width: 1100px;
     height: 1000px;
-    background: linear-gradient(45deg, #081b29, var(--primary-color));
+    background: linear-gradient(45deg, var(--background-dark), var(--primary-color));
     border-bottom: 3px solid var(--primary-color);
     transform: rotate(27deg) skewY(40deg);
     transform-origin: bottom right;
