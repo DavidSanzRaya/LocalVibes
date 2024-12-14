@@ -1,0 +1,78 @@
+﻿@using System.Text.Json
+@using LocalVibes.Models.ViewModels
+@model EventsMapViewModel
+
+@{
+    var generesJson = JsonSerializer.Serialize(Model.Generes);
+	var eventsJson = JsonSerializer.Serialize(Model.Events);
+}
+
+<head>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="~/css/Views/Home/events.css" />
+</head>
+
+<div class="events-container">
+    <div class="sidebar">
+        <div class="toggle-buttons">
+            <button id="showEvents" class="active">Ver Eventos</button>
+            <button id="showArtists">Ver Bandas</button>
+        </div>
+        <div id="eventsList">
+            <div class="list-item">
+                <img src="https://via.placeholder.com/300x150?text=Rocking+Stars" alt="Rocking Stars">
+                <h3>Rocking Stars</h3>
+                <p>Rock, Blues, Folk, Metal, Indie</p>
+                <small>Fecha: 20/12/2023</small>
+            </div>
+            <div class="list-item">
+                <img src="https://via.placeholder.com/300x150?text=Jazz+Night" alt="Jazz Night">
+                <h3>Jazz Night</h3>
+                <p>Jazz, Swing, Bebop</p>
+                <small>Fecha: 25/12/2023</small>
+            </div>
+            <div class="list-item">
+                <img src="https://via.placeholder.com/300x150?text=Jazz+Night" alt="Jazz Night">
+                <h3>Jazz Night</h3>
+                <p>Jazz, Swing, Bebop</p>
+                <small>Fecha: 25/12/2023</small>
+            </div>
+            <div class="list-item">
+                <img src="https://via.placeholder.com/300x150?text=Jazz+Night" alt="Jazz Night">
+                <h3>Jazz Night</h3>
+                <p>Jazz, Swing, Bebop</p>
+                <small>Fecha: 25/12/2023</small>
+            </div>
+            <div class="list-item">
+                <img src="https://via.placeholder.com/300x150?text=Jazz+Night" alt="Jazz Night">
+                <h3>Jazz Night</h3>
+                <p>Jazz, Swing, Bebop</p>
+                <small>Fecha: 25/12/2023</small>
+            </div>
+        </div>
+        <div id="artistsList" style="display: none;">
+            <div class="list-item">
+                <img src="https://via.placeholder.com/300x150?text=Jazz+Masters" alt="Jazz Masters">
+                <h3>Jazz Masters</h3>
+                <p>Jazz Fusion Band</p>
+                <small>Géneros: Jazz, Fusion, Contemporary</small>
+            </div>
+            <div class="list-item">
+                <img src="https://via.placeholder.com/300x150?text=Rock+Legends" alt="Rock Legends">
+                <h3>Rock Legends</h3>
+                <p>Classic Rock Band</p>
+                <small>Géneros: Rock, Hard Rock, Blues Rock</small>
+            </div>
+        </div>
+    </div>
+    <div class="map-container">
+        <div id="map"></div>
+    </div>
+</div>
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script src='https://unpkg.com/wicg-inert@latest/dist/inert.min.js'></script>
+<script>
+    var generes = @Html.Raw(generesJson);
+    var events = @Html.Raw(eventsJson);
+</script>
+<script src="~/js/View/Home/events.js"></script>

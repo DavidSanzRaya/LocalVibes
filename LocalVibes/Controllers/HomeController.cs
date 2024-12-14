@@ -38,7 +38,6 @@ namespace LocalVibes.Controllers
             return View();
         }
 
-        // Acción que redirige a Home o muestra Landing si no hay sesión activa.
         public IActionResult Home()
         {
             // Verifica si la sesión contiene un indicador de usuario autenticado.
@@ -51,6 +50,34 @@ namespace LocalVibes.Controllers
             // Si hay sesión activa, muestra la vista de Home.
             return View();
         }
+
+        public IActionResult Events()
+        {
+            if (HttpContext.Session.GetString("UserId") == null)
+            {
+                // Redirige a la página de aterrizaje si no hay un usuario autenticado.
+                return RedirectToAction("Login", "Authentication");
+            }
+
+            EventsMapViewModel model = new EventsMapViewModel()
+            {
+                Events = new EventProjectDAL().GetAll()
+                    .Select(e => new EventDTO
+                    {
+                        IdEvent = e.IdEvent,
+                        EventTitle = e.EventTitle,
+                        EventDate = e.EventDate,
+                        EventImage = e.EventImage,
+                        Location = e.Location,
+                    })
+                    .ToList(),
+                Generes = new GenereMusicDAL().GetAll()
+            };
+
+            // Si hay sesión activa, muestra la vista de Home.
+            return View(model);
+        }
+
         public IActionResult Explore()
         {
             // Verifica si la sesión contiene un indicador de usuario autenticado.
