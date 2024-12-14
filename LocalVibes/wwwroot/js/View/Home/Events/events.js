@@ -1,4 +1,12 @@
 ﻿document.addEventListener("DOMContentLoaded", () => {
+    const container = document.querySelector(".events-container");
+    container.classList.add("fade-in");
+
+    setUpMap();
+    adjustSidebar();  
+});
+
+function adjustSidebar() {
     const navbar = document.querySelector(".navbar");
     const sidebar = document.querySelector(".sidebar");
     const sidebarContent = document.querySelector(".sidebar-content");
@@ -21,10 +29,9 @@
             }
         });
     }
-});
+}
 
-
-document.addEventListener("DOMContentLoaded", () => {
+function setUpMap() {
     var map = L.map('map').setView([41.38879, 2.15899], 13);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -70,4 +77,4 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     });
-});
+}
