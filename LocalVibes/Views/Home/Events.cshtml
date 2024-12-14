@@ -67,6 +67,7 @@
 <script>
     var generes = @Html.Raw(generesJson);
     var events = @Html.Raw(eventsJson);
+    const eventUrl = '@Url.Action("Event", "Profile", new { id = "__PLACEHOLDER__" })';
 </script>
 <script src="~/js/View/Home/Events/events.js"></script>
 <script src="~/js/View/Home/Events/searcher.js"></script>

@@ -42,6 +42,8 @@ function setUpMap() {
 
     // Crear los marcadores y asociarlos con los eventos
     events.forEach(function (e) {
+        const url = eventUrl.replace("__PLACEHOLDER__", e.IdEvent);
+
         var locationIcon = L.icon({
             iconUrl: '/Assets/guitar.png',
             iconSize: [40, 40],
@@ -56,7 +58,7 @@ function setUpMap() {
                 <img src="${e.EventImage}" alt="${e.EventTitle}">
                 <h4>${e.EventTitle}</h4>
                 <p>${e.EventDescription || 'Sin descripción disponible.'}</p>
-                <a href="/events/${e.IdEvent}" class="btn">Ver más</a>
+                <a href="${url}" class="btn">Ver más</a>
             </div>
         `);
 
