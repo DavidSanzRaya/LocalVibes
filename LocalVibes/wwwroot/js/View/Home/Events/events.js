@@ -1,4 +1,30 @@
 ﻿document.addEventListener("DOMContentLoaded", () => {
+    const navbar = document.querySelector(".navbar");
+    const sidebar = document.querySelector(".sidebar");
+    const sidebarContent = document.querySelector(".sidebar-content");
+    const searchBar = document.querySelector(".search-bar");
+
+    if (navbar && sidebar && sidebarContent && searchBar) {
+        const navbarHeight = navbar.offsetHeight;
+
+        sidebarContent.style.paddingTop = `${navbarHeight}px`;
+
+        sidebar.addEventListener("scroll", () => {
+            const scrollTop = sidebar.scrollTop;
+
+            if (scrollTop > 0) {
+                // Ajustar el margen superior dinámicamente al hacer scroll
+                searchBar.style.top = `${navbarHeight}px`;
+            } else {
+                // Restablecer el margen superior cuando no hay scroll
+                searchBar.style.marginTop = `0px`;
+            }
+        });
+    }
+});
+
+
+document.addEventListener("DOMContentLoaded", () => {
     var map = L.map('map').setView([41.38879, 2.15899], 13);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
