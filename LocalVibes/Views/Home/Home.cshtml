@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "Explora";
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/Views/Home/home.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src='https://unpkg.com/wicg-inert@latest/dist/inert.min.js'></script>
+</head>
+
+<div class="d-flex flex-column flex-lg-row vh-100">
+    <!-- Left Section with Map -->
+    <div class="flex-fill position-relative divider" id="left-divider">
+        <div id="map" class="w-100 h-100"></div>
+        <div class="position-absolute top-50 start-50 translate-middle text-center text-container">
+            <h1 class="display-5 fw-bold">Descubre Conciertos</h1>
+            <p class="lead">Encuentra eventos cerca de ti y disfruta de la mejor música en vivo.</p>
+            <a href="@Url.Action("Events", "Home")" class="btn btn-primary action-button">Explorar Conciertos</a>
+        </div>
+    </div>
+
+    <!-- Right Section with Video -->
+    <div class="flex-fill position-relative divider" id="right-divider">
+        <video autoplay muted loop class="w-100 h-100 position-absolute top-0 start-0" style="object-fit: cover;">
+            <source src="/Assets/IMG_0059.mov" type="video/mp4">
+            Tu navegador no soporta la reproducción de videos.
+        </video>
+        <div class="position-absolute top-50 start-50 translate-middle text-center text-white text-container">
+            <h1 class="display-5 fw-bold">Descubre Bandas</h1>
+            <p class="lead">Conecta con tus artistas favoritos y descubre nuevas bandas emergentes.</p>
+            <a href="#" class="btn btn-primary action-button">Explorar Bandas</a>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/View/Home/home.js"></script>
+
+

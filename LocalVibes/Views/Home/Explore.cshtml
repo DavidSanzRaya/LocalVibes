@@ -36,12 +36,12 @@
                             foreach (var project in Model.Projects)
                             {
                                 @Html.Partial("_VerticalCard", new CardModel
-                   {
-                       Title = project.ProjectName,
-                       Subtitle = string.Join(", ", project.GeneresMusic.Select(g => g.GenereMusicName)),
-                       Image = project.ProjectImage != null ? project.ProjectImage : null,
-                       Shadow = true
-                   })
+                                {
+                                    Title = project.ProjectName,
+                                    Subtitle = string.Join(", ", project.GeneresMusic.Select(g => g.GenereMusicName)),
+                                    Image = project.ProjectImage != null ? project.ProjectImage : null,
+                                    Shadow = true
+                                })
                             }
                         }
                         else
@@ -57,13 +57,13 @@
                             foreach (var evento in Model.Events)
                             {
                                 @Html.Partial("_VerticalCard", new CardModel
-                   {
-                       Title = evento.EventTitle,
-                       Subtitle = $"Fecha: {evento.EventDate.ToShortDateString()}",
-                       Description = evento.EventDescription,
-                       Image = evento.EventImage != null ? evento.EventImage : null,
-                       Shadow = true
-                   })
+                                {
+                                    Title = evento.EventTitle,
+                                    Subtitle = $"Fecha: {evento.EventDate.ToShortDateString()}",
+                                    Description = evento.EventDescription,
+                                    Image = evento.EventImage != null ? evento.EventImage : null,
+                                    Shadow = true
+                                })
                             }
                         }
                         else
