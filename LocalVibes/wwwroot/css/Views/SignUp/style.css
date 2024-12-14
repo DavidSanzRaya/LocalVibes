@@ -262,7 +262,7 @@ input[type="date"]::-ms-clear {
         left: 0;
         width: 100%;
         height: 300%;
-        background: linear-gradient(#081b29, var(--primary-color), #081b29, var(--primary-color));
+        background: linear-gradient(var(--background-dark), var(--primary-color), var(--background-dark), var(--primary-color));
         z-index: -1;
         transition: .5s;
     }

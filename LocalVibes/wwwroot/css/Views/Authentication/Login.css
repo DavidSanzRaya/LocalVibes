@@ -70,6 +70,38 @@ footer {
     padding: 20px 40px 20px 30px;
 }
 
+.btn-form {
+    position: relative;
+    width: 100%;
+    height: 40px;
+    background: transparent;
+    border: 2px solid var(--primary-color);
+    outline: none;
+    border-radius: 40px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #fff;
+    font-weight: 600;
+    z-index: 1;
+    overflow: hidden;
+}
+
+    .btn-form::before {
+        content: '';
+        position: absolute;
+        top: -100%;
+        left: 0;
+        width: 100%;
+        height: 300%;
+        background: linear-gradient(var(--background-dark), var(--primary-color), var(--background-dark), var(--primary-color));
+        z-index: -1;
+        transition: .5s;
+    }
+
+    .btn-form:hover::before {
+        top: 0;
+    }
+
 .Login__right-section h1 {
     font-size: 2.5em;
     margin-bottom: 1em;
@@ -84,10 +116,20 @@ footer {
 }
 
 .Login__form .form-group {
-    display: block;
+    position: relative;
 }
 
-.Login__checkbox {
-    display: flex;
-    flex-direction: row;
-}
+    .Login__form .form-group i {
+        position: absolute;
+        right: 1rem;
+        top: 50%;
+        font-size: 1.2rem;
+        color: #aaa;
+        pointer-events: none;
+        transition: color 0.3s ease;
+    }
+
+    .Login__checkbox {
+        display: flex;
+        flex-direction: row;
+    }
