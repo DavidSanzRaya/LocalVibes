@@ -66,9 +66,11 @@ namespace LocalVibes.Controllers
                     {
                         IdEvent = e.IdEvent,
                         EventTitle = e.EventTitle,
+                        EventDescription = e.EventDescription,
                         EventDate = e.EventDate,
                         EventImage = e.EventImage,
                         Location = e.Location,
+                        GeneresMusic = e.Project.GeneresMusic
                     })
                     .ToList(),
                 Generes = new GenereMusicDAL().GetAll()

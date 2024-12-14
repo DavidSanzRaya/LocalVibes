@@ -10,5 +10,6 @@ namespace LocalVibes.DTOs
         public byte[]? EventImage { get; set; }
         public DateTime EventDate { get; set; } 
         public Locations Location { get; set; }
+        public List<GenereMusic> GeneresMusic { get; set; } = new List<GenereMusic>();
     }
 }

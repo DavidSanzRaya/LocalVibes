@@ -4,7 +4,14 @@
 
 @{
     var generesJson = JsonSerializer.Serialize(Model.Generes);
-	var eventsJson = JsonSerializer.Serialize(Model.Events);
+    var eventsJson = JsonSerializer.Serialize(Model.Events.Select(e => new
+    {
+        e.IdEvent,
+        e.EventTitle,
+        e.EventDescription,
+        e.Location,
+        EventImage = "data:image/jpg;base64," + Convert.ToBase64String(e.EventImage)
+    }));
 }
 
 <head>
@@ -14,56 +21,41 @@
 
 <div class="events-container">
     <div class="sidebar">
-        <div class="toggle-buttons">
-            <button id="showEvents" class="active">Ver Eventos</button>
-            <button id="showArtists">Ver Bandas</button>
+        <div class="search-bar">
+            <div class="search-container">
+                <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                    <circle cx="10" cy="10" r="8" stroke="var(--primary-color)" stroke-width="3" fill="none"></circle>
+                    <line x1="15" y1="15" x2="21" y2="21" stroke="var(--primary-color)" stroke-width="3"></line>
+                </svg>
+                <input type="text" id="searchEventInput" placeholder="Buscar eventos por nombre..." />
+            </div>
+            <div class="filter-container">
+                <select id="genreFilter">
+                    <option value="all">Todos los géneros</option>
+                    @foreach (var genre in Model.Generes)
+                    {
+                        <option value="@genre.GenereMusicName">@genre.GenereMusicName</option>
+                    }
+                </select>
+            </div>
         </div>
         <div id="eventsList">
-            <div class="list-item">
-                <img src="https://via.placeholder.com/300x150?text=Rocking+Stars" alt="Rocking Stars">
-                <h3>Rocking Stars</h3>
-                <p>Rock, Blues, Folk, Metal, Indie</p>
-                <small>Fecha: 20/12/2023</small>
-            </div>
-            <div class="list-item">
-                <img src="https://via.placeholder.com/300x150?text=Jazz+Night" alt="Jazz Night">
-                <h3>Jazz Night</h3>
-                <p>Jazz, Swing, Bebop</p>
-                <small>Fecha: 25/12/2023</small>
-            </div>
-            <div class="list-item">
-                <img src="https://via.placeholder.com/300x150?text=Jazz+Night" alt="Jazz Night">
-                <h3>Jazz Night</h3>
-                <p>Jazz, Swing, Bebop</p>
-                <small>Fecha: 25/12/2023</small>
-            </div>
-            <div class="list-item">
-                <img src="https://via.placeholder.com/300x150?text=Jazz+Night" alt="Jazz Night">
-                <h3>Jazz Night</h3>
-                <p>Jazz, Swing, Bebop</p>
-                <small>Fecha: 25/12/2023</small>
-            </div>
-            <div class="list-item">
-                <img src="https://via.placeholder.com/300x150?text=Jazz+Night" alt="Jazz Night">
-                <h3>Jazz Night</h3>
-                <p>Jazz, Swing, Bebop</p>
-                <small>Fecha: 25/12/2023</small>
-            </div>
+            @foreach (var evento in Model.Events)
+            {
+                <div class="list-item" data-event-id="@evento.IdEvent">
+                    <img src="data:image/jpg;base64,@Convert.ToBase64String(evento.EventImage)" alt="Jazz Night">
+                    <h3 class="event-title">@evento.EventTitle</h3>
+                    <div class="genres">
+                        @foreach (var genre in evento.GeneresMusic)
+                        {
+                            <span class="genre">@genre.GenereMusicName</span>
+                        }
+                    </div>
+                    <small>Fecha: @evento.EventDate.ToShortDateString()</small>
+                </div>
+            }
         </div>
-        <div id="artistsList" style="display: none;">
-            <div class="list-item">
-                <img src="https://via.placeholder.com/300x150?text=Jazz+Masters" alt="Jazz Masters">
-                <h3>Jazz Masters</h3>
-                <p>Jazz Fusion Band</p>
-                <small>Géneros: Jazz, Fusion, Contemporary</small>
-            </div>
-            <div class="list-item">
-                <img src="https://via.placeholder.com/300x150?text=Rock+Legends" alt="Rock Legends">
-                <h3>Rock Legends</h3>
-                <p>Classic Rock Band</p>
-                <small>Géneros: Rock, Hard Rock, Blues Rock</small>
-            </div>
-        </div>
+
     </div>
     <div class="map-container">
         <div id="map"></div>
@@ -75,4 +67,5 @@
     var generes = @Html.Raw(generesJson);
     var events = @Html.Raw(eventsJson);
 </script>
-<script src="~/js/View/Home/events.js"></script>
+<script src="~/js/View/Home/Events/events.js"></script>
+<script src="~/js/View/Home/Events/searcher.js"></script>
