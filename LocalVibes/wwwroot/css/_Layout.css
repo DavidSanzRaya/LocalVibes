@@ -5,6 +5,13 @@ body{
     margin: 0;
 }
 
+div:has(> main) {
+    display: flex;
+    flex-direction: column;
+    flex: 1; 
+    height: 100%;
+}
+
 a.navbar-brand {
   white-space: normal;
   text-align: center;
