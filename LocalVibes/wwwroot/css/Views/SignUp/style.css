@@ -369,7 +369,7 @@ input[type="date"]::-ms-clear {
     transform: rotate(27deg) skewY(40deg);
     transform-origin: bottom right;
     transition: 1.5s ease;
-    transition-delay: 1.6s;
+    transition-delay: 2s;
 }
 
 .wrapper.active .bg-animate {
@@ -388,7 +388,7 @@ input[type="date"]::-ms-clear {
     transform: rotate(0) skewY(0);
     transform-origin: bottom left;
     transition: 1.5s ease;
-    transition-delay: .5s;
+    transition-delay: 1s;
 }
 
 .wrapper.active .bg-animate2 {

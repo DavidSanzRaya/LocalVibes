@@ -2,37 +2,37 @@
 @model BandRegistrationData
 
 <form asp-action="SignUpBandShift" asp-controller="Authentication" method="post" asp-antiforgery="true" enctype="multipart/form-data">
-    <div class="input-box animation" style="--i:25; --j:1">
+    <div class="input-box animation" style="--i:29; --j:1">
         <input asp-for="ProjectName" type="text" />
         <label asp-for="ProjectName"></label>
     </div>
-    <div class="input-box animation" style="--i:26; --j:2">
+    <div class="input-box animation" style="--i:30; --j:2">
         <textarea asp-for="Biography" class="form-control"></textarea>
         <label asp-for="Biography"></label>
     </div>
-    <div class="input-box date animation" style="--i:27; --j:3">
+    <div class="input-box date animation" style="--i:31; --j:3">
         <input asp-for="FormationDate" id="formationdateInput" value="" />
         <label asp-for="FormationDate"></label>
         <i class="bx bxs-calendar"
            onclick="document.getElementById('formationdateInput').showPicker();"
            style="cursor: pointer"></i>
     </div>
-    <div class="input-box animation" style="--i:28; --j:4">
+    <div class="input-box animation" style="--i:32; --j:4">
         <input asp-for="UsernameAdmin" type="text" />
         <label asp-for="UsernameAdmin"></label>
         <i class="bx bxs-user"></i>
     </div>
-    <div class="input-box animation" style="--i:29; --j:5">
+    <div class="input-box animation" style="--i:33; --j:5">
         <select asp-for="SelectedGenres" asp-items="Model.SelectedGeneresMusic" data-name="SelectedGenres" data-placeholder="Select genres" multiple data-multi-select>
         </select>
         <label asp-for="SelectedGenres" class="multiSelect-label"></label>
     </div>
-    <div class="input-box-image animation" style="--i:30; --j:6">
+    <div class="input-box-image animation" style="--i:34; --j:6">
         <input asp-for="ProjectImage" type="file" />
         <label asp-for="ProjectImage"></label>
     </div>
-    <button type="submit" class="btn-form animation" style="--i:31; --j:7">Registrarse</button>
-    <div class="logreg-link animation" style="--i:32; --j:8">
+    <button type="submit" class="btn-form animation" style="--i:35; --j:7">Registrarse</button>
+    <div class="logreg-link animation" style="--i:36; --j:8">
         <p>Quieres registrarte como usuario? <a href="#" class="login-link">Registrarse como usuario</a></p>
     </div>
 </form>
