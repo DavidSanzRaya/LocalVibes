@@ -43,7 +43,7 @@ namespace LocalVibes.Controllers
                     }
 
                     TempData["SuccessMessage"] = "¡Bienvenido, " + usuario.FirstName + "!";
-                    return RedirectToAction("Explore", "Home");
+                    return RedirectToAction("Home", "Home");
                 }
 
             }
