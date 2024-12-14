@@ -44,7 +44,7 @@ namespace LocalVibes.Controllers
             if (HttpContext.Session.GetString("UserId") == null)
             {
                 // Redirige a la página de aterrizaje si no hay un usuario autenticado.
-                return RedirectToAction("Login", "Authentication");
+                return RedirectToAction("index", "Landing");
             }
 
             // Si hay sesión activa, muestra la vista de Home.
