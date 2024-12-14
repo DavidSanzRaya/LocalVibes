@@ -28,7 +28,7 @@ footer{
     height: 800px;
     background: transparent;
     border: 2px solid var(--primary-color);
-    box-shadow: 0 0 50px var(--primary-color);
+    box-shadow: 0 0 120px var(--primary-color);
     overflow: hidden;
 }
 
