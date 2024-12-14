@@ -7,13 +7,13 @@ namespace LocalVibes.Models.ViewModels
     {
         // Propiedad que representa el nombre de usuario.  [Required(ErrorMessage = "El nombre de usuaro es obligatorio.")]
         [Required(ErrorMessage = "El nombre de usuario es obligatoria.")]
-        [Display(Name = "User name")]
+        [Display(Name = "Usuario")]
         public string Username { get; set; }
 
         // Propiedad que representa la contraseña.
         [Required(ErrorMessage = "La contraseña es obligatoria.")]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")] 
+        [Display(Name = "Contraseña")] 
         public string Password { get; set; }
 
     }
