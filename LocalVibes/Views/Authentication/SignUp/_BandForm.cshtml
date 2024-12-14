@@ -5,10 +5,12 @@
     <div class="input-box animation" style="--i:29; --j:1">
         <input asp-for="ProjectName" type="text" />
         <label asp-for="ProjectName"></label>
+        <span asp-validation-for="ProjectName" class="text-danger"></span>
     </div>
     <div class="input-box animation" style="--i:30; --j:2">
         <textarea asp-for="Biography" class="form-control"></textarea>
         <label asp-for="Biography"></label>
+        <span asp-validation-for="Biography" class="text-danger"></span>
     </div>
     <div class="input-box date animation" style="--i:31; --j:3">
         <input asp-for="FormationDate" id="formationdateInput" value="" />
@@ -16,20 +18,24 @@
         <i class="bx bxs-calendar"
            onclick="document.getElementById('formationdateInput').showPicker();"
            style="cursor: pointer"></i>
+        <span asp-validation-for="FormationDate" class="text-danger"></span>
     </div>
     <div class="input-box animation" style="--i:32; --j:4">
         <input asp-for="UsernameAdmin" type="text" />
         <label asp-for="UsernameAdmin"></label>
         <i class="bx bxs-user"></i>
+        <span asp-validation-for="UsernameAdmin" class="text-danger"></span>
     </div>
     <div class="input-box animation" style="--i:33; --j:5">
         <select asp-for="SelectedGenres" asp-items="Model.SelectedGeneresMusic" data-name="SelectedGenres" data-placeholder="Select genres" multiple data-multi-select>
         </select>
         <label asp-for="SelectedGenres" class="multiSelect-label"></label>
+        <span asp-validation-for="SelectedGenres" class="text-danger"></span>
     </div>
     <div class="input-box-image animation" style="--i:34; --j:6">
         <input asp-for="ProjectImage" type="file" />
         <label asp-for="ProjectImage"></label>
+        <span asp-validation-for="ProjectImage" class="text-danger"></span>
     </div>
     <button type="submit" class="btn-form animation" style="--i:35; --j:7">Registrarse</button>
     <div class="logreg-link animation" style="--i:36; --j:8">
