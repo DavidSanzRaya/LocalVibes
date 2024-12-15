@@ -48,13 +48,10 @@
 
             <!-- Navegación -->
             <div class="d-flex align-items-center gap-3 ms-auto">
-                <a href="@Url.Action("Explore", "Home")" class="text-white text-decoration-none text-sm">
-                    Explorar
-                </a>
                 <a href="@Url.Action("Events", "Home")" class="text-white text-decoration-none text-sm">
                     Eventos
                 </a>
-                <a href="@Url.Action("Artists", "Home")" class="text-white text-decoration-none text-sm">
+                <a href="@Url.Action("ExploreBands", "Home")" class="text-white text-decoration-none text-sm">
                     Artistas
                 </a>
                 @if (!string.IsNullOrEmpty(@Context.Session.GetString("Username")))
