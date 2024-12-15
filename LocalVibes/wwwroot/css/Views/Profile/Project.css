@@ -1,70 +1,83 @@
 
-html,body{
-  margin: 0px;
-  padding: 0px;
-  box-sizing: border-box;
-  width: 100vw;
-  height: 100vh;
-}
-.Profile__page-grid {
-    display: grid;
-    grid-template-areas:
-        "photo-section photo-section card-section"
-        "left-section right-section card-section";
-    grid-template-columns: 2fr 2fr 1.5fr;
-    grid-template-rows: 350px auto;
-    background-color: #333333; /* Dark background */
-    color: #fff;
-    width: 100%;
+
+
+/* Miembros de la banda */
+.band-content {
+    background-color: #444;
+    padding: 2rem;
+    border-radius: 8px;
 }
 
-.Profile__photo-section {
-    background-image: url('https://wallpapers.com/images/hd/yellow-house-and-greenery-best-hd-h5hf3cmcwkls52wo.jpg');
-    background-size: cover;
-    background-position: center; 
-    background-repeat: no-repeat;
-    grid-area: photo-section;
-    display: flex;
-    flex-direction: column-reverse;
-    padding-left:3em;
+
+.band-card {
+    background-color: var(--tertiary-color);
+    border-radius: 8px;
+    overflow: hidden;
+    width: 340px;
+    border: 1px solid rgba(0, 0, 0, .125);
 }
 
-.Profile__card-section {
-    grid-area: card-section;
-    padding: 2em;
-    display: flex;
-    flex-direction: column;
-    gap: 3em;
-}
-.Profile__card-section-link {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-}
-
-    .Profile__card-section-link:hover {
-        text-decoration: none;
-        opacity: 0.9;
+    .band-card img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
     }
 
-.Profile__left-section {
-    padding-top: 3em;
-    display: flex;
-    flex-direction: column;
-    gap: 3em;
-    grid-area: left-section;
-    padding-left:3em;
-    padding-right:2em;
+.band-card-content {
+    padding: 1rem;
 }
 
-.Profile__right-section {
-    padding-top: 3em;
-    flex-direction: column;
-    grid-area: right-section;
+.band-card-title {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: black;
 }
-.Profile__left-section__labels {
-    display: flex;
-    flex-direction:row;
-    flex-wrap: wrap;
-    gap : 1em;
+
+.band-card-date {
+    color: #888;
+    font-size: 1rem;
 }
+
+/* Eventos próximos */
+.upcoming-events {
+    background-color: #333;
+    padding: 2rem;
+    border-radius: 8px;
+}
+
+.event-card {
+    background-color: #444;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+}
+
+    .event-card img {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+    }
+
+.event-card-content {
+    padding: 1rem;
+}
+
+/* Título de sección */
+.section-title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: #fff;
+}
+
+/* Estrellas para la calificación */
+.star {
+    font-size: 2rem;
+    cursor: pointer;
+    color: gold;
+}
+
+.star-container {
+    display: inline-flex;
+    gap: 5px;
+}
+

@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/_Layout.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Views/Shared/SocialMediaCard.css" />
+    <link rel="stylesheet" href="~/css/Views/Shared/Avatar.css" />
+    <link rel="stylesheet" href="~/css/Views/Shared/HorizontalCard.css" />
     @Html.Partial("_Font")
     <style>
         .navbar-scroll {
@@ -45,16 +48,30 @@
 
             <!-- Navegación -->
             <div class="d-flex align-items-center gap-3 ms-auto">
+                <a href="@Url.Action("Explore", "Home")" class="text-white text-decoration-none text-sm">
+                    Explorar
+                </a>
+                <a href="@Url.Action("Events", "Home")" class="text-white text-decoration-none text-sm">
+                    Eventos
+                </a>
+                <a href="@Url.Action("Artists", "Home")" class="text-white text-decoration-none text-sm">
+                    Artistas
+                </a>
                 @if (!string.IsNullOrEmpty(@Context.Session.GetString("Username")))
                 {
-                    <a href="@Url.Action("User", "Profile")" class="text-white text-decoration-none">
-                        <i class="bi bi-person-circle me-1"></i>@Context.Session.GetString("Username")
-                    </a>
+                    <button onclick="window.location.href='@Url.Action("User", "Profile")'"
+                            class="btn btn-outline-light btn-sm">
+                            <label>Usuario:</label>
+                            <i class="bi bi-music-note-beamed me-1"></i>@Context.Session.GetString("Username")
+                    </button>
                     @if (!string.IsNullOrEmpty(Context.Session.GetString("ProjectName")))
                     {
-                        <a href="@Url.Action("Project", "Profile", new { id = Context.Session.GetString("ProjectId") })" class="text-white text-decoration-none">
+                        <button onclick="window.location.href='@Url.Action("Project", "Profile", new { id = Context.Session.GetString("ProjectId") })'"
+                                class="btn btn-outline-light btn-sm">
+                            <label>Proyecto:</label>
                             <i class="bi bi-music-note-beamed me-1"></i>@Context.Session.GetString("ProjectName")
-                        </a>
+                        </button>
+
                     }
                     <button onclick="window.location.href='/Authentication/Logout'" class="btn btn-outline-light btn-sm">
                         Cerrar sesión
@@ -62,16 +79,7 @@
                 }
                 else
                 {
-                    <a href="@Url.Action("Explore", "Home")" class="text-white text-decoration-none text-sm">
-                        Explorar
-                    </a>
-                    <a href="@Url.Action("Events", "Home")" class="text-white text-decoration-none text-sm">
-                        Eventos
-                    </a>
-                    <a href="@Url.Action("Artists", "Home")" class="text-white text-decoration-none text-sm">
-                        Artistas
-                    </a>
-                    <button onclick="window.location.href='/Authentication/SignUpShift'" class="btn btn-outline-light btn-sm">
+                    <button onclick="window.location.href='/Authentication/SignUpShift'" class="btn btn-outline-light btn-sm" style="color:black">
                         Registrarse
                     </button>
                     <button onclick="window.location.href='/Authentication/Login'" class="btn btn-light btn-sm">

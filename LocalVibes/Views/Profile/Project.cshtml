@@ -2,267 +2,172 @@
 @model ProfileProjectViewModel
 
 @{
-    ViewData["Title"] = "Local Vibes";
-    Layout = "_Layout";
+	ViewData["Title"] = "Local Vibes";
+	Layout = "_Layout";
 }
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewData["Title"]</title>
-    <link rel="stylesheet" href="~/css/Views/Shared/MemberCardRow.css" />
-    <link rel="stylesheet" href="~/css/Views/Shared/MemberCard.css" />
-    <link rel="stylesheet" href="~/css/Views/Shared/ReviewCard.css" />
-    <link rel="stylesheet" href="~/css/Views/Shared/Avatar.css" />
-    <link rel="stylesheet" href="~/css/Views/Profile/Project.css" />
-    <link rel="stylesheet" href="~/css/Views/Shared/SocialMediaCard.css" />
-    <link rel="stylesheet" href="~/css/Views/Shared/Modal.css" />
-
-    <style>
-        .star {
-            font-size: 2rem;
-            cursor: pointer;
-            color: gold;
-        }
-
-        .star-container {
-            display: inline-flex;
-            gap: 5px;
-        }
-    </style>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>@ViewData["Title"]</title>
+	<link rel="stylesheet" href="~/css/Views/Profile/Project.css" />
+	<!-- Otros enlaces de CSS ya definidos -->
 </head>
-<body>
-    <div class="Profile__page-grid">
-        <div class="Profile__photo-section"
-             style="@(Model.Project.ProjectImage != null ? $"background-image: url('data:image/png;base64,{@Convert.ToBase64String(Model.Project.ProjectImage)}');" : string.Empty)">
-            <h1>@Model.Project.ProjectName</h1>
-        </div>
-        <div class="Profile__left-section">
+<body class="bodyWhite">
 
-            <!-- Descripción -->
-            <div>
-                <h2>DESCRIPCION</h2>
-                <p>@Model.Project.Biography</p>
-            </div>
+	<div class="container-contenido">
+		<!-- Perfil de la banda -->
+		<div class="profile-section">
+			<!-- Imagen de la banda -->
+			@Html.Partial("_Avatar", new AvatarModel { Size = "200px", Image = Model.Project.ProjectImage })
+			<h1 class="profile-name profile-name-band">@Model.Project.ProjectName</h1>
+			<div class="band-info">
+				<div><b>Desde:</b> @Model.Project.FormationDate.Value.ToString("dd/MM/yyyy")</div>
+				<div><b>Biografía:</b> @Model.Project.Biography</div>
+			</div>
+			<!-- Géneros musicales -->
+			<div><b>Géneros musicales asociados</b></div>
+			<div class="genre-tags">
+				@if (Model.Project?.GeneresMusic?.Any() == true)
+				{
+					@foreach (var genereMusic in Model.Project.GeneresMusic)
+					{
+						<label class="genre-tag" style="width:15vh">@genereMusic.GenereMusicName</label>
+					}
+				}
+				else
+				{
+					<p>No hay géneros musicales asociados.</p>
+				}
+			</div>
+		</div>
 
-            <!-- Géneros musicales -->
-            <div class="Profile__left-section__labels">
-                @foreach (var genereMusic in Model.Project.GeneresMusic)
-                {
-                    <app-label text="@genereMusic.GenereMusicName" color="purple" style="width:125px"></app-label>
-                }   
-            </div>
+		<!-- Miembros de la banda -->
+		<div class="band-content">
+			<h2 class="section-title">Miembros de @Model.Project.ProjectName</h2>
+			<div class="main-content" style="padding: 0;">
+				@if (Model.Project?.MembersOfProjects?.Any() == true)
+				{
+					@foreach (var member in Model.Project.MembersOfProjects)
+					{
+						
+						<div class="band-card">
+							@if (member.MemberImage == null)
+							{
+								<img src="~/Assets/Pantera.jpeg" />
+							}
+							else
+							{
+								<img src="data:image/jpg;base64,@Convert.ToBase64String(member.MemberImage)" alt="@member.MemberImage" />
+							}
+							<div class="band-card-content">
+								<div>
+									<h5 class="band-card-title" style="font-size: 1em;">@member.MemberName</h5>
+									<p class="band-card-date" style="font-size: 0.7em;">@string.Join("Instrumento: ", member.Instruments.Select(i => i.NameInstrument))</p>
+								</div>
+							</div>
+						</div>
 
-            <!-- Redes sociales -->
-            <div>
-                @Html.Partial("_SocialMediaCard", new SocialMediaCardModel
-               {
-                   SocialMedia = new SocialMedia
-                   {
-                       IdSocialMedia = 1,
-                       NameSocialMedia = "Instagram",
-                       UrlSocialMedia = "https://www.instagram.com"
-                   }
-               })
-                @Html.Partial("_SocialMediaCard", new SocialMediaCardModel
-               {
-                   SocialMedia = new SocialMedia
-                   {
-                       IdSocialMedia = 1,
-                       NameSocialMedia = "YouTube",
-                       UrlSocialMedia = "https://www.youtube.com"
-                   }
-               })
-            </div>
+						@if (member != Model.Project?.MembersOfProjects?.Last())
+						{
+							<br />
 
-            <!-- Reseñas -->
-            <div>
-                <h2>REVIEWS</h2>
-                @if (Model.Project.Reviews != null && Model.Project.Reviews.Any())
-                {
-                    foreach (var review in Model.Project.Reviews)
-                    {
-                        @Html.Partial("_ReviewCard", new ReviewCardModel { Review = review })
-                    }
-                }
-                else
-                {
-                    <p>No hay reseñas disponibles.</p>
-                }
-            </div>
+						}
+					}
+				}
+				else
+				{
+					<p>No hay miembros disponibles.</p>
+				}
+			</div>
 
-            @if (int.TryParse(Context.Session.GetString("ProjectId"), out var sessionProjectId) && @Model.Project.IdProject != sessionProjectId)
-            {
-                <!-- Formulario de reseña -->
-                <div class="ReviewCard">
-                    <h2>Deja tu reseña</h2>
-                    <form method="post" asp-action="AddReview" asp-route-id="@Model.Project.IdProject">
-                        <textarea name="reviewText" placeholder="Escribe tu reseña aquí..." required></textarea>
+			<h2 class="section-title">Próximos Eventos</h2>
+			@if (Model.Project.EventsProject != null && Model.Project.EventsProject.Any())
+			{
+				foreach (var evento in Model.Project.EventsProject)
+				{
+					<a asp-area="" asp-controller="Profile" asp-action="Event" asp-route-id="@evento.IdEvent" class="Profile__card-section-link">
+						@Html.Partial("_VerticalCard", new CardModel
+{
+	Title = evento.EventTitle,
+	Subtitle = $"Fecha: {evento.EventDate.ToShortDateString()}",
+	Description = evento.EventDescription,
+	Image = evento.EventImage != null ? evento.EventImage : null
+})
+					</a>
+				}
+			}
+			else
+			{
+				<p>No hay eventos disponibles.</p>
+			}
+		</div>
 
-                        <!-- Calificación de 1 a 5 estrellas -->
-                        <div>
-                            <label for="rating">Calificación:</label>
-                            <div id="star-container" class="star-container">
-                                <span class="star" data-value="1">☆</span>
-                                <span class="star" data-value="2">☆</span>
-                                <span class="star" data-value="3">☆</span>
-                                <span class="star" data-value="4">☆</span>
-                                <span class="star" data-value="5">☆</span>
-                            </div>
-                            <input type="hidden" id="rating" name="rating" value="0">
-                        </div>
+		<!-- Reseñas -->
+		<div>
+			<h2>REVIEWS</h2>
+			@if (Model.Project.Reviews != null && Model.Project.Reviews.Any())
+			{
+				foreach (var review in Model.Project.Reviews)
+				{
+					@Html.Partial("_ReviewCard", new ReviewCardModel { Review = review })
+				}
+			}
+			else
+			{
+				<p>No hay reseñas disponibles.</p>
+			}
 
-                        <button type="submit">Enviar reseña</button>
-                    </form>
-                </div>
-            }
-            <script>
-                const stars = document.querySelectorAll('.star');
-                const ratingInput = document.getElementById('rating');
+			@if (int.TryParse(Context.Session.GetString("ProjectId"), out var sessionProjectId) && @Model.Project.IdProject != sessionProjectId)
+			{
+				<!-- Formulario de reseña -->
+				<div class="ReviewCard">
+					<h2>Deja tu reseña</h2>
+					<form method="post" asp-action="AddReview" asp-route-id="@Model.Project.IdProject">
+						<textarea name="reviewText" placeholder="Escribe tu reseña aquí..." required></textarea>
 
-                stars.forEach(star => {
-                    star.addEventListener('click', () => {
-                        const rating = star.getAttribute('data-value');
-                        ratingInput.value = rating;
-                        updateStars(rating);
-                    });
-                });
+						<!-- Calificación de 1 a 5 estrellas -->
+						<div>
+							<label for="rating">Calificación:</label>
+							<div id="star-container" class="star-container">
+								<span class="star" data-value="1">☆</span>
+								<span class="star" data-value="2">☆</span>
+								<span class="star" data-value="3">☆</span>
+								<span class="star" data-value="4">☆</span>
+								<span class="star" data-value="5">☆</span>
+							</div>
+							<input type="hidden" id="rating" name="rating" value="0">
+						</div>
 
-                function updateStars(rating) {
-                    stars.forEach(star => {
-                        if (parseInt(star.getAttribute('data-value')) <= rating) {
-                            star.textContent = '★';
-                        } else {
-                            star.textContent = '☆';
-                        }
-                    });
-                }
-            </script>
+						<button type="submit">Enviar reseña</button>
+					</form>
+				</div>
+			}
+			<script>
+				const stars = document.querySelectorAll('.star');
+				const ratingInput = document.getElementById('rating');
 
-        </div>
+				stars.forEach(star => {
+					star.addEventListener('click', () => {
+						const rating = star.getAttribute('data-value');
+						ratingInput.value = rating;
+						updateStars(rating);
+					});
+				});
 
-        <!-- Miembros -->
-        <div class="Profile__right-section p-8" >
-            <h2>MIEMBROS</h2>
-            @if (Model.Project.MembersOfProjects != null && Model.Project.MembersOfProjects.Any())
-            {
-                @Html.Partial("_MemberCard", new MemberCardModel { Members = Model.Project.MembersOfProjects })
-            }
-            else
-            {
-                <p>No hay miembros disponibles.</p>
-            }
-        </div>
-
-        <!-- Eventos -->
-        <div class="Profile__card-section">
-            <h2>EVENTOS</h2>
-            <!-- Modal para crear un nuevo evento -->
-            <div id="eventModal" style="display: none;" class="modal">
-                <div class="modal-content">
-                    <span class="close" onclick="closeEventModal()">×</span>
-                    <h2>Crear Nuevo Evento</h2>
-                    <form method="post" action="/Profile/CreateEvent">
-                        <label for="eventTitle">Título del Evento:</label>
-                        <input type="text" id="eventTitle" name="eventTitle" required>
-                        <br />
-                        <label for="eventDescription">Descripción:</label>
-                        <textarea id="eventDescription" name="eventDescription" required></textarea>
-                        <br />
-                        <label for="eventDate">Fecha del Evento:</label>
-                        <input type="date" id="eventDate" name="eventDate" required>
-                        <br />
-                        <label for="eventCapacity">Capacidad:</label>
-                        <input type="number" id="eventCapacity" name="eventCapacity">
-                        <br />
-                        <!-- Ubicación -->
-                        <label for="locationId">Ubicación del Evento:</label>
-                        <select id="locationId" name="locationId" required>
-                            <option value="">Selecciona una ubicación</option>
-                            @if (Model.Locations != null && Model.Locations.Any())
-                            {
-                                foreach (var location in Model.Locations)
-                                {
-                                    <option value="@location.IdLocation">@location.NameLocation</option>
-                                }
-                            }
-                            else
-                            {
-                                <p>No hay ubicaciones disponibles.</p>
-                            }
-                        </select>
-                        <br />
-                        <button type="submit" style="background-color: purple">Crear Evento</button>
-                    </form>
-                </div>
-            </div>
-
-            <!-- Botón para abrir el modal -->
-            @if (Context.Session.GetString("UserId") != null && int.Parse(Context.Session.GetString("UserId")) == Model.Project.IdUsersAdmin)
-            {
-                <button id="newEventButton" class="" type="button" style="all: unset; background-color: purple; border-radius: 999em; display: flex; justify-content: center; align-items: center; text-align: center; width: 200px; height: 40px; color: white;">
-                    Nuevo Evento
-                </button>
-            }
-
-            <script>
-
-                // Obtener el modal
-                var modal = document.getElementById("eventModal");
-
-                // Obtener el botón que abre el modal (ahora usando el id "newEventButton")
-                var btn = document.getElementById("newEventButton");
-
-                // Obtener el elemento que cierra el modal
-                var span = document.getElementsByClassName("close")[0];
-
-                // Cuando el usuario haga clic en el botón, abre el modal
-                btn.onclick = function() {
-                    modal.style.display = "block";
-                }
-
-                // Cuando el usuario haga clic en el botón de cerrar, cierra el modal
-                span.onclick = function() {
-                    modal.style.display = "none";
-                }
-
-                // Cuando el usuario haga clic fuera del modal, también lo cierra
-                window.onclick = function(event) {
-                    if (event.target == modal) {
-                        modal.style.display = "none";
-                    }
-                }
-
-                // Función para cerrar el modal desde otras partes si es necesario
-                function closeEventModal() {
-                    modal.style.display = "none";
-                }
-            </script>
-
-
-            @if (Model.Project.EventsProject != null && Model.Project.EventsProject.Any())
-            {
-                foreach (var evento in Model.Project.EventsProject)
-                {
-                    <a asp-area="" asp-controller="Profile" asp-action="Event" asp-route-id="@evento.IdEvent" class="Profile__card-section-link">
-                        @Html.Partial("_VerticalCard", new CardModel
-                        {
-                            Title = evento.EventTitle,
-                            Subtitle = $"Fecha: {evento.EventDate.ToShortDateString()}",
-                            Description = evento.EventDescription,
-                            Image = evento.EventImage != null ? evento.EventImage : null // Muestra la imagen si está disponible
-                        })
-                    </a>
-                }
-            }
-            else
-            {
-                <p>No hay eventos disponibles.</p>
-            }
-        </div>
-
-    </div>
+				function updateStars(rating) {
+					stars.forEach(star => {
+						if (parseInt(star.getAttribute('data-value')) <= rating) {
+							star.textContent = '★';
+						} else {
+							star.textContent = '☆';
+						}
+					});
+				}
+			</script>
+		</div>
+	</div>
 </body>
 </html>

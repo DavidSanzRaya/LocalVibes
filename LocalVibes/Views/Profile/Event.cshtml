@@ -1,78 +1,84 @@
 @using LocalVibes.Models.ViewModels
 @model ProfileEventViewModel
 @{
-    ViewData["Title"] = "Local Vibes";
-    Layout = "_Layout";
+	ViewData["Title"] = "Local Vibes";
+	Layout = "_Layout";
 }
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>@ViewData["Title"]</title>
 	@Html.Partial("_Font")
 	<link rel="stylesheet" href="~/css/Views/Profile/Event.css" />
-	<link rel="stylesheet" href="~/css/Views/Shared/SocialMediaCard.css"/>
-	<link rel="stylesheet" href="~/css/Views/Shared/Avatar.css"/>
-
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-    <script src='https://unpkg.com/wicg-inert@latest/dist/inert.min.js'></script>
+	<link rel="stylesheet" href="~/css/Views/Shared/SocialMediaCard.css" />
+	<link rel="stylesheet" href="~/css/Views/Shared/Avatar.css" />
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+	<script src='https://unpkg.com/wicg-inert@latest/dist/inert.min.js'></script>
 </head>
 <body>
-    <div class="Event__page-grid">
-        <div class="Event__left-section">
-            <h1>@Model.Event.EventTitle</h1>
-            <div>
-                <h2>DESCRIPCION</h2>
-                <p>@Model.Event.EventDescription.ToString()</p>
-            </div>
-            <div class="Event__left-section__project">
-                <a asp-area="" asp-controller="Profile" asp-action="Project" asp-route-id="@Model.Event.Project.IdProject" class="User__project-link">
-                    @Html.Partial("_VerticalCard", new CardModel
-                   {
-                       Title = Model.Event.Project.ProjectName,
-                       Subtitle = $"Desde :{(Model.Event.Project.FormationDate.HasValue ? Model.Event.Project.FormationDate.Value.ToString("dd/MM/yyyy") : "Fecha no disponible")}",
-                       Image = Model.Event.Project.ProjectImage != null ? Model.Event.Project.ProjectImage : null // Muestra la imagen si está disponible
-                   })
-                </a>
-            </div>
-            <div class="Event__left-section__labels">
-                @foreach (var genereMusic in Model.Event.Project.GeneresMusic)
-                {
-                    <app-label text="@genereMusic.GenereMusicName" color="purple" style="width:125px"></app-label>
-                }
-            </div>
-            <div class="Event__left-section__avatars">
-                @foreach (var member in Model.Event.Project.MembersOfProjects)
-                {
-                    @Html.Partial("_Avatar", new AvatarModel { Size = "100px", Image = member.MemberImage})
-                }
-            </div>
-            <div id="map" style="height: 200px"></div>
-        </div>
-        <div class="Event__right-section">
-            <img src="https://pbs.twimg.com/media/GI5yJ4XX0AA_fTs?format=jpg&name=large" alt="">
-        </div>
-    </div>
-    <script>
-        var latitude = @Model.Event.Location.Latitude.ToString(System.Globalization.CultureInfo.InvariantCulture);
-        var longitude = @Model.Event.Location.Longitude.ToString(System.Globalization.CultureInfo.InvariantCulture);
+	<div class="Event__page-grid">
+		<div class="Event__left-section">
+			<h1>@Model.Event.EventTitle</h1>
+			<div class="event-description">
+				<h2>DESCRIPCION</h2>
+				<p>@Model.Event.EventDescription</p>
+			</div>
 
-        var map = L.map('map').setView([latitude, longitude], 13);
+			<div class="Event__left-section__project">
+				<a asp-area="" asp-controller="Profile" asp-action="Project" asp-route-id="@Model.Event.Project.IdProject" class="User__project-link">
+					@Html.Partial("_VerticalCard", new CardModel
+{
+	Title = Model.Event.Project.ProjectName,
+	Subtitle = $"Desde : {Model.Event.Project.FormationDate?.ToString("dd/MM/yyyy") ?? "Fecha no disponible"}",
+	Image = Model.Event.Project.ProjectImage
+})
+				</a>
+			</div>
 
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: 'Map data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
+			<div class="Event__left-section__labels">
+				@foreach (var genereMusic in Model.Event.Project.GeneresMusic)
+				{
+					<app-label text="@genereMusic.GenereMusicName" color="purple" style="width:125px"></app-label>
+				}
+			</div>
 
-        var locationIcon = L.icon({
-            iconUrl: '/Assets/guitar.png',
-            iconSize: [40, 40],
-            iconAnchor: [20, 40],
-            popupAnchor: [0, -40]
-        });
+			<div class="Event__left-section__avatars">
+				@foreach (var member in Model.Event.Project.MembersOfProjects)
+				{
+					@Html.Partial("_Avatar", new AvatarModel { Size = "100px", Image = member.MemberImage })
+				}
+			</div>
 
-        var marker = L.marker([latitude, longitude], { icon: locationIcon }).addTo(map);
-    </script>
+			<div id="map" style="height: 400px"></div>
+		</div>
+
+		<div class="Event__right-section">
+<img src="@Model.Event.EventImage ?? (Model.Project.ProjectImage != null ? $"data:image/png;base64,{Convert.ToBase64String(Model.Project.ProjectImage)}" : "")" alt="Imagen de evento" />
+		</div>
+	</div>
+
+	<script>
+		var latitude = @Model.Event.Location.Latitude.ToString(System.Globalization.CultureInfo.InvariantCulture);
+		var longitude = @Model.Event.Location.Longitude.ToString(System.Globalization.CultureInfo.InvariantCulture);
+
+		var map = L.map('map').setView([latitude, longitude], 13);
+
+		L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+			attribution: 'Map data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+		}).addTo(map);
+
+		var locationIcon = L.icon({
+			iconUrl: '/Assets/guitar.png',
+			iconSize: [40, 40],
+			iconAnchor: [20, 40],
+			popupAnchor: [0, -40]
+		});
+
+		var marker = L.marker([latitude, longitude], { icon: locationIcon }).addTo(map);
+	</script>
 </body>
 </html>

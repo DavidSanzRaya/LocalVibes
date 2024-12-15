@@ -5,89 +5,112 @@
 	ViewData["Title"] = "Local Vibes";
 	Layout = "_Layout";
 }
+
 <!DOCTYPE html>
 <html lang="en">
+
+<!--Importaciones y declaraciones en el head-->
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>@ViewData["Title"]</title>
 	@Html.Partial("_Font")
-	<link rel="stylesheet" href="~/css/Views/Profile/User.css" />
-	<link rel="stylesheet" href="~/css/Views/Shared/SocialMediaCard.css"/>
-	<link rel="stylesheet" href="~/css/Views/Shared/Avatar.css"/>
-	<link rel="stylesheet" href="~/css/Views/Shared/HorizontalCard.css"/>
 </head>
-<body>
-    @if (TempData["ErrorMessage"] != null)
-    {
-        <div class="alert alert-danger">
-            @TempData["ErrorMessage"]
-        </div>
-    }
-    <div class="User__page-grid">
-        <div class="User__user-section">
-            @Html.Partial("_Avatar", new AvatarModel{Size="200px", Image=Model.User.ProfileImage})
-            <h1>@Model.User.FirstName</h1>
-            <div>
-                <p>@Model.User.Birthdate.Value.ToString("dd/MM/yyyy")</p>
-                <p>Puntos: @Model.User.UserPoints</p>
-            </div>
-            <div class="User__user-section__labels">
-                @foreach (var genereMusic in Model.User.UserGeneresMusic)
-                {
-                    <app-label text="@genereMusic.GenereMusicName" color="purple" style="width:125px"></app-label>
-                }
-            </div>
-            <div class="User__user-section__labels">
-                @Html.Partial("_SocialMediaCard", new SocialMediaCardModel
-                {
-                    SocialMedia = new SocialMedia
-                    { 
-                        IdSocialMedia = 1,
-                        NameSocialMedia = "Instagram",
-                        UrlSocialMedia = "https://www.instagram.com"
-                    }
-                })
-                @Html.Partial("_SocialMediaCard", new SocialMediaCardModel
-                {
-                    SocialMedia = new SocialMedia
-                    {
-                        IdSocialMedia = 1,
-                        NameSocialMedia = "YouTube",
-                        UrlSocialMedia = "https://www.instagram.com"
-                    }
-                })
-            </div>
-        </div>
-        <div class="User__project-seciton">
-            <h2>Proyectos Favoritos</h2>
-            @foreach (var project in Model.ProjectsFavotire)
-            {
-                <a asp-area="" asp-controller="Profile" asp-action="Project" asp-route-id="@project.IdProject" class="User__project-link">
-                    @Html.Partial("_HorizontalCard", new CardModel
-                    {
-                        Title = project.ProjectName,
-                        Subtitle = $"Desde :{(project.FormationDate.HasValue ? project.FormationDate.Value.ToString("dd/MM/yyyy") : "Fecha no disponible")}",
-                        Image = project.ProjectImage != null ? project.ProjectImage : null // Muestra la imagen si está disponible
-                    })
-                </a>
-            }
-        </div>
 
-        <div class="User__event-seciton">
-            @foreach (var evento in Model.Eventos)
-            {
-                <a asp-area="" asp-controller="Profile" asp-action="Event" asp-route-id="@evento.IdEvent" class="User__event-link">
-                    @Html.Partial("_VerticalCard", new CardModel
-                    {
-                        Title = evento.EventTitle,
-                        Subtitle = $"Fecha: {evento.EventDate.ToShortDateString()}",
-                        Description = evento.EventDescription,
-                        Image = evento.EventImage != null ? evento.EventImage : null // Muestra la imagen si está disponible
-                    })
-                </a>
-            }
-        </div>
-    </div>
+<body class="bodyWhite">
+
+	<!--Se controla que no suceda ningun erro ral entrar a la pagina-->
+	@if (TempData["ErrorMessage"] != null)
+	{
+		<div class="alert alert-danger">
+			@TempData["ErrorMessage"]
+		</div>
+	}
+
+	<!--Container con todo contenido-->
+	<div class="container-contenido">
+
+		<!--Perfil Sidebar -->
+		<div class="profile-sidebar">
+
+			<!--Parametros del usuario-->
+			@Html.Partial("_Avatar", new AvatarModel { Size = "200px", Image = Model.User.ProfileImage })
+			<h1 class="profile-name">@Model.User.FirstName @Model.User.LastName</h1>
+			<p class="profile-date"><b>Nombre de usuario:</b> "@Model.User.UserName"</p>
+			<p class="profile-date"><b>Fecha de nacimiento:</b> @Model.User.Birthdate.Value.ToString("dd/MM/yyyy")</p>
+			<p class="profile-points"><b>Tus puntos: </b>@Model.User.UserPoints</p>
+			<div><b>Generos musicales asociados</b></div>
+
+			<!--Lista de generos-->
+			<div class="genre-tags">
+				@if (Model.User.UserGeneresMusic.Any())
+				{
+					@foreach (var genereMusic in Model.User.UserGeneresMusic)
+					{
+						<label class="genre-tag" style="width:15vh">@genereMusic.GenereMusicName</label>
+					}
+				}
+				else
+				{
+					<p>No hay géneros musicales asociados.</p>
+				}
+			</div>
+		</div>
+
+		<!-- Contenido Principal -->
+		<div class="main-content">
+			<h2>Tus grupos y bandas favoritas</h2>
+			@if (Model.ProjectsFavotire.Any())
+			{
+				@foreach (var project in Model.ProjectsFavotire)
+				{
+					<a asp-area="" asp-controller="Profile" asp-action="Project" asp-route-id="@project.IdProject" class="User__project-link">
+						@Html.Partial("_HorizontalCard", new CardModel
+{
+	Title = project.ProjectName,
+	Subtitle = $"Desde :{(project.FormationDate.HasValue ? project.FormationDate.Value.ToString("dd/MM/yyyy") : "Fecha no disponible")}",
+	Image = project.ProjectImage != null ? project.ProjectImage : null // Muestra la imagen si está disponible
+})
+					</a>
+
+					@if (project != Model.ProjectsFavotire.Last())
+					{
+						<br />
+
+					}
+				}
+			}
+			else
+			{
+				<p>No hay grupos ni bandas musicales asociadas.</p>
+			}
+		</div>
+
+		<!-- Eventos Sidebar -->
+		<div class="events-sidebar">
+			<h2>Tus tickets para eventos proximos</h2>
+			@if (Model.Eventos.Any())
+			{
+				@foreach (var evento in Model.Eventos)
+				{
+					<a asp-area="" asp-controller="Profile" asp-action="Event" asp-route-id="@evento.IdEvent" class="User__event-link">
+						@Html.Partial("_VerticalCard", new CardModel
+{
+	Title = evento.EventTitle,
+	Subtitle = $"Fecha: {evento.EventDate.ToShortDateString()}",
+	Description = evento.EventDescription,
+	Image = evento.EventImage != null ? evento.EventImage : null
+})
+					</a>
+
+					@if (evento != Model.Eventos.Last())
+					{
+						<br />
+
+					}
+				}
+			}
+		</div>
+	</div>
 </body>
 </html>
