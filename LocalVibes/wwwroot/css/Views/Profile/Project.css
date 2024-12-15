@@ -1,69 +1,5 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
 
-body {
-    font-family: Arial, sans-serif;
-    background-color: #333;
-    color: white;
-}
 
-/* Contenedor principal */
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem;
-    display: grid;
-    grid-template-columns: 300px 1fr 300px;
-    gap: 2rem;
-}
-
-/* Sección de perfil de la banda */
-.profile-section {
-    background-color: #333;
-    padding: 2rem;
-    border-radius: 8px;
-}
-
-.profile-image {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    margin: 0 auto 1rem;
-    display: block;
-    object-fit: cover;
-}
-
-.band-name {
-    text-align: center;
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
-}
-
-.band-info {
-    text-align: center;
-    color: #888;
-    margin-bottom: 1rem;
-}
-
-/* Géneros musicales */
-.genre-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin: 1rem 0;
-    justify-content: center;
-}
-
-.genre-tag {
-    background-color: #800080;
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
-    font-size: 0.9rem;
-}
 
 /* Miembros de la banda */
 .band-content {
@@ -72,18 +8,13 @@ body {
     border-radius: 8px;
 }
 
-.band-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 1rem;
-    margin-top: 1rem;
-}
-
 
 .band-card {
-    background-color: #444;
+    background-color: var(--tertiary-color);
     border-radius: 8px;
     overflow: hidden;
+    width: 340px;
+    border: 1px solid rgba(0, 0, 0, .125);
 }
 
     .band-card img {
@@ -99,11 +30,12 @@ body {
 .band-card-title {
     font-size: 1.2rem;
     margin-bottom: 0.5rem;
+    color: black;
 }
 
 .band-card-date {
     color: #888;
-    font-size: 0.9rem;
+    font-size: 1rem;
 }
 
 /* Eventos próximos */
@@ -132,8 +64,8 @@ body {
 
 /* Título de sección */
 .section-title {
-    font-size: 1.5rem;
-    margin-bottom: 1.5rem;
+    font-size: 2rem;
+    margin-bottom: 2rem;
     color: #fff;
 }
 
@@ -149,9 +81,3 @@ body {
     gap: 5px;
 }
 
-/* Responsive */
-@media (max-width: 1200px) {
-    .container {
-        grid-template-columns: 1fr;
-    }
-}

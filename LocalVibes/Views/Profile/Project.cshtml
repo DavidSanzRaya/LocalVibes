@@ -15,18 +15,16 @@
 	<link rel="stylesheet" href="~/css/Views/Profile/Project.css" />
 	<!-- Otros enlaces de CSS ya definidos -->
 </head>
-<body>
+<body class="bodyWhite">
 
-	<div class="container">
+	<div class="container-contenido">
 		<!-- Perfil de la banda -->
 		<div class="profile-section">
 			<!-- Imagen de la banda -->
-			<img src="@((Model.Project.ProjectImage != null)
-                ? $"data:image/png;base64,{Convert.ToBase64String(Model.Project.ProjectImage)}"
-                : Url.Content("~/images/default-band-image.png"))" alt="Banda" class="profile-image">
-			<h1 class="band-name">@Model.Project.ProjectName</h1>
+			@Html.Partial("_Avatar", new AvatarModel { Size = "200px", Image = Model.Project.ProjectImage })
+			<h1 class="profile-name profile-name-band">@Model.Project.ProjectName</h1>
 			<div class="band-info">
-				<div><b>Desde:</b> @Model.Project.FormationDate</div>
+				<div><b>Desde:</b> @Model.Project.FormationDate.Value.ToString("dd/MM/yyyy")</div>
 				<div><b>Biografía:</b> @Model.Project.Biography</div>
 			</div>
 			<!-- Géneros musicales -->
@@ -36,7 +34,7 @@
 				{
 					@foreach (var genereMusic in Model.Project.GeneresMusic)
 					{
-						<app-label text="@genereMusic.GenereMusicName" color="purple" style="width:15vh"></app-label>
+						<label class="genre-tag" style="width:15vh">@genereMusic.GenereMusicName</label>
 					}
 				}
 				else
@@ -49,10 +47,35 @@
 		<!-- Miembros de la banda -->
 		<div class="band-content">
 			<h2 class="section-title">Miembros de @Model.Project.ProjectName</h2>
-			<div class="band-grid">
+			<div class="main-content" style="padding: 0;">
 				@if (Model.Project?.MembersOfProjects?.Any() == true)
 				{
-					@Html.Partial("_MemberCard", new MemberCardModel { Members = Model.Project.MembersOfProjects })
+					@foreach (var member in Model.Project.MembersOfProjects)
+					{
+						
+						<div class="band-card">
+							@if (member.MemberImage == null)
+							{
+								<img src="~/Assets/Pantera.jpeg" />
+							}
+							else
+							{
+								<img src="data:image/jpg;base64,@Convert.ToBase64String(member.MemberImage)" alt="@member.MemberImage" />
+							}
+							<div class="band-card-content">
+								<div>
+									<h5 class="band-card-title" style="font-size: 1em;">@member.MemberName</h5>
+									<p class="band-card-date" style="font-size: 0.7em;">@string.Join("Instrumento: ", member.Instruments.Select(i => i.NameInstrument))</p>
+								</div>
+							</div>
+						</div>
+
+						@if (member != Model.Project?.MembersOfProjects?.Last())
+						{
+							<br />
+
+						}
+					}
 				}
 				else
 				{

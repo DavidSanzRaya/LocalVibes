@@ -15,13 +15,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>@ViewData["Title"]</title>
 	@Html.Partial("_Font")
-	<link rel="stylesheet" href="~/css/Views/Profile/User.css" />
-	<link rel="stylesheet" href="~/css/Views/Shared/SocialMediaCard.css" />
-	<link rel="stylesheet" href="~/css/Views/Shared/Avatar.css" />
-	<link rel="stylesheet" href="~/css/Views/Shared/HorizontalCard.css" />
 </head>
 
-<body>
+<body class="bodyWhite">
 
 	<!--Se controla que no suceda ningun erro ral entrar a la pagina-->
 	@if (TempData["ErrorMessage"] != null)
@@ -32,7 +28,7 @@
 	}
 
 	<!--Container con todo contenido-->
-	<div class="container">
+	<div class="container-contenido">
 
 		<!--Perfil Sidebar -->
 		<div class="profile-sidebar">
@@ -51,7 +47,7 @@
 				{
 					@foreach (var genereMusic in Model.User.UserGeneresMusic)
 					{
-						<app-label text="@genereMusic.GenereMusicName" color="purple" style="width:20vh"></app-label>
+						<label class="genre-tag" style="width:15vh">@genereMusic.GenereMusicName</label>
 					}
 				}
 				else
