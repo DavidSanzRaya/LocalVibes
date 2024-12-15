@@ -1,0 +1,83 @@
+﻿@using LocalVibes.Models.ViewModels
+@model ExploreBandsViewModel
+
+<head>
+    <style>
+        .explore-container {
+            background-color: #1a1a1a;
+            min-height: calc(100vh - 64px); /* Adjust based on your header height */
+            color: white;
+        }
+
+        .band-card {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+            .band-card:hover {
+                box-shadow: 0 10px 15px -3px rgba(147, 51, 234, 0.1), 0 4px 6px -2px rgba(147, 51, 234, 0.05);
+            }
+    </style>
+</head>
+
+<div class="explore-container">
+    <div class="hero-section text-center py-12 bg-[#1a1a1a]">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">Descubre Nuevas Bandas</h1>
+        <p class="text-gray-400 text-lg mb-8">Explora y conecta con el talento musical local de Barcelona</p>
+        
+        <div class="search-section max-w-2xl mx-auto px-4">
+            <div class="flex gap-4 mb-8">
+                <input type="text" 
+                       placeholder="Buscar bandas..." 
+                       class="flex-1 px-4 py-2 rounded-lg bg-[#2a2a2a] border border-[#3a3a3a] text-white focus:outline-none focus:border-[#9333EA]">
+                <button class="px-6 py-2 bg-[#9333EA] text-white rounded-lg hover:bg-[#7928CA] transition-colors">
+                    Buscar
+                </button>
+            </div>
+            
+            <div class="flex flex-wrap gap-2 justify-center">
+                @foreach (var genre in new[] { "ROCK", "POP", "JAZZ", "BLUES", "ELECTRÓNICA", "HIP HOP", "FOLK" })
+                {
+                    <button class="px-4 py-1 rounded-full text-sm bg-[#2a2a2a] hover:bg-[#9333EA] transition-colors">
+                        @genre
+                    </button>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="bands-grid max-w-7xl mx-auto px-4 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            @foreach (var band in Model.Projects)
+            {
+                <div class="band-card bg-[#2a2a2a] rounded-lg overflow-hidden hover:transform hover:scale-[1.02] transition-transform">
+                    <img src="data:image/jpg;base64,@Convert.ToBase64String(band.ProjectImage)" alt="@band.ProjectName" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">@band.ProjectName</h3>
+                        <div class="flex gap-2 mb-4">
+                            @foreach (var genre in band.GeneresMusic)
+                            {
+                                <span class="px-2 py-1 text-xs rounded-full bg-[#9333EA]">@genre</span>
+                            }
+                        </div>
+                        <p class="text-gray-400 mb-4">@band.Biography</p>
+                        <div class="flex justify-between items-center">
+                            <a href="@Url.Action("Details", "Band", new { id = band.IdProject })" 
+                               class="px-4 py-2 bg-[#9333EA] text-white rounded-lg hover:bg-[#7928CA] transition-colors">
+                                Ver Perfil
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    @if (!Model.Projects.Any())
+    {
+        <div class="text-center py-12">
+            <p class="text-gray-400 text-lg">No se encontraron bandas que coincidan con tu búsqueda.</p>
+        </div>
+    }
+</div>
+
+
