@@ -11,9 +11,9 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/_Layout.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/Views/Shared/SocialMediaCard.css" />
-    <link rel="stylesheet" href="~/css/Views/Shared/Avatar.css" />
-    <link rel="stylesheet" href="~/css/Views/Shared/HorizontalCard.css" />
+    <link rel="stylesheet" href="~/css/Views/Shared/SocialMediaCard.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Views/Shared/Avatar.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Views/Shared/HorizontalCard.css" asp-append-version="true" />
     @Html.Partial("_Font")
     <style>
         .navbar-scroll {
@@ -48,14 +48,11 @@
 
             <!-- Navegación -->
             <div class="d-flex align-items-center gap-3 ms-auto">
-                <a href="@Url.Action("Explore", "Home")" class="text-white text-decoration-none text-sm">
-                    Explorar
-                </a>
                 <a href="@Url.Action("Events", "Home")" class="text-white text-decoration-none text-sm">
                     Eventos
                 </a>
                 <a href="@Url.Action("Artists", "Home")" class="text-white text-decoration-none text-sm">
-                    Artistas
+                    Bandas/Artistas
                 </a>
                 @if (!string.IsNullOrEmpty(@Context.Session.GetString("Username")))
                 {
