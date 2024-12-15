@@ -53,6 +53,8 @@
                 </a>
                 <a href="@Url.Action("Artists", "Home")" class="text-white text-decoration-none text-sm">
                     Bandas/Artistas
+                <a href="@Url.Action("ExploreBands", "Home")" class="text-white text-decoration-none text-sm">
+                    Bandas/Artistas
                 </a>
                 @if (!string.IsNullOrEmpty(@Context.Session.GetString("Username")))
                 {

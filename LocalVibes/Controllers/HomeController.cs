@@ -80,6 +80,25 @@ namespace LocalVibes.Controllers
             return View(model);
         }
 
+        public IActionResult ExploreBands()
+        {
+            if (HttpContext.Session.GetString("UserId") == null)
+            {
+                return RedirectToAction("Login", "Authentication");
+            }
+
+            ExploreBandsViewModel model = new ExploreBandsViewModel();
+            model.Projects = new ProjectDAL().GetAll();
+
+            string userIdString = HttpContext.Session.GetString("UserId");
+
+            if (int.TryParse(userIdString, out int userId))
+            {
+                model.FavoriteProjects = new UserDAL().GetFavoriteProjectsByUserId(userId);  
+            }
+            return View(model);
+        }
+
         public IActionResult Explore()
         {
             // Verifica si la sesión contiene un indicador de usuario autenticado.

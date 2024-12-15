@@ -1,0 +1,50 @@
+﻿@using LocalVibes.Models.ViewModels
+@model ExploreBandsViewModel
+
+<head>
+	<link rel="stylesheet" href="~/css/Views/Home/bands.css">
+</head>
+
+<div class="main-container">
+    <!-- Contenedor Izquierdo: Proyectos Favoritos -->
+    <div class="sidebar">
+        <h3>Proyectos Favoritos</h3>
+        <ul>
+            @foreach (var project in Model.FavoriteProjects)
+            {
+                <li class="favorite-item" onclick="window.location.href='@Url.Action("Project", "Profile", new { id = project.IdProject })'">
+                    <img src="data:image/jpg;base64,@Convert.ToBase64String(project.ProjectImage)" alt="Project Image" class="group-image">
+                    <span class="project-name">@project.ProjectName</span>
+                </li>
+            }
+        </ul>
+    </div>
+
+    <div class="content">
+        <!-- Barra de Búsqueda -->
+        <div class="search-bar">
+            <input type="text" id="search" placeholder="Buscar proyecto por nombre...">
+        </div>
+
+        <!-- Lista de Proyectos -->
+        <div class="list-container">
+            <h2>Lista de Proyectos</h2>
+            <div class="project-list">
+                @foreach (var project in Model.Projects)
+                {
+                    <div class="project-card">
+                        <img src="data:image/jpg;base64,@Convert.ToBase64String(project.ProjectImage)" alt="Project Image">
+                        <div class="project-info">
+                            <h4>@project.ProjectName</h4>
+                            <button class="btn-view-more" onclick="location.href='@Url.Action("Project", "Profile", new { id = project.IdProject })'">Ver más</button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/View/Home/bands.js"></script>
+
+
