@@ -13,6 +13,9 @@ function adjustHeightWithNavbar() {
 document.addEventListener("DOMContentLoaded", () => {
     adjustHeightWithNavbar();
 
+    const container = document.querySelector(".main-container");
+    container.classList.add("fade-in");
+
     const searchInput = document.getElementById("search");
     const projectCards = document.querySelectorAll(".project-card");
 
