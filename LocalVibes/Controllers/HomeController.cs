@@ -90,6 +90,12 @@ namespace LocalVibes.Controllers
             ExploreBandsViewModel model = new ExploreBandsViewModel();
             model.Projects = new ProjectDAL().GetAll();
 
+            string userIdString = HttpContext.Session.GetString("UserId");
+
+            if (int.TryParse(userIdString, out int userId))
+            {
+                model.FavoriteProjects = new UserDAL().GetFavoriteProjectsByUserId(userId);  
+            }
             return View(model);
         }
 
