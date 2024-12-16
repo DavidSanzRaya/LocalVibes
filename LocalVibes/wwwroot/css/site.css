@@ -229,10 +229,12 @@ footer a:hover {
 .container-contenido {
     margin: 5rem 0 2rem 0;
     display: grid;
-    grid-template-columns: 345px 1fr 345px;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 2rem;
-    padding: 2rem;
-    min-width: 100%;
+    width: 100%;
+    max-width: 100vw;
+    box-sizing: border-box;
+    overflow-x: hidden;
 }
 
 /* Etiquetas de generos musicales */
