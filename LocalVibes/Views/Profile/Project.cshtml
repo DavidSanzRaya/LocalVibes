@@ -1,24 +1,23 @@
+@using LocalVibes.DALs
 @using LocalVibes.Models.ViewModels
 @model ProfileProjectViewModel
 
 @{
 	ViewData["Title"] = "Local Vibes";
 	Layout = "_Layout";
+	int.TryParse(Context.Session.GetString("ProjectId"), out var sessionProjectId);
 }
 
-<!DOCTYPE html>
-<html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>@ViewData["Title"]</title>
 	<link rel="stylesheet" href="~/css/Views/Profile/Project.css" asp-append-version="true" />
-	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 	<link rel="stylesheet" href="~/css/Views/Shared/Avatar.css" asp-append-version="true" />
 	<link rel="stylesheet" href="~/css/Views/Shared/ReviewCard.css" asp-append-version="true" />
 	<!-- Otros enlaces de CSS ya definidos -->
 </head>
-<body class="bodyWhite">
+<div class="bodyWhite">
 
 	<div class="container-contenido">
 		<!-- Perfil de la banda -->
@@ -30,6 +29,19 @@
 				<div><b>Desde:</b> @Model.Project.FormationDate.Value.ToString("dd/MM/yyyy")</div>
 				<div><b>Biografía:</b> @Model.Project.Biography</div>
 			</div>
+
+			@if (@Model.Project.IdProject != sessionProjectId)
+			{
+				<!-- Formulario de añadir a favoritos -->
+				<form asp-controller="Profile" asp-action="ToggleFavorite" method="post" class="favorite-form">
+					<input type="hidden" name="projectId" value="@Model.Project.IdProject" />
+					<button type="submit" id="favorite-button" class="favorite-button">
+						<span id="favorite-icon">@(@Model.IsFavorite ? "★" : "☆")</span>
+						<span id="favorite-text">@(@Model.IsFavorite ? "En Favoritos" : "Añadir a Favoritos")</span>
+					</button>
+				</form>
+			}
+			
 			<!-- Géneros musicales -->
 			<div><b>Géneros musicales asociados</b></div>
 			<div class="genre-tags">
@@ -45,6 +57,7 @@
 					<p>No hay géneros musicales asociados.</p>
 				}
 			</div>
+			
 		</div>
 
 		<!-- Miembros de la banda -->
@@ -89,12 +102,12 @@
 				{
 					<a asp-area="" asp-controller="Profile" asp-action="Event" asp-route-id="@evento.IdEvent" class="Profile__card-section-link">
 						@Html.Partial("_VerticalCard", new CardModel
-{
-	Title = evento.EventTitle,
-	Subtitle = $"Fecha: {evento.EventDate.ToShortDateString()}",
-	Description = evento.EventDescription,
-	Image = evento.EventImage != null ? evento.EventImage : null
-})
+						{
+							Title = evento.EventTitle,
+							Subtitle = $"Fecha: {evento.EventDate.ToShortDateString()}",
+							Description = evento.EventDescription,
+							Image = evento.EventImage != null ? evento.EventImage : null
+						})
 					</a>
 				}
 			}
@@ -119,7 +132,7 @@
 				<p>No hay reseñas disponibles.</p>
 			}
 
-			@if (int.TryParse(Context.Session.GetString("ProjectId"), out var sessionProjectId) && @Model.Project.IdProject != sessionProjectId)
+			@if (@Model.Project.IdProject != sessionProjectId)
 			{
 				<!-- Formulario de reseña -->
 				<div class="ReviewCard">
@@ -144,29 +157,22 @@
 					</form>
 				</div>
 			}
-			<script>
-				const stars = document.querySelectorAll('.star');
-				const ratingInput = document.getElementById('rating');
-
-				stars.forEach(star => {
-					star.addEventListener('click', () => {
-						const rating = star.getAttribute('data-value');
-						ratingInput.value = rating;
-						updateStars(rating);
-					});
-				});
-
-				function updateStars(rating) {
-					stars.forEach(star => {
-						if (parseInt(star.getAttribute('data-value')) <= rating) {
-							star.textContent = '★';
-						} else {
-							star.textContent = '☆';
-						}
-					});
-				}
-			</script>
 		</div>
 	</div>
-</body>
-</html>
+	<script>
+    const favoriteButton = document.getElementById('favorite-button');
+    const favoriteIcon = document.getElementById('favorite-icon');
+    const favoriteText = document.getElementById('favorite-text');
+    const isFavorite = @Model.IsFavorite.ToString().ToLower();
+	const idProj = @Model.Project.IdProject;
+
+    if (isFavorite) {
+        favoriteIcon.textContent = '★'; // Estrella llena
+        favoriteText.textContent = 'En Favoritos';
+    }
+</script>
+</div>
+
+
+
+<script src="~/js/View/Profile/project.js"></script>

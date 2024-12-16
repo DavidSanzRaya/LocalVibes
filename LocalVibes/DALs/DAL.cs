@@ -90,7 +90,36 @@ namespace LocalVibes.DALs
             throw new NotImplementedException();
         }
 
-        public List<T> GetAll()
+		public void Delete(Dictionary<string, object> primaryKeyValues)
+		{
+			if (primaryKeyValues == null || primaryKeyValues.Count == 0)
+			{
+				throw new ArgumentException("Debe proporcionar valores para las claves primarias.");
+			}
+
+			// Construye la cláusula WHERE dinámicamente
+			string whereClause = string.Join(" AND ", primaryKeyValues.Keys.Select(key => $"{key} = @{key}"));
+
+			// Construye la consulta SQL
+			string query = $"DELETE FROM {TableName} WHERE {whereClause}";
+
+			using (SqlConnection connection = new SqlConnection(_connectionString))
+			{
+				SqlCommand command = new SqlCommand(query, connection);
+
+				// Agregar parámetros para las claves primarias
+				foreach (var kvp in primaryKeyValues)
+				{
+					command.Parameters.AddWithValue($"@{kvp.Key}", kvp.Value ?? DBNull.Value);
+				}
+
+				connection.Open();
+				command.ExecuteNonQuery();
+			}
+		}
+
+
+		public List<T> GetAll()
         {
             List<T> entities = new List<T>();
 
@@ -155,12 +184,59 @@ namespace LocalVibes.DALs
             );
         }
 
-        public void Update(T entity)
-        {
-            throw new NotImplementedException();
-        }
+		public void Update(T entity)
+		{
+			// Asegúrate de que el nombre del ID esté definido
+			GetIdName();
 
-        protected List<T> Query(string query, Func<IDataReader, T> map, params SqlParameter[] parameters)
+			// Obtiene las propiedades que se pueden mapear a columnas
+			var properties = typeof(T).GetProperties()
+									  .Where(p => !Attribute.IsDefined(p, typeof(NotMappedAttribute)) // Excluir propiedades no mapeadas
+												  && (!typeof(IEnumerable).IsAssignableFrom(p.PropertyType) || p.PropertyType.IsArray || p.PropertyType == typeof(string)) // Excluir colecciones
+												  && !Attribute.IsDefined(p, typeof(KeyAttribute))) // Excluir la clave primaria
+									  .ToList();
+
+			// Generar las columnas para la consulta
+			string setClause = string.Join(", ", properties.Select(p => $"{p.Name} = @{p.Name}"));
+
+			// Crear la consulta de actualización
+			string query = $"UPDATE {TableName} SET {setClause} WHERE {IdName} = @IdName";
+
+			using (SqlConnection connection = new SqlConnection(_connectionString))
+			{
+				SqlCommand command = new SqlCommand(query, connection);
+
+				// Asignar los valores de las propiedades a los parámetros
+				foreach (var property in properties)
+				{
+					var value = property.GetValue(entity);
+
+					if (property.PropertyType == typeof(byte[]))
+					{
+						var parameter = command.Parameters.Add($"@{property.Name}", SqlDbType.VarBinary);
+						parameter.Value = value ?? DBNull.Value;
+					}
+					else
+					{
+						command.Parameters.AddWithValue($"@{property.Name}", value ?? DBNull.Value);
+					}
+				}
+
+				// Asignar el valor del identificador (ID) a los parámetros
+				var idProperty = typeof(T).GetProperties().FirstOrDefault(p => Attribute.IsDefined(p, typeof(KeyAttribute)) || p.Name.Equals(IdName, StringComparison.OrdinalIgnoreCase));
+				if (idProperty != null)
+				{
+					var idValue = idProperty.GetValue(entity);
+					command.Parameters.AddWithValue($"@IdName", idValue);
+				}
+
+				connection.Open();
+				command.ExecuteNonQuery();
+			}
+		}
+
+
+		protected List<T> Query(string query, Func<IDataReader, T> map, params SqlParameter[] parameters)
         {
             List<T> entities = new List<T>();
 
