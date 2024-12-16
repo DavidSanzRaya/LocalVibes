@@ -21,6 +21,13 @@
     font-size: 14px;
 }
 
+.ReviewCard__header__username {
+    font-weight: 600;
+}
+.ReviewCard__stars span {
+    font-size: 0.8em;
+}
+
 .ReviewCard__comment {
     text-align: center;
     line-break: auto;
