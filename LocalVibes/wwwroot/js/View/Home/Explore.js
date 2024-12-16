@@ -34,7 +34,6 @@ events.forEach(function (e) {
     </div>
   `);
 
-
   e.GeneresMusic?.forEach(function (genre) {
     var genreGroup = genreGroups[genre.GenereMusicName];
     if (genreGroup) {
@@ -52,7 +51,6 @@ layersControlContainer.style.textAlign = "left";
 
 var layersControlButton = document.querySelector('.leaflet-control-layers-toggle');
 layersControlButton.style.backgroundImage = "url('/Assets/music-note.png')";
-
 
 const left = document.querySelector('.Explore__content__left');
 let isClosed = false;

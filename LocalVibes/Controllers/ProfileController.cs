@@ -21,46 +21,6 @@ namespace LocalVibes.Controllers
 
         }
 
-        // Accion principal
-        //[HttpGet]
-        ////[Route("Profile/Project/BySession")]
-        //public IActionResult Project()
-        //{
-        //    // Verificar si el usuario está autenticado.
-        //    var userId = HttpContext.Session.GetString("UserId");
-        //    if (string.IsNullOrEmpty(userId))
-        //    {
-        //        // Redirigir al índice si no está autenticado.
-        //        return RedirectToAction("Login", "Authentication");
-        //    }
-
-        //    // Intentar obtener el ID del proyecto asociado desde la sesión.
-        //    if (!int.TryParse(HttpContext.Session.GetString("ProjectId"), out int projectId))
-        //    {
-        //        // Si no hay un proyecto asociado, redirigir a una página de error o inicio.
-        //        TempData["ErrorMessage"] = "No tienes ningún proyecto asociado.";
-        //        return RedirectToAction("User", "Profile");
-        //    }
-
-        //    // Obtener los datos del proyecto desde la base de datos.
-        //    ProjectDAL projectDal = new ProjectDAL();
-        //    var project = projectDal.GetById(projectId);
-
-        //    if (project == null)
-        //    {
-        //        // Si el proyecto no existe en la base de datos, manejar el error.
-        //        TempData["ErrorMessage"] = "El proyecto asociado no fue encontrado.";
-        //        return RedirectToAction("User", "Profile");
-        //    }
-
-        //    // Preparar el modelo para la vista.
-        //    ProfileProjectViewModel vm = new ProfileProjectViewModel
-        //    {
-        //        Project = project
-        //    };
-
-        //    return View(vm);
-        //}
 
         [HttpGet]
         //[Route("Profile/Project/{id:int}")]
