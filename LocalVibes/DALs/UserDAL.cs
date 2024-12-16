@@ -42,7 +42,8 @@ namespace LocalVibes.DALs
                             ? (int)reader["IdDocumentType"]
                             : null,
                 IdTier = (int)reader["IdTier"],
-            };
+                IdGenere = (int)reader["IdGenere"]
+			};
         }
 
         public List<EventProject> GetAssistEventsByUserId(int userId)

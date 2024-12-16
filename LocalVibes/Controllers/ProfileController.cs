@@ -5,6 +5,7 @@ using System.Diagnostics;
 using LocalVibes.DALs;
 using Microsoft.Extensions.Logging;
 using System.Security.Claims;
+using System.Linq;
 
 namespace LocalVibes.Controllers
 {
@@ -82,17 +83,49 @@ namespace LocalVibes.Controllers
                 return RedirectToAction("Login", "Authentication");
             }
 
-            // Crea el ViewModel para la vista
-            ProfileProjectViewModel vm = new ProfileProjectViewModel
+			var userId = int.Parse(HttpContext.Session.GetString("UserId"));
+			var user = new UserDAL().GetById(userId);
+
+			// Crea el ViewModel para la vista
+			ProfileProjectViewModel vm = new ProfileProjectViewModel
             {
-                Project = project
-            };
+                Project = project,
+				IsFavorite = user.UserFavoriteProjects.Any(p => p.IdProject == id)
+
+			};
 
             return View(vm);
         }
 
+		[HttpPost]
+		public IActionResult ToggleFavorite(int projectId)
+		{
+            ProjectDAL projectDAL = new ProjectDAL();
+            Project project = projectDAL.GetById(projectId);
+			// Obtén el ID del usuario desde la sesión
+			var userId = HttpContext.Session.GetString("UserId");
 
-        public IActionResult Event(int id)
+			// Recupera el usuario y su lista de favoritos
+			var user = new UserDAL().GetById(int.Parse(userId));
+
+
+			if (user.UserFavoriteProjects.Any(p => p.IdProject == projectId))
+			{
+				user.RemoveFavoriteProject(projectId);
+			}
+			else
+			{
+				user.AddFavoriteProject(project);
+			}
+
+			// Actualiza al usuario en la base de datos
+			new UserDAL().Update(user);
+
+			return RedirectToAction("Project", new { id = projectId });
+		}
+
+
+		public IActionResult Event(int id)
         {
             // Obtén el evento por su ID
             EventProjectDAL eventDal = new EventProjectDAL();

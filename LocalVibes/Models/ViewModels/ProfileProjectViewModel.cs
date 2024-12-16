@@ -6,7 +6,8 @@ namespace LocalVibes.Models.ViewModels
     public class ProfileProjectViewModel
     {
         public Project? Project { get; set; }
-        public bool IsOwner { get; set; }
+		public bool IsFavorite { get; set; }
+		public bool IsOwner { get; set; }
 
 
         private List<Locations>? _locations;

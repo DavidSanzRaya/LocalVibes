@@ -85,3 +85,41 @@
     gap: 5px;
 }
 
+.favorite-section {
+    display: flex;
+    justify-content: center;
+    margin: 1rem 0;
+}
+
+.favorite-button {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: #ff5252;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    .favorite-button:hover {
+        background-color: #e04848;
+    }
+
+    .favorite-button:focus {
+        outline: none;
+        box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+    }
+
+#favorite-icon {
+    font-size: 1.2rem;
+    margin-right: 0.5rem;
+}
+
+#favorite-text {
+    font-size: 1rem;
+}
+

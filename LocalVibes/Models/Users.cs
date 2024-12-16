@@ -40,12 +40,39 @@ namespace LocalVibes.Models
             }
             set
             {
-                _userFavoriteProjects = value;
+                _userFavoriteProjects = value;               
             }
-        } // Lista de UserGenereMusic. AllowNull
+        }
+
+        public void AddFavoriteProject(Project project)
+        {
+			UserFavoriteProjects.Add(project);
+
+			new UsersFavoriteProjectDAL().Add(new UserFavoriteProject
+            {
+                IdProject = project.IdProject,
+                IdUsers = this.IdUsers
+            });
+		}
+
+		public void RemoveFavoriteProject(int idProject)
+		{
+			// Eliminar el proyecto de la lista en memoria
+			UserFavoriteProjects.RemoveAll(p => p.IdProject == idProject);
+
+			// Eliminar el registro de la tabla asociativa en la base de datos
+			var primaryKeyValues = new Dictionary<string, object>
+	        {
+		        { "IdProject", idProject },
+		        { "IdUsers", this.IdUsers }
+	        };
+
+			// Llamar al método Delete general
+			new UsersFavoriteProjectDAL().Delete(primaryKeyValues);
+		}
 
 
-        private List<GenereMusic>? _userGeneresMusic;
+		private List<GenereMusic>? _userGeneresMusic;
         public List<GenereMusic> UserGeneresMusic
         {
             get
