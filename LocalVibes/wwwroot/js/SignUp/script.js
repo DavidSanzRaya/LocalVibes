@@ -10,7 +10,21 @@ loginLink.onclick = () => {
     wrapper.classList.remove('active');
 }
 
+function adjustWithNavbar() {
+    const navbar = document.querySelector(".navbar");
+    const container = document.querySelector(".signup-container");
+
+    if (navbar && container) {
+        const navbarHeight = navbar.offsetHeight;
+
+        container.style.marginTop = `${navbarHeight}px`;
+        container.style.margin = '5%';
+    }
+}
+
 document.addEventListener("DOMContentLoaded", function () {
+    adjustWithNavbar();
+
     const inputs = document.querySelectorAll(".input-box input");
     const fileInputs = document.querySelectorAll(".input-box-image input[type='file']");
     const selects = document.querySelectorAll(".input-box select");
