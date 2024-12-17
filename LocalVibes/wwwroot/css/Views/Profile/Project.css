@@ -30,6 +30,11 @@ body{
             background-color: rgba(255, 255, 255, 0.4); /* Hover más visible */
         }
 
+.Profile__card-section-link {
+    display: block; 
+    width: fit-content;
+}
+
 .toggle-button {
     background: none;
     border: none;
@@ -142,7 +147,7 @@ body{
     font-size: 1rem;
     font-weight: bold;
     color: #fff;
-    background-color: limegreen;
+    background-color: #4CAF50;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -150,7 +155,7 @@ body{
 }
 
     .favorite-button:hover {
-        background-color: green;
+        background-color: #45a049;
     }
 
     .favorite-button:focus {
@@ -167,3 +172,41 @@ body{
     font-size: 1rem;
 }
 
+.review-container {
+    max-height: 100vh;
+    padding-right: 5%;
+}
+
+.review-container h2{
+    font-weight: bold;
+}
+
+.users-reviews-container {
+    width: 100%;
+    max-height: 50vh;
+    overflow-y: auto;
+    border-radius: 8px;
+    margin-right: 10%;
+    background-color: #444;
+}
+
+.users-reviews-container .ReviewCard{
+    margin-left: 3%;
+}
+
+.users-reviews-container::-webkit-scrollbar {
+    width: 10px; /* Grosor */
+}
+
+.users-reviews-container::-webkit-scrollbar-track {
+    background: transparent; /* Fondo transparente */
+}
+
+.users-reviews-container::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.2); /* Color tenue */
+    border-radius: 10px;
+}
+
+.users-reviews-container::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(255, 255, 255, 0.4); /* Hover más visible */
+}

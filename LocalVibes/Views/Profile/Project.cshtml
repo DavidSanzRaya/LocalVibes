@@ -203,19 +203,23 @@
 		</div>
 
 		<!-- Reseñas -->
-		<div>
-			<h2>Reseñas</h2>
-			@if (Model.Project.Reviews != null && Model.Project.Reviews.Any())
-			{
-				foreach (var review in Model.Project.Reviews)
-				{
-					@Html.Partial("_ReviewCard", new ReviewCardModel { Review = review })
-				}
-			}
-			else
-			{
-				<p>No hay reseñas disponibles.</p>
-			}
+		<div class="review-container">
+			<div class="user-reviews-section">
+				<h2>Reseñas</h2>
+				<div class="users-reviews-container">
+					@if (Model.Project.Reviews != null && Model.Project.Reviews.Any())
+					{
+						foreach (var review in Model.Project.Reviews)
+						{
+							@Html.Partial("_ReviewCard", new ReviewCardModel { Review = review })
+						}
+					}
+					else
+					{
+						<p>No hay reseñas disponibles.</p>
+					}
+				</div>
+			</div>
 
 			@if (@Model.Project.IdProject != sessionProjectId)
 			{
