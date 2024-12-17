@@ -47,12 +47,15 @@
 
             <!-- Navegación -->
             <div class="d-flex align-items-center gap-3 ms-auto">
-                <a href="@Url.Action("Events", "Home")" class="text-white text-decoration-none text-sm">
-                    Eventos
-                </a>
-                <a href="@Url.Action("ExploreBands", "Home")" class="text-white text-decoration-none text-sm">
-                    Bandas/Artistas
-                </a>
+                @if (!string.IsNullOrEmpty(@Context.Session.GetString("UserId")))
+                {
+                    <a href="@Url.Action("Events", "Home")" class="text-white text-decoration-none text-sm">
+                        Eventos
+                    </a>
+                    <a href="@Url.Action("ExploreBands", "Home")" class="text-white text-decoration-none text-sm">
+                        Bandas/Artistas
+                    </a>
+                }
                 @if (!string.IsNullOrEmpty(@Context.Session.GetString("Username")))
                 {
                     <button onclick="window.location.href='@Url.Action("User", "Profile")'"
