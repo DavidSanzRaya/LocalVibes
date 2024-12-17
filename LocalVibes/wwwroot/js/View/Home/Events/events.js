@@ -41,6 +41,12 @@ function setUpMap() {
         attribution: 'Map data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
+    var genreGroups = {};
+
+    musicGenres.forEach(function (genre) {
+        genreGroups[genre.GenereMusicName] = L.layerGroup().addTo(map);
+    });
+
     var markers = {}; // Objeto para almacenar marcadores asociados a eventos
 
     // Crear los marcadores y asociarlos con los eventos
@@ -65,9 +71,18 @@ function setUpMap() {
             </div>
         `);
 
+        e.GeneresMusic?.forEach(function (genre) {
+            var genreGroup = genreGroups[genre.GenereMusicName];
+            if (genreGroup) {
+                genreGroup.addLayer(marker);
+            }
+        });
+
         // Asociar marcador con el evento
         markers[e.IdEvent] = marker; // Usa el ID único del evento como clave
     });
+
+    var layersControl = L.control.layers(null, genreGroups).addTo(map);
 
     // Vincular los list-items con los marcadores
     const eventItems = document.querySelectorAll(".list-item");
