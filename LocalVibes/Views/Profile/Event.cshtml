@@ -98,6 +98,9 @@
 			popupAnchor: [0, -40]
 		});
 
+		var marker = L.marker([latitude, longitude], { icon: locationIcon }).addTo(map);
+
+
 		const navbar = document.querySelector(".navbar");
 		const container= document.querySelector(".container-pagin-events")
 
