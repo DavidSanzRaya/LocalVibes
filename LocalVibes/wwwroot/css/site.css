@@ -378,6 +378,7 @@ footer a:hover {
     height: 440px;
     background-color: #f0f0f0;
     border-radius: 12px;
+    border: 10px black;
 }
 
 .map {

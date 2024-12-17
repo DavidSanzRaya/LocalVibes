@@ -12,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - LocalVibes</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Views/Landing/index.css" />
     <link rel="stylesheet" href="~/css/_Layout.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
@@ -27,8 +27,7 @@
             <h1 class="hero-title">Descubre la Música en Vivo de Barcelona</h1>
             <p class="hero-subtitle">Conectamos amantes de la música con artistas emergentes. Encuentra los mejores conciertos y eventos musicales cerca de ti.</p>
             <div class="d-flex justify-content-center gap-3">
-                <a href="@Url.Action("Events", "Home")" class="btn btn-primary btn-lg">Ver Eventos</a>
-                <a href="@Url.Action("Explore", "Home")" class="btn btn-outline-primary btn-lg" style="color: var(--secondary-color);">Explorar Locales</a>
+                <a href="@Url.Action("Events", "Home")" class="btn btn-primary btn-lg">Explorar</a>
             </div>
         </div>
     </section>
@@ -106,8 +105,7 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="map-section-Landing">
-                        <div id="map" class="map"></div>
-                        <div id='decorative-map' inert></div>
+                        <img class="landing-image" src=~/Assets/mapa_barcelona_localvibes.jpg />
                     </div>
                 </div>
             </div>
