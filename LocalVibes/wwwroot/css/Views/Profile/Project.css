@@ -183,11 +183,18 @@ body{
 
 .users-reviews-container {
     width: 100%;
-    max-height: 50vh;
     overflow-y: auto;
     border-radius: 8px;
     margin-right: 10%;
     background-color: #444;
+}
+
+.max-height-50 {
+    max-height: 50vh;
+}
+
+.max-height-100 {
+    max-height: 80vh;
 }
 
 .users-reviews-container .ReviewCard{
@@ -210,3 +217,62 @@ body{
 .users-reviews-container::-webkit-scrollbar-thumb:hover {
     background-color: rgba(255, 255, 255, 0.4); /* Hover más visible */
 }
+
+/* Botón contenedor */
+.btn-new-event {
+    position: relative;
+    width: 40px; /* Tamaño del botón */
+    height: 40px;
+    border-radius: 50%;
+    background-color: transparent;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+    overflow: hidden;
+    border: 1px solid white;
+}
+
+/* El símbolo "+" */
+.btn-plus {
+    position: absolute;
+    transition: transform 0.3s ease;
+}
+
+/* Texto que aparece al hacer hover */
+.btn-text {
+    position: absolute;
+    white-space: nowrap;
+    left: 100%; 
+    opacity: 0;
+    background-color: var(--primary-color, #007bff);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    margin-left: 0.5rem;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    transform: translateX(-10px);
+    font-weight: bold;
+}
+
+/* Efecto hover */
+.btn-new-event:hover {
+    background-color: rgba(255,255,255, 0.5);
+    overflow: inherit;
+}
+
+.btn-new-event:hover .btn-text {
+    opacity: 1;
+    transform: translateX(0); 
+}
+
+.btn-new-event:hover .btn-plus {
+    transform: rotate(90deg); /* El símbolo "+" da una vuelta completa */
+}
+
+
+

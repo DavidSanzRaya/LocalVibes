@@ -2,21 +2,27 @@
 .modal {
     display: none; /* Se oculta por defecto */
     position: fixed; /* Fija la posición en la pantalla */
-    z-index: 1; /* Asegura que esté sobre otros elementos */
+    z-index: 100000000000; /* Asegura que esté sobre otros elementos */
     left: 0;
     top: 0;
-    width: 100%; /* Ancho completo de la pantalla */
-    height: 100%; /* Alto completo de la pantalla */
+    width: 100vw;
+    height: 100vh;
     background-color: rgba(0, 0, 0, 0.4); /* Fondo semi-transparente */
     color: white;
+    display: flex;
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center; /* Centrar verticalmente */
+    overflow: hidden;
 }
 
 .modal-content {
+    position: relative; 
     background-color: var(--background-dark);
-    margin: 15% auto; /* Centra el modal */
+    width: 90%; /* Ancho del modal */
+    max-width: 50vw; /* Máximo ancho del modal */
+    max-height: 90vh; /* Máximo alto del modal */
     padding: 20px;
     border: 1px solid #888;
-    width: 80%; /* Ancho del modal */
 }
 
 .close {
