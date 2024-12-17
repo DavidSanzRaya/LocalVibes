@@ -24,7 +24,7 @@
 
 		<h1 style="color: white">@Model.Event.EventTitle</h1>
 		<div class="event-description">
-			<div class="date-badge"> Fecha: @Model.Event.Project.FormationDate</div>
+			<div class="date-badge"> Fecha: @Model.Event.Project.FormationDate?.ToString("dd/MM/yyyy")</div>
 			<p>@Model.Event.EventDescription</p>
 			<!--Lista de generos-->
 			<div class="genre-tags">
