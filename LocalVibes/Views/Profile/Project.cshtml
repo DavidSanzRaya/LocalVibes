@@ -62,8 +62,12 @@
 
 		<!-- Miembros de la banda -->
 		<div class="band-content">
-			<h2 class="section-title" style="margin-top: 2rem;">Miembros de @Model.Project.ProjectName</h2>
-			<div class="band-grid">
+			<h2 class="section-title" style="margin-top: 2rem;">
+				<button type="button" id="toggle-members-btn" class="toggle-button">
+					<span id="toggle-icon" class="toggle-icon">▶</span> Miembros de @Model.Project.ProjectName
+				</button>
+			</h2>
+			<div id="band-members-container" class="band-grid" style="max-height: 0; overflow: hidden; transition: max-height 0.5s ease;">
 				@if (Model.Project?.MembersOfProjects?.Any() == true)
 				{
 					@foreach (var member in Model.Project.MembersOfProjects)
@@ -92,8 +96,8 @@
 				{
 					<p>No hay miembros disponibles.</p>
 				}
-
 			</div>
+
 
 			<h2 class="section-title" style="margin-top: 2rem;">Próximos Eventos</h2>
 			@if (Model.Project.EventsProject != null && Model.Project.EventsProject.Any())
