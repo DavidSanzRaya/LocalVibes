@@ -4,6 +4,7 @@
     padding: 2rem;
     border-radius: 8px;
     max-width: 100%;
+    display: inline-block;
 }
 
 .toggle-button {
@@ -107,7 +108,8 @@
 .favorite-form {
     display: flex;
     justify-content: center;
-    margin: 1rem 0;
+    align-items: center;
+    margin-bottom: 3rem;
 }
 
 .favorite-button {
