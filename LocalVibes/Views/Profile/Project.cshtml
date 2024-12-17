@@ -6,6 +6,7 @@
 	ViewData["Title"] = "Local Vibes";
 	Layout = "_Layout";
 	int.TryParse(Context.Session.GetString("ProjectId"), out var sessionProjectId);
+	int.TryParse(Context.Session.GetString("UserId"), out var sessionUserId);
 }
 
 <head>
@@ -15,6 +16,7 @@
 	<link rel="stylesheet" href="~/css/Views/Profile/Project.css" asp-append-version="true" />
 	<link rel="stylesheet" href="~/css/Views/Shared/Avatar.css" asp-append-version="true" />
 	<link rel="stylesheet" href="~/css/Views/Shared/ReviewCard.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/css/Views/Shared/Modal.css" asp-append-version="true" />
 	<!-- Otros enlaces de CSS ya definidos -->
 </head>
 <div class="bodyWhite">
@@ -119,6 +121,85 @@
 			{
 				<p>No hay eventos disponibles.</p>
 			}
+
+			@if (sessionUserId == Model.Project.IdUsersAdmin){
+				<!-- Modal para crear un nuevo evento -->
+				<div id="eventModal" style="display: none;" class="modal">
+					<div class="modal-content">
+						<span class="close" onclick="closeEventModal()">×</span>
+						<h2>Crear Nuevo Evento</h2>
+						<form method="post" action="/Profile/CreateEvent">
+							<label for="eventTitle">Título del Evento:</label>
+							<input type="text" id="eventTitle" name="eventTitle" required>
+							<br />
+							<label for="eventDescription">Descripción:</label>
+							<textarea id="eventDescription" name="eventDescription" required></textarea>
+							<br />
+							<label for="eventDate">Fecha del Evento:</label>
+							<input type="date" id="eventDate" name="eventDate" required>
+							<br />
+							<label for="eventCapacity">Capacidad:</label>
+							<input type="number" id="eventCapacity" name="eventCapacity">
+							<br />
+							<!-- Ubicación -->
+							<label for="locationId">Ubicación del Evento:</label>
+							<select id="locationId" name="locationId" required>
+								<option value="">Selecciona una ubicación</option>
+								@if (Model.Locations != null && Model.Locations.Any())
+								{
+									foreach (var location in Model.Locations)
+									{
+										<option value="@location.IdLocation">@location.NameLocation</option>
+									}
+								}
+								else
+								{
+									<p>No hay ubicaciones disponibles.</p>
+								}
+							</select>
+							<br />
+							<button type="submit" class="btn btn-outline-light btn-sm" style="background-color: var(--primary-color) !important; width: 150px !important;">
+								Crear Evento
+							</button>
+						</form>
+					</div>
+				</div>
+				<br />
+				<!-- Botón para abrir el modal -->
+				@if (Context.Session.GetString("UserId") != null && int.Parse(Context.Session.GetString("UserId")) == Model.Project.IdUsersAdmin)
+				{
+					<button id="newEventButton" class="btn btn-outline-light btn-sm" type="button" >
+						Nuevo Evento
+					</button>
+				}
+				<script>
+					// Obtener el modal
+					var modal = document.getElementById("eventModal");
+					// Obtener el botón que abre el modal (ahora usando el id "newEventButton")
+					var btn = document.getElementById("newEventButton");
+					// Obtener el elemento que cierra el modal
+					var span = document.getElementsByClassName("close")[0];
+					// Cuando el usuario haga clic en el botón, abre el modal
+					btn.onclick = function() {
+						modal.style.display = "block";
+					}
+					// Cuando el usuario haga clic en el botón de cerrar, cierra el modal
+					span.onclick = function() {
+						modal.style.display = "none";
+					}
+					// Cuando el usuario haga clic fuera del modal, también lo cierra
+					window.onclick = function(event) {
+						if (event.target == modal) {
+							modal.style.display = "none";
+						}
+					}
+					// Función para cerrar el modal desde otras partes si es necesario
+					function closeEventModal() {
+						modal.style.display = "none";
+					}
+				</script>
+			}
+
 		</div>
 
 		<!-- Reseñas -->

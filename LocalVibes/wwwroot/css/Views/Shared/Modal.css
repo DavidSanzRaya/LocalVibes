@@ -8,11 +8,11 @@
     width: 100%; /* Ancho completo de la pantalla */
     height: 100%; /* Alto completo de la pantalla */
     background-color: rgba(0, 0, 0, 0.4); /* Fondo semi-transparente */
-    color: black;
+    color: white;
 }
 
 .modal-content {
-    background-color: white;
+    background-color: var(--background-dark);
     margin: 15% auto; /* Centra el modal */
     padding: 20px;
     border: 1px solid #888;
@@ -44,3 +44,6 @@
     width: min-content;
 }
 
+input, textarea, select {
+    background-color: #ffffff99;
+}
