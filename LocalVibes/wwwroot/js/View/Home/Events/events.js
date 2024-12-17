@@ -3,19 +3,22 @@
     container.classList.add("fade-in");
 
     setUpMap();
-    adjustSidebar();  
+    adjustSidebarAndMap();  
 });
 
-function adjustSidebar() {
+function adjustSidebarAndMap() {
     const navbar = document.querySelector(".navbar");
     const sidebar = document.querySelector(".sidebar");
     const sidebarContent = document.querySelector(".sidebar-content");
     const searchBar = document.querySelector(".search-bar");
+    const mapContainer = document.querySelector(".map-container");
 
     if (navbar && sidebar && sidebarContent && searchBar) {
         const navbarHeight = navbar.offsetHeight;
 
         sidebarContent.style.paddingTop = `${navbarHeight}px`;
+
+        mapContainer.style.marginTop = `${navbarHeight}px`;
 
         sidebar.addEventListener("scroll", () => {
             const scrollTop = sidebar.scrollTop;
