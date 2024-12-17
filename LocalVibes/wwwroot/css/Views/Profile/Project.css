@@ -10,6 +10,8 @@ body{
     max-height: 90%;
     display: inline-block;
     overflow-y: auto;
+    justify-content: flex-start; /* Mejor para contenido en scroll */
+    align-items: center;
 }
 
     .band-content::-webkit-scrollbar {
